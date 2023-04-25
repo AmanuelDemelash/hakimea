@@ -15,6 +15,7 @@ class Pharmacy extends StatelessWidget {
   Pharmacy({Key? key}) : super(key: key);
 
   TextEditingController _searchtext = TextEditingController();
+  ScrollController listview_controller = ScrollController();
   int _limit = 5;
   int _offset = 0;
 
@@ -148,6 +149,7 @@ class Pharmacy extends StatelessWidget {
                   backgroundColor: Constants.primcolor,
                   child: ListView.builder(
                     itemCount: pharmacy.length + (result.isLoading ? 1 : 0),
+                    controller: listview_controller,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
                       if (index == pharmacy.length) {
