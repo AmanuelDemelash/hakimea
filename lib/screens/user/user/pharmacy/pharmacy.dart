@@ -149,18 +149,17 @@ class Pharmacy extends StatelessWidget {
                     controller: listview_controller,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      if (index == pharmacy.length) {
+                      if (listview_controller.position.maxScrollExtent ==
+                          listview_controller.position.pixels) {
                         return Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Center(
-                            child: ElevatedButton(
-                              child: Text('Load More'),
-                              onPressed: result.isLoading
-                                  ? null
-                                  : () {
-                                      refetch!();
-                                    },
-                            ),
+                          child: ElevatedButton(
+                            child: Text('Load More'),
+                            onPressed: result.isLoading
+                                ? null
+                                : () {
+                                    refetch!();
+                                  },
                           ),
                         );
                       }
