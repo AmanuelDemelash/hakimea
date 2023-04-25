@@ -144,9 +144,6 @@ class Pharmacy extends StatelessWidget {
                 _offset += pharmacy.length;
                 return Expanded(
                     child: AnimationLimiter(
-                        child: RefreshIndicator(
-                  onRefresh: () async {},
-                  backgroundColor: Constants.primcolor,
                   child: ListView.builder(
                     itemCount: pharmacy.length + (result.isLoading ? 1 : 0),
                     controller: listview_controller,
@@ -195,7 +192,7 @@ class Pharmacy extends StatelessWidget {
                       );
                     },
                   ),
-                )));
+                ));
               },
             ),
           ),
