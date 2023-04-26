@@ -663,4 +663,19 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
   }
 }
 """;
+
+// order detail medicin list
+  static String order_medicins = """
+    query(\$id:Int!){
+  medicine_order_detail(where: {order_id: {_eq:\$id}}) {
+    medicine_name
+    medicine_description
+    medicine_price
+    image {
+      url
+    }
+  }
+}
+
+""";
 }
