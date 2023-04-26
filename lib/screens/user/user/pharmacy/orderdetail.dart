@@ -38,6 +38,13 @@ class OrderDetail extends StatelessWidget {
               FontAwesomeIcons.angleLeft,
               color: Colors.white,
             )),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const FaIcon(
+                FontAwesomeIcons.trash,
+              ))
+        ],
       ),
       body: Stack(children: [
         Container(
@@ -56,7 +63,6 @@ class OrderDetail extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-
               Container(
                 width: Get.width,
                 margin: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
@@ -97,6 +103,7 @@ class OrderDetail extends StatelessWidget {
                       ),
                     ),
                     // medicin list
+
                     Query(
                       options: QueryOptions(
                           document: gql(Myquery.order_medicins),
@@ -104,136 +111,161 @@ class OrderDetail extends StatelessWidget {
                           pollInterval: const Duration(seconds: 10)),
                       builder: (result, {fetchMore, refetch}) {
                         if (result.isLoading) {
-                          return ListView.builder(
-                            itemCount: 3,
-                            itemBuilder: (context, index) {
-                              return const cool_loding();
-                            },
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              cool_loding(),
+                              Text(
+                                "please wait! your order is being processing",
+                                style: TextStyle(color: Colors.black54),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              )
+                            ],
                           );
                         }
-
                         List? medicins = result.data!["medicine_order_detail"];
-
                         if (medicins!.isEmpty) {
-                          return cool_loding();
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              cool_loding(),
+                              Text(
+                                "please wait! your order is being processing",
+                                style: TextStyle(color: Colors.black54),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              )
+                            ],
+                          );
                         } else {
                           Get.find<OrderController>()
                               .is_medicins_returned
                               .value = true;
                         }
 
-                        return ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: medicins.length,
-                          itemBuilder: (context, index) {
-                            return AnimationConfiguration.staggeredList(
-                              position: index,
-                              child: SlideAnimation(
-                                  verticalOffset: 50.0,
-                                  child: FadeInAnimation(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                            child: ListTile(
-                                          leading: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10)),
-                                            child: InstaImageViewer(
-                                              child: CachedNetworkImage(
-                                                imageUrl: medicins[index]
-                                                    ["image"]["url"],
-                                                width: 60,
-                                                height: 60,
-                                                placeholder: (context, url) =>
-                                                    const Icon(Icons.image),
-                                                errorWidget:
-                                                    (context, url, error) =>
+                        return Column(
+                          children: [
+                            ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: medicins.length,
+                              itemBuilder: (context, index) {
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  child: SlideAnimation(
+                                      verticalOffset: 50.0,
+                                      child: FadeInAnimation(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                                child: ListTile(
+                                              leading: ClipRRect(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10)),
+                                                child: InstaImageViewer(
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: medicins[index]
+                                                        ["image"]["url"],
+                                                    width: 60,
+                                                    height: 60,
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        const Icon(Icons.image),
+                                                    errorWidget: (context, url,
+                                                            error) =>
                                                         const Icon(Icons.error),
-                                                fit: BoxFit.cover,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          title: Text(
-                                              medicins[index]["medicine_name"]),
-                                          subtitle: Text(
-                                            medicins[index]
-                                                ["medicine_description"],
-                                            maxLines: 1,
-                                            style: const TextStyle(
-                                                color: Colors.black54),
-                                          ),
-                                        )),
-                                        Text(medicins[index]["medicine_price"]
-                                            .toString()),
-                                      ],
-                                    ),
-                                  )),
-                            );
-                          },
+                                              title: Text(medicins[index]
+                                                  ["medicine_name"]),
+                                              subtitle: Text(
+                                                medicins[index]
+                                                    ["medicine_description"],
+                                                maxLines: 1,
+                                                style: const TextStyle(
+                                                    color: Colors.black54),
+                                              ),
+                                            )),
+                                            Text(medicins[index]
+                                                    ["medicine_price"]
+                                                .toString()),
+                                          ],
+                                        ),
+                                      )),
+                                );
+                              },
+                            ),
+
+                            const Divider(
+                              color: Colors.black45,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            // total price
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text("SubTotal",
+                                    style: TextStyle(color: Colors.black54)),
+                                Text(
+                                  "ETB ${order["total_cost"].toString()}",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            // delivery cost
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text("Delivery fee",
+                                    style: TextStyle(color: Colors.black54)),
+                                Text(
+                                  "ETB 50",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const Divider(
+                              color: Colors.black54,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+
+                            // total
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text("TOTAL",
+                                    style: TextStyle(color: Colors.black54)),
+                                Text(
+                                  "ETB 150",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
                         );
                       },
-                    ),
-
-                    const Divider(
-                      color: Colors.black45,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    // total price
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("SubTotal",
-                            style: TextStyle(color: Colors.black54)),
-                        Text(
-                          "ETB ${order["total_cost"].toString()}",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    // delivery cost
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text("Delivery fee",
-                            style: TextStyle(color: Colors.black54)),
-                        Text(
-                          "ETB 50",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      color: Colors.black54,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-
-                    // total
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text("TOTAL", style: TextStyle(color: Colors.black54)),
-                        Text(
-                          "ETB 150",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
                     ),
                   ],
                 ),
@@ -339,13 +371,13 @@ class OrderDetail extends StatelessWidget {
                                     .is_medicins_returned
                                     .value ==
                                 true
-                            ? true
-                            : Get.find<OrderController>()
-                                        .pharma_payment_method
-                                        .value ==
-                                    ""
-                                ? false
-                                : true,
+                            ? Get.find<OrderController>()
+                                    .pharma_payment_method
+                                    .value
+                                    .isNotEmpty
+                                ? true
+                                : false
+                            : false,
                         activeColor: Constants.primcolor,
                         isFinished: Get.find<OrderController>()
                             .is_confirm_button_finshed
