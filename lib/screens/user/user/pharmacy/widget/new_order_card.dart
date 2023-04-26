@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hakimea/apiservice/mymutation.dart';
@@ -37,9 +38,18 @@ class NewOrderCard extends StatelessWidget {
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
             height: 5,
+          ),
+
+          const Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(
+              "Pharmacy",
+              style: TextStyle(color: Colors.black54),
+            ),
           ),
           //pharmacy
           ListTile(
@@ -73,9 +83,22 @@ class NewOrderCard extends StatelessWidget {
             height: 3,
           ),
           // user location
+          const Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(
+              "My location",
+              style: TextStyle(color: Colors.black54),
+            ),
+          ),
+
           ListTile(
             contentPadding: const EdgeInsets.only(left: 40),
-            title: Text(order_data["user_addres"].toString()),
+            leading: const FaIcon(FontAwesomeIcons.user),
+            title: Flexible(
+                child: Text(
+              order_data["user_addres"].toString(),
+              style: const TextStyle(color: Colors.black54),
+            )),
           ),
 
           Padding(
@@ -87,9 +110,14 @@ class NewOrderCard extends StatelessWidget {
                   order_data["order_date"].toString().substring(0, 9),
                   style: const TextStyle(color: Colors.black54),
                 ),
-                Text(
-                  order_data["order_code"],
-                  style: const TextStyle(color: Colors.red),
+                Row(
+                  children: [
+                    const Text("Code: "),
+                    Text(
+                      order_data["order_code"],
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ],
                 ),
               ],
             ),
