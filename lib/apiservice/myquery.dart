@@ -586,7 +586,7 @@ query(\$name:String!){
   static String newOrder = """
   query(\$user_id:Int!){
   orders(where: {user_id: {_eq:\$user_id}, status: {_eq: pending}}, order_by: {created_at: asc}) {
-     id
+    id
     order_code
     pharmacy {
       logo_image {
@@ -600,6 +600,7 @@ query(\$name:String!){
     order_address {
       location
     }
+    created_at
   }
 }
 """;

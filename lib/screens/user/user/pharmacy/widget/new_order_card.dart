@@ -8,24 +8,27 @@ import 'package:hakimea/widgets/cool_loading.dart';
 import '../../../../../utils/constants.dart';
 
 class NewOrderCard extends StatelessWidget {
-  int id;
-  String pharm_name;
-  String location;
-  String order_code;
-  String logo;
-  int index;
-  String user_addres;
+  // int id;
+  // String pharm_name;
+  // String location;
+  // String order_code;
+  // String logo;
+  // int index;
+  // String user_addres;
 
-  NewOrderCard(
-      {Key? key,
-      required this.index,
-      required this.id,
-      required this.pharm_name,
-      required this.location,
-      required this.order_code,
-      required this.user_addres,
-      required this.logo})
-      : super(key: key);
+  Map<String, dynamic> order_data;
+
+  NewOrderCard({
+    Key? key,
+    required this.order_data,
+    // required this.index,
+    // required this.id,
+    // required this.pharm_name,
+    // required this.location,
+    // required this.order_code,
+    // required this.user_addres,
+    // required this.logo
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +47,7 @@ class NewOrderCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  location,
+                  order_data["location"],
                   style: const TextStyle(
                     color: Colors.black54,
                   ),
@@ -56,7 +59,7 @@ class NewOrderCard extends StatelessWidget {
                 Radius.circular(50),
               ),
               child: CachedNetworkImage(
-                imageUrl: logo,
+                imageUrl: order_data["logo"],
                 width: 60,
                 height: 60,
                 placeholder: (context, url) => const Icon(Icons.image),
@@ -64,7 +67,7 @@ class NewOrderCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            title: Text(pharm_name),
+            title: Text(order_data["pharm_name"]),
           ),
           const SizedBox(
             height: 3,
@@ -72,7 +75,7 @@ class NewOrderCard extends StatelessWidget {
           // user location
           ListTile(
             contentPadding: const EdgeInsets.only(left: 40),
-            title: Text(user_addres.toString()),
+            title: Text(order_data["user_addres"].toString()),
           ),
 
           Padding(
@@ -81,11 +84,11 @@ class NewOrderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "order_date",
+                  order_data["order_date"].toString().substring(0, 9),
                   style: const TextStyle(color: Colors.black54),
                 ),
                 Text(
-                  order_code,
+                  order_data["order_code"],
                   style: const TextStyle(color: Colors.red),
                 ),
               ],
@@ -130,7 +133,7 @@ class NewOrderCard extends StatelessWidget {
                             backgroundColor: Colors.white),
                         onPressed: () async {
                           // run cancel order mutation
-                          runMutation({"id": id});
+                          runMutation({"id": order_data["id"]});
                         },
                         child: Get.find<OrderController>()
                                     .is_canceling_order

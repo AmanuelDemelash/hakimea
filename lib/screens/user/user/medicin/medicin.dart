@@ -154,102 +154,62 @@ class Medicin extends StatelessWidget {
                                 columnCount: 1,
                                 child: ScaleAnimation(
                                     child: FadeInAnimation(
-                                        child: ExpansionTile(
-                                  tilePadding: EdgeInsets.all(10),
-                                  iconColor: Constants.primcolor,
-                                  collapsedTextColor: Constants.primcolor,
-                                  collapsedIconColor: Constants.primcolor,
-                                  expandedAlignment: Alignment.topLeft,
-                                  leading: ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    child: InstaImageViewer(
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            "https://media.istockphoto.com/id/606218650/fr/photo/m%C3%A9dicaments.webp?s=1024x1024&w=is&k=20&c=LINctpwKDi-5uqKcQ1z33JwXz8phdkH-V_SC9jPWNvM=",
-                                        width: 60,
-                                        height: 60,
-                                        placeholder: (context, url) =>
-                                            const Icon(Icons.image),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
-                                        fit: BoxFit.cover,
+                                        child: Container(
+                                  width: Get.width,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(15))),
+                                  child: ListTile(
+                                    leading: ClipRRect(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                      child: InstaImageViewer(
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://media.istockphoto.com/id/606218650/fr/photo/m%C3%A9dicaments.webp?s=1024x1024&w=is&k=20&c=LINctpwKDi-5uqKcQ1z33JwXz8phdkH-V_SC9jPWNvM=",
+                                          width: 70,
+                                          height: 70,
+                                          placeholder: (context, url) =>
+                                              const Icon(Icons.image),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
+                                    title: Flexible(
+                                        child: Text(medicins[index]["name"])),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(medicins[index]
+                                            ["medicine_pharmacy"]["name"]),
+                                        Text(medicins[index]
+                                                ["medicine_pharmacy"]["address"]
+                                            ["location"]),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          "ETB ${medicins[index]["price"]}",
+                                          style: const TextStyle(
+                                              color: Colors.black),
+                                        ),
+                                      ],
+                                    ),
+                                    trailing: IconButton(
+                                        onPressed: () async {
+                                          launch(
+                                              "tel:${medicins[index]["medicine_pharmacy"]["phone_number"]}");
+                                        },
+                                        icon: const FaIcon(
+                                          FontAwesomeIcons.phone,
+                                          color: Constants.primcolor,
+                                        )),
                                   ),
-                                  title: Text(medicins[index]["name"]),
-                                  children: [
-                                    Text(medicins[index]["medicine_pharmacy"]
-                                        ["name"]),
-                                    Text(medicins[index]["medicine_pharmacy"]
-                                        ["address"]["location"]),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      "ETB ${medicins[index]["price"]}",
-                                      style:
-                                          const TextStyle(color: Colors.black),
-                                    ),
-                                  ],
                                 ))));
-
-                            //      Container(
-                            //   width: Get.width,
-                            //   decoration: const BoxDecoration(
-                            //       color: Colors.white,
-                            //       borderRadius: BorderRadius.all(
-                            //           Radius.circular(15))),
-                            //   child: ListTile(
-                            // leading: ClipRRect(
-                            //   borderRadius: const BorderRadius.all(
-                            //       Radius.circular(10)),
-                            //   child: InstaImageViewer(
-                            //     child: CachedNetworkImage(
-                            //       imageUrl:
-                            //           "https://media.istockphoto.com/id/606218650/fr/photo/m%C3%A9dicaments.webp?s=1024x1024&w=is&k=20&c=LINctpwKDi-5uqKcQ1z33JwXz8phdkH-V_SC9jPWNvM=",
-                            //       width: 70,
-                            //       height: 160,
-                            //       placeholder: (context, url) =>
-                            //           const Icon(Icons.image),
-                            //       errorWidget: (context, url, error) =>
-                            //           const Icon(Icons.error),
-                            //       fit: BoxFit.cover,
-                            //     ),
-                            //   ),
-                            // ),
-                            //     title: Flexible(
-                            // child: Text(medicins[index]["name"])),
-                            //     subtitle: Column(
-                            //       crossAxisAlignment:
-                            //           CrossAxisAlignment.start,
-                            //       children: [
-                            // Text(medicins[index]
-                            //     ["medicine_pharmacy"]["name"]),
-                            // Text(medicins[index]
-                            //         ["medicine_pharmacy"]["address"]
-                            //     ["location"]),
-                            // const SizedBox(
-                            //   height: 15,
-                            // ),
-                            // Text(
-                            //   "ETB ${medicins[index]["price"]}",
-                            //   style: const TextStyle(
-                            //       color: Colors.black),
-                            // ),
-                            //       ],
-                            //     ),
-                            //     trailing: IconButton(
-                            //         onPressed: () async {
-                            //           launch(
-                            //               "tel:${medicins[index]["medicine_pharmacy"]["phone_number"]}");
-                            //         },
-                            //         icon: const FaIcon(
-                            //           FontAwesomeIcons.phone,
-                            //           color: Constants.primcolor,
-                            //         )),
-                            //   ),
-                            // )
                           },
                         ),
                       ),

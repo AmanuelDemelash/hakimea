@@ -91,17 +91,32 @@ class Myorder extends StatelessWidget {
                                     onTap: () => Get.toNamed("/orderdetail",
                                         arguments: orders[index]["id"]),
                                     child: NewOrderCard(
-                                      index: index,
-                                      id: orders[index]["id"],
-                                      user_addres: orders[index]
-                                          ["order_address"]["location"],
-                                      location: orders[index]["pharmacy"]
-                                          ["address"]["location"],
-                                      order_code: orders[index]["order_code"],
-                                      pharm_name: orders[index]["pharmacy"]
-                                          ["name"],
-                                      logo: orders[index]["pharmacy"]
-                                          ["logo_image"]["url"],
+                                      order_data: {
+                                        "id": orders[index]["id"],
+                                        "user_addres": orders[index]
+                                            ["order_address"]["location"],
+                                        "location": orders[index]["pharmacy"]
+                                            ["address"]["location"],
+                                        "order_code": orders[index]
+                                            ["order_code"],
+                                        "pharm_name": orders[index]["pharmacy"]
+                                            ["name"],
+                                        "logo": orders[index]["pharmacy"]
+                                            ["logo_image"]["url"],
+                                        "order_date": orders[index]
+                                            ["created_at"]
+                                      },
+                                      // index: index,
+                                      // id: orders[index]["id"],
+                                      // user_addres: orders[index]
+                                      //     ["order_address"]["location"],
+                                      // location: orders[index]["pharmacy"]
+                                      //     ["address"]["location"],
+                                      // order_code: orders[index]["order_code"],
+                                      // pharm_name: orders[index]["pharmacy"]
+                                      //     ["name"],
+                                      // logo: orders[index]["pharmacy"]
+                                      //     ["logo_image"]["url"],
                                     ),
                                   )),
                                 ),
