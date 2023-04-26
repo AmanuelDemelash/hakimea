@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hakimea/apiservice/myquery.dart';
 import 'package:hakimea/controllers/user_controllers/ordercontroller.dart';
+import 'package:hakimea/widgets/cool_loading.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 import '../../../../utils/constants.dart';
@@ -89,52 +93,83 @@ class OrderDetail extends StatelessWidget {
                       ),
                     ),
                     // medicin list
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 3,
-                      itemBuilder: (context, index) {
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          child: SlideAnimation(
-                              verticalOffset: 50.0,
-                              child: FadeInAnimation(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                        child: ListTile(
-                                      leading: ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
-                                        child: InstaImageViewer(
-                                          child: CachedNetworkImage(
-                                            imageUrl:
-                                                "https://media.istockphoto.com/id/606218650/fr/photo/m%C3%A9dicaments.webp?s=1024x1024&w=is&k=20&c=LINctpwKDi-5uqKcQ1z33JwXz8phdkH-V_SC9jPWNvM=",
-                                            width: 70,
-                                            height: 70,
-                                            placeholder: (context, url) =>
-                                                const Icon(Icons.image),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    const Icon(Icons.error),
-                                            fit: BoxFit.cover,
+                    Query(
+                      options: QueryOptions(
+                          document: gql(Myquery.order_medicins),
+                          variables: {"id": order["id"]},
+                          pollInterval: const Duration(seconds: 10)),
+                      builder: (result, {fetchMore, refetch}) {
+                        if (result.isLoading) {
+                          return ListView.builder(
+                            itemCount: 3,
+                            itemBuilder: (context, index) {
+                              return const cool_loding();
+                            },
+                          );
+                        }
+
+                        List? medicins = result.data!["medicine_order_detail"];
+
+                        if (medicins!.isEmpty) {
+                          return const cool_loding();
+                        }
+
+                        return ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: medicins.length,
+                          itemBuilder: (context, index) {
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              child: SlideAnimation(
+                                  verticalOffset: 50.0,
+                                  child: FadeInAnimation(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                            child: ListTile(
+                                          leading: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            child: InstaImageViewer(
+                                              child: CachedNetworkImage(
+                                                imageUrl: medicins[index]
+                                                    ["image"]["url"],
+                                                width: 60,
+                                                height: 60,
+                                                placeholder: (context, url) =>
+                                                    const Icon(Icons.image),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      title: const Text("Paracetamol"),
-                                      subtitle: const Text(
-                                        "1 per pain",
-                                        style: TextStyle(color: Colors.black54),
-                                      ),
-                                    )),
-                                    const Text("3"),
-                                  ],
-                                ),
-                              )),
+                                          title: Text(
+                                              medicins[index]["medicine_name"]),
+                                          subtitle: Text(
+                                            medicins[index]
+                                                ["medicine_description"],
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                                color: Colors.black54),
+                                          ),
+                                        )),
+                                        Text(medicins[index]["medicine_price"]
+                                            .toString()),
+                                      ],
+                                    ),
+                                  )),
+                            );
+                          },
                         );
                       },
                     ),
+
                     const Divider(
                       color: Colors.black45,
                     ),
