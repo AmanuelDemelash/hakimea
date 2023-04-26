@@ -44,11 +44,25 @@ class NewOrderCard extends StatelessWidget {
             height: 5,
           ),
 
-          const Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Text(
-              "Pharmacy",
-              style: TextStyle(color: Colors.black54),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Pharmacy",
+                  style: TextStyle(color: Colors.black54),
+                ),
+                Row(
+                  children: [
+                    const Text("Code: "),
+                    Text(
+                      order_data["order_code"],
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
           //pharmacy
@@ -99,23 +113,19 @@ class NewOrderCard extends StatelessWidget {
               order_data["user_addres"].toString(),
               style: const TextStyle(color: Colors.black54),
             )),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            subtitle: Column(
               children: [
-                Text(
-                  order_data["order_date"].toString().substring(0, 9),
-                  style: const TextStyle(color: Colors.black54),
-                ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Code: "),
-                    Text(
-                      order_data["order_code"],
-                      style: const TextStyle(color: Colors.red),
+                    Row(
+                      children: [
+                        const Text("Date: "),
+                        Text(
+                          order_data["order_date"].toString().substring(0, 9),
+                          style: const TextStyle(color: Colors.black54),
+                        ),
+                      ],
                     ),
                   ],
                 ),
