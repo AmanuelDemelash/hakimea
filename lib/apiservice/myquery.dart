@@ -601,6 +601,7 @@ query(\$name:String!){
       location
     }
     created_at
+    total_cost
   }
 }
 """;
