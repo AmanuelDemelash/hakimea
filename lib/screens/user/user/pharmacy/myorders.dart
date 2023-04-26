@@ -88,8 +88,12 @@ class Myorder extends StatelessWidget {
                                 child: FadeInAnimation(
                                   child: GestureDetector(
                                       child: GestureDetector(
-                                    onTap: () => Get.toNamed("/orderdetail",
-                                        arguments: orders[index]["id"]),
+                                    onTap: () =>
+                                        Get.toNamed("/orderdetail", arguments: {
+                                      "id": orders[index]["id"],
+                                      "order_code": orders[index]["order_code"],
+                                      "total_cost": orders[index]["total_cost"],
+                                    }),
                                     child: NewOrderCard(
                                       order_data: {
                                         "id": orders[index]["id"],
@@ -106,17 +110,6 @@ class Myorder extends StatelessWidget {
                                         "order_date": orders[index]
                                             ["created_at"]
                                       },
-                                      // index: index,
-                                      // id: orders[index]["id"],
-                                      // user_addres: orders[index]
-                                      //     ["order_address"]["location"],
-                                      // location: orders[index]["pharmacy"]
-                                      //     ["address"]["location"],
-                                      // order_code: orders[index]["order_code"],
-                                      // pharm_name: orders[index]["pharmacy"]
-                                      //     ["name"],
-                                      // logo: orders[index]["pharmacy"]
-                                      //     ["logo_image"]["url"],
                                     ),
                                   )),
                                 ),

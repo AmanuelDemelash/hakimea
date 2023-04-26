@@ -9,26 +9,11 @@ import 'package:hakimea/widgets/cool_loading.dart';
 import '../../../../../utils/constants.dart';
 
 class NewOrderCard extends StatelessWidget {
-  // int id;
-  // String pharm_name;
-  // String location;
-  // String order_code;
-  // String logo;
-  // int index;
-  // String user_addres;
-
   Map<String, dynamic> order_data;
 
   NewOrderCard({
     Key? key,
     required this.order_data,
-    // required this.index,
-    // required this.id,
-    // required this.pharm_name,
-    // required this.location,
-    // required this.order_code,
-    // required this.user_addres,
-    // required this.logo
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
