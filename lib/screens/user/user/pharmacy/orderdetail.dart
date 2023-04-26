@@ -8,7 +8,6 @@ import 'package:hakimea/apiservice/myquery.dart';
 import 'package:hakimea/controllers/user_controllers/ordercontroller.dart';
 import 'package:hakimea/widgets/cool_loading.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 import '../../../../utils/constants.dart';
@@ -29,7 +28,12 @@ class OrderDetail extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         leading: IconButton(
-            onPressed: () => Get.back(),
+            onPressed: () {
+              Get.find<OrderController>().is_medicins_returned.value = false;
+              Get.find<OrderController>().pharma_payment_method.value == "";
+
+              Get.back();
+            },
             icon: const FaIcon(
               FontAwesomeIcons.angleLeft,
               color: Colors.white,
@@ -111,7 +115,11 @@ class OrderDetail extends StatelessWidget {
                         List? medicins = result.data!["medicine_order_detail"];
 
                         if (medicins!.isEmpty) {
-                          return const cool_loding();
+                          return cool_loding();
+                        } else {
+                          Get.find<OrderController>()
+                              .is_medicins_returned
+                              .value = true;
                         }
 
                         return ListView.builder(
@@ -328,11 +336,16 @@ class OrderDetail extends StatelessWidget {
                           ),
                         ),
                         isActive: Get.find<OrderController>()
-                                    .pharma_payment_method
+                                    .is_medicins_returned
                                     .value ==
-                                ""
-                            ? false
-                            : true,
+                                true
+                            ? true
+                            : Get.find<OrderController>()
+                                        .pharma_payment_method
+                                        .value ==
+                                    ""
+                                ? false
+                                : true,
                         activeColor: Constants.primcolor,
                         isFinished: Get.find<OrderController>()
                             .is_confirm_button_finshed
