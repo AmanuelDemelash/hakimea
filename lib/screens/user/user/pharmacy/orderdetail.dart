@@ -12,7 +12,7 @@ import '../../../../utils/constants.dart';
 class OrderDetail extends StatelessWidget {
   OrderDetail({super.key});
 
-  var order_id = Get.arguments;
+  Map<String, dynamic> order = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -48,72 +48,7 @@ class OrderDetail extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              //prescription
-              // const Padding(
-              //   padding: EdgeInsets.all(10),
-              //   child: Text(
-              //     "Prescription",
-              //     style: TextStyle(fontWeight: FontWeight.bold),
-              //   ),
-              // ),
-              // AnimationConfiguration.staggeredList(
-              //   position: 1,
-              //   child: ScaleAnimation(
-              //     child: FadeInAnimation(
-              //       child: Container(
-              //         width: Get.width,
-              //         height: 150,
-              //         margin: const EdgeInsets.all(10),
-              //         decoration: const BoxDecoration(
-              //           color: Colors.white,
-              //           borderRadius: BorderRadius.all(Radius.circular(10)),
-              //         ),
-              //         child: Row(
-              //           children: [
-              //             ClipRRect(
-              //               borderRadius: const BorderRadius.only(
-              //                   topLeft: Radius.circular(10),
-              //                   bottomLeft: Radius.circular(10)),
-              //               child: InstaImageViewer(
-              //                 child: CachedNetworkImage(
-              //                   imageUrl:
-              //                       "https://media.istockphoto.com/id/1144689517/photo/caduceus-medical-symbol-isolated.jpg?s=612x612&w=is&k=20&c=XeH9fFQ6H9oF9CDziIss6l2mTzUgbONvK5vc0AI4h2Q=",
-              //                   width: 150,
-              //                   height: 150,
-              //                   placeholder: (context, url) =>
-              //                       const Icon(Icons.image),
-              //                   errorWidget: (context, url, error) =>
-              //                       const Icon(Icons.error),
-              //                   fit: BoxFit.cover,
-              //                 ),
-              //               ),
-              //             ),
-              //             const SizedBox(
-              //               width: 20,
-              //             ),
-              //             Column(
-              //               mainAxisAlignment: MainAxisAlignment.center,
-              //               children: const [
-              //                 Text("Order Code",
-              //                     style: TextStyle(color: Colors.black54)),
-              //                 SizedBox(
-              //                   height: 10,
-              //                 ),
-              //                 Text(
-              //                   "hk23454",
-              //                   style: TextStyle(
-              //                       fontWeight: FontWeight.bold, fontSize: 18),
-              //                 ),
-              //               ],
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
 
-              // medicines
               Container(
                 width: Get.width,
                 margin: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
@@ -129,14 +64,14 @@ class OrderDetail extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           "Your medicin",
                           style: TextStyle(color: Colors.black54),
                         ),
                         Text(
-                          "code: HK34545",
-                          style: TextStyle(
+                          "code: ${order["order_code"]}",
+                          style: const TextStyle(
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
@@ -150,7 +85,7 @@ class OrderDetail extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [Text("Medicin"), Text("Quantity")],
+                        children: const [Text("Medicin"), Text("Price")],
                       ),
                     ),
                     // medicin list
@@ -209,18 +144,19 @@ class OrderDetail extends StatelessWidget {
                     // total price
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text("SubTotal",
+                      children: [
+                        const Text("SubTotal",
                             style: TextStyle(color: Colors.black54)),
                         Text(
-                          "ETB 100",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          "ETB ${order["total_cost"].toString()}",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     const SizedBox(
                       height: 10,
                     ),
+                    // delivery cost
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
@@ -241,6 +177,7 @@ class OrderDetail extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
+
                     // total
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
