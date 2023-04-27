@@ -4,7 +4,6 @@ import 'package:hakimea/controllers/locationcontrollers.dart';
 import 'package:hakimea/controllers/notification_controller.dart';
 import 'package:hakimea/controllers/splashcontroller.dart';
 import 'package:hakimea/controllers/translationcontroller.dart';
-import 'package:hakimea/controllers/user_controllers/chatbotcontroller.dart';
 import 'package:hakimea/controllers/user_controllers/medcincontroller.dart';
 import 'package:hakimea/controllers/user_controllers/nearbycontrollers.dart';
 import 'package:hakimea/controllers/user_controllers/ordercontroller.dart';
@@ -38,6 +37,5 @@ class AppBinding implements Bindings {
     Get.put(PharmacyController());
     Get.put(OrderMedicinController());
     Get.put(MedicinController());
-    Get.put(ChatBotController());
   }
 }

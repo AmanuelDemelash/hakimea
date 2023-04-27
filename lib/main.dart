@@ -20,7 +20,6 @@ import 'package:hakimea/screens/user/user/blog/allblog.dart';
 import 'package:hakimea/screens/user/user/blog/blogdetail.dart';
 import 'package:hakimea/screens/user/user/chat/callended.dart';
 import 'package:hakimea/screens/user/user/chat/chat_detail.dart';
-import 'package:hakimea/screens/user/user/chat/chatbot.dart';
 import 'package:hakimea/screens/user/user/chat/voice_call.dart';
 import 'package:hakimea/screens/user/user/chat/zegocloudcall.dart';
 import 'package:hakimea/screens/user/user/doctor_detail/doctor.dart';
@@ -177,7 +176,6 @@ class MyApp extends StatelessWidget {
             name: "/ordermedicin",
             page: () => Order_medicin(),
           ),
-          GetPage(name: "/chatbot", page: () => ChatBot()),
           // both screen
           GetPage(name: "/setting", page: () => Setting()),
         ],
