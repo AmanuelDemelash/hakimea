@@ -269,111 +269,68 @@ class Homepage extends StatelessWidget {
                       height: 10,
                     ),
                     SizedBox(
-                        width: Get.width,
-                        height: 100,
-                        child: AnimationLimiter(
-                          child: AnimationConfiguration.staggeredList(
-                            position: 1,
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ScaleAnimation(
-                                    child: FadeInAnimation(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed("/doctor");
-                                        },
-                                        child: homepage_choice(
-                                            title: "doc",
-                                            path: "assets/images/doctor.png"),
-                                      ),
-                                    ),
-                                  ),
-                                  ScaleAnimation(
-                                    child: FadeInAnimation(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed("/pharmacy");
-                                        },
-                                        child: homepage_choice(
-                                          title: "pharmacy",
-                                          path: "assets/images/pharmacy.png",
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  ScaleAnimation(
-                                    child: FadeInAnimation(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed("/medicin");
-                                        },
-                                        child: homepage_choice(
-                                            title: "medicine",
-                                            path: "assets/images/medicine.png"),
-                                      ),
-                                    ),
-                                  ),
-                                  ScaleAnimation(
-                                    child: FadeInAnimation(
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        child: homepage_choice(
-                                            title: "Lab",
-                                            path: "assets/images/lab.png"),
-                                      ),
-                                    ),
-                                  )
-                                ]),
-                          ),
-                        )),
-                    Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        width: Get.width,
-                        height: 100,
-                        child: AnimationLimiter(
-                          child: AnimationConfiguration.staggeredList(
-                            position: 2,
-                            child: Row(
-                              children: [
-                                ScaleAnimation(
-                                  child: FadeInAnimation(
-                                    child: GestureDetector(
-                                      onTap: () {},
-                                      child: homepage_choice(
-                                          title: "Ambulance",
-                                          path: "assets/images/ambu.png"),
-                                    ),
-                                  ),
-                                ),
-                                // ScaleAnimation(
-                                //   child: FadeInAnimation(
-                                //     child: GestureDetector(
-                                //       onTap: () {},
-                                //       child: homepage_choice(
-                                //           title: "Chat Bot",
-                                //           path: "assets/images/bot.jpg"),
-                                //     ),
-                                //   ),
-                                // ),
-                                ScaleAnimation(
-                                  child: FadeInAnimation(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed("/chatbot");
-                                      },
-                                      child: homepage_choice(
-                                          title: "more",
-                                          path:
-                                              "assets/images/medical-prescription.png"),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                      width: Get.width,
+                      height: 100,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed("/doctor");
+                              },
+                              child: homepage_choice(
+                                  title: "doc",
+                                  path: "assets/images/doctor.png"),
                             ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed("/pharmacy");
+                              },
+                              child: homepage_choice(
+                                title: "pharmacy",
+                                path: "assets/images/pharmacy.png",
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed("/medicin");
+                              },
+                              child: homepage_choice(
+                                  title: "medicine",
+                                  path: "assets/images/medicine.png"),
+                            ),
+                            GestureDetector(
+                              onTap: () {},
+                              child: homepage_choice(
+                                  title: "Lab", path: "assets/images/lab.png"),
+                            ),
+                          ]),
+                    ),
+
+                    Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      width: Get.width,
+                      height: 100,
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {},
+                            child: homepage_choice(
+                                title: "Ambulance",
+                                path: "assets/images/ambu.png"),
                           ),
-                        )),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed("/chatbot");
+                            },
+                            child: homepage_choice(
+                                title: "more",
+                                path: "assets/images/medical-prescription.png"),
+                          ),
+                        ],
+                      ),
+                    ),
+
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Row(
