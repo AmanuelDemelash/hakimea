@@ -35,7 +35,7 @@ class NewOrderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  "Pharmacy",
+                  "",
                   style: TextStyle(color: Colors.black54),
                 ),
                 Row(
@@ -82,13 +82,13 @@ class NewOrderCard extends StatelessWidget {
             height: 3,
           ),
           // user location
-          const Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Text(
-              "My location",
-              style: TextStyle(color: Colors.black54),
-            ),
-          ),
+          // const Padding(
+          //   padding: EdgeInsets.only(left: 10),
+          //   child: Text(
+          //     "My location",
+          //     style: TextStyle(color: Colors.black54),
+          //   ),
+          // ),
 
           ListTile(
             contentPadding: const EdgeInsets.only(left: 40),
