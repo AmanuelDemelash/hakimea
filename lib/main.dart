@@ -109,7 +109,7 @@ class MyApp extends StatelessWidget {
     final Link main_link = authLink.concat(link);
     ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
-        link: main_link,
+        link: link,
         // The default store is the InMemoryStofre, which does NOT persist to disk
         cache: GraphQLCache(store: HiveStore()),
       ),

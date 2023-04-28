@@ -242,6 +242,8 @@ class Order_medicin extends StatelessWidget {
                                           Get.find<Locationcontrollers>()
                                               .city
                                               .value,
+                                      "distance": data["calculateDeliveryFee"]
+                                          ["distance"]
                                     });
                                   }
                                 },
@@ -307,8 +309,7 @@ class Order_medicin extends StatelessWidget {
                                                       OrderMedicinController>()
                                                   .is_ordering
                                                   .value,
-                                              onWaitingProcess: () {},
-                                              onFinish: () async {
+                                              onWaitingProcess: () async {
                                                 runMutationUploadimage({
                                                   "image": Get.find<
                                                           OrderMedicinController>()
@@ -316,6 +317,7 @@ class Order_medicin extends StatelessWidget {
                                                       .value
                                                 });
                                               },
+                                              onFinish: () async {},
                                             )
 
                                         // ClipRRect(

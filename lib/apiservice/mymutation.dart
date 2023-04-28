@@ -206,8 +206,8 @@ mutation(\$id:Int!){
 // order medicin
 
   static String order_medicin = """
-mutation(\$user_id:Int!,\$presc_image:Int!,\$ph_id:Int!,\$user_lat:Float!,\$user_long:Float!,\$user_loc:String!,\$del_cost:Int!,\$user_city:String!){
-  order(user_id:\$user_id, prescription_image:\$presc_image, pharmacy_id:\$ph_id, longitude:\$user_long, latitude:\$user_lat, location:\$user_loc, delivery_cost:\$del_cost, city:\$user_city) {
+mutation(\$user_id:Int!,\$presc_image:Int!,\$ph_id:Int!,\$user_lat:Float!,\$user_long:Float!,\$user_loc:String!,\$del_cost:Int!,\$user_city:String!,\$distance:Int!){
+  order(user_id:\$user_id, prescription_image:\$presc_image, pharmacy_id:\$ph_id, longitude:\$user_long, latitude:\$user_lat, location:\$user_loc, delivery_cost:\$del_cost, city:\$user_city,distance:\$distance) {
     id
   }
 }
