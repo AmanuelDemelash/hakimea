@@ -142,8 +142,11 @@ class OrderDetail extends StatelessWidget {
                           );
                         } else {
                           Get.find<OrderController>()
-                              .is_medicins_returned
-                              .value = true;
+                                  .is_medicins_returned
+                                  .value =
+                              !Get.find<OrderController>()
+                                  .is_medicins_returned
+                                  .value;
                         }
 
                         return Column(
