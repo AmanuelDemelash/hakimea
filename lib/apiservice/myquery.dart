@@ -479,8 +479,8 @@ query(\$id:Int!){
 
   // pharmacy
   static String all_pharmacy = """
-query(\$limit: Int!, \$offset: Int!){
-  pharmacies(limit: \$limit, offset: \$offset,order_by: {rate: desc}) {
+query{
+  pharmacies(order_by: {rate: desc}) {
     id
     address {
       latitude
@@ -585,7 +585,7 @@ query(\$name:String!){
 
   static String newOrder = """
   query(\$user_id:Int!){
-  orders(where: {user_id: {_eq:\$user_id}, status: {_eq: pending}}, order_by: {created_at: asc}) {
+  orders(where: {user_id: {_eq:\$user_id}, status: {_eq: pending}}, order_by: {created_at: desc}) {
     id
     order_code
     pharmacy {
@@ -602,6 +602,7 @@ query(\$name:String!){
     }
     created_at
     total_cost
+    delivery_fee
   }
 }
 """;

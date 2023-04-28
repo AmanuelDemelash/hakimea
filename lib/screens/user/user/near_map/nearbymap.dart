@@ -105,6 +105,7 @@ class _NearByMapState extends State<NearByMap> {
                       compassEnabled: false,
                       onMapCreated: (GoogleMapController controller) {
                         _controller.complete(controller);
+                        Get.find<NearByController>().get_marker_icon();
                       },
                     )),
 

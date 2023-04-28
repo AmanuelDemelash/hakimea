@@ -163,7 +163,10 @@ class near_pharmacy_card extends StatelessWidget {
                     Get.toNamed("/ordermedicin", arguments: {
                       "id": id,
                       "phlat": phlat,
-                      "phlong": phlong
+                      "phlong": phlong,
+                      "name": name,
+                      "image": image,
+                      "location": location
                     });
                   },
                   child: const Text("Order Medicin")),

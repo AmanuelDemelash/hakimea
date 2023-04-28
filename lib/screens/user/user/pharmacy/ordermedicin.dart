@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -10,10 +12,8 @@ import 'package:hakimea/controllers/splashcontroller.dart';
 import 'package:hakimea/controllers/user_controllers/ordermedicincontroller.dart';
 import 'package:hakimea/controllers/user_controllers/signupcontroller.dart';
 import 'package:hakimea/widgets/buttonspinner.dart';
-import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 import '../../../../utils/constants.dart';
-import '../../../../widgets/cool_loading.dart';
 
 class Order_medicin extends StatelessWidget {
   Map pharmacy = Get.arguments;
@@ -27,10 +27,10 @@ class Order_medicin extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Constants.primcolor,
+          backgroundColor: Constants.whitesmoke,
           title: const Text(
             "Order Medicin",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black),
           ),
           leading: IconButton(
               onPressed: () {
@@ -43,34 +43,11 @@ class Order_medicin extends StatelessWidget {
               },
               icon: const FaIcon(
                 FontAwesomeIcons.angleLeft,
-                color: Colors.white,
+                color: Colors.black,
               )),
         ),
         body: Stack(
           children: [
-            Container(
-              width: Get.width,
-              height: 70,
-              padding: const EdgeInsets.only(left: 20, top: 15),
-              decoration: const BoxDecoration(
-                  color: Constants.primcolor,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "prescription ",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                  Text(
-                    "please upload your valid prescription",
-                    style: TextStyle(color: Colors.white54),
-                  ),
-                ],
-              ),
-            ),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
@@ -78,8 +55,72 @@ class Order_medicin extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Text(
+                      "prescription ",
+                      style: TextStyle(fontSize: 18, color: Colors.black),
+                    ),
+                    const Text(
+                      "please upload your valid prescription paper to make order",
+                      style: TextStyle(color: Colors.black54),
+                    ),
                     const SizedBox(
+                      height: 20,
+                    ),
+                    //pharmacy
+                    Container(
+                      width: Get.width,
                       height: 100,
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: pharmacy["image"],
+                              width: 50,
+                              height: 50,
+                              placeholder: (context, url) =>
+                                  const Icon(Icons.image),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(2),
+                                title: Text(pharmacy["name"].toString()),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(pharmacy["location"].toString()),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height: 15,
                     ),
                     Obx(
                       () => Container(
@@ -88,9 +129,9 @@ class Order_medicin extends StatelessWidget {
                         decoration: BoxDecoration(
                             border: Border.all(
                                 width: 1,
-                                color: Constants.primcolor,
+                                color: Constants.primcolor.withOpacity(0.8),
                                 style: BorderStyle.solid),
-                            color: Constants.primcolor.withOpacity(0.2),
+                            color: Constants.primcolor.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(10)),
                         child: Get.find<OrderMedicinController>()
                                 .prescrip_image_base64
@@ -128,8 +169,9 @@ class Order_medicin extends StatelessWidget {
                             borderRadius: BorderRadius.circular(1),
                             child: ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                    side: const BorderSide(
-                                        color: Constants.primcolor),
+                                    side: BorderSide(
+                                        color: Constants.primcolor
+                                            .withOpacity(0.5)),
                                     backgroundColor: Constants.whitesmoke,
                                     elevation: 0,
                                     padding: const EdgeInsets.all(10)),
@@ -155,8 +197,9 @@ class Order_medicin extends StatelessWidget {
                               borderRadius: BorderRadius.circular(1),
                               child: ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                    side: const BorderSide(
-                                        color: Constants.primcolor),
+                                    side: BorderSide(
+                                        color: Constants.primcolor
+                                            .withOpacity(0.5)),
                                     backgroundColor: Constants.whitesmoke,
                                     elevation: 0,
                                     padding: const EdgeInsets.all(10)),
@@ -176,7 +219,7 @@ class Order_medicin extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 150,
+                      height: 60,
                     ),
                     SizedBox(
                         child: Center(
@@ -263,25 +306,24 @@ class Order_medicin extends StatelessWidget {
                                     document: gql(Mymutation.upload_image),
                                     onCompleted: (data) {
                                       //run calc delivery fee mutation
-                                      Get.find<OrderMedicinController>()
-                                          .uploded_image
-                                          .value = data!["uploadImage"]["id"];
+                                      if (data!.isNotEmpty) {
+                                        Get.find<OrderMedicinController>()
+                                            .uploded_image
+                                            .value = data!["uploadImage"]["id"];
 
-                                      runMutationCalDelfee({
-                                        "ph_lat": pharmacy["phlat"],
-                                        "ph_long": pharmacy["phlong"],
-                                        "user_lat":
-                                            Get.find<Locationcontrollers>()
-                                                .current_lat
-                                                .value,
-                                        "user_long":
-                                            Get.find<Locationcontrollers>()
-                                                .current_long
-                                                .value
-                                      });
-                                    },
-                                    onError: (error) {
-                                      print(error.toString());
+                                        runMutationCalDelfee({
+                                          "ph_lat": pharmacy["phlat"],
+                                          "ph_long": pharmacy["phlong"],
+                                          "user_lat":
+                                              Get.find<Locationcontrollers>()
+                                                  .current_lat
+                                                  .value,
+                                          "user_long":
+                                              Get.find<Locationcontrollers>()
+                                                  .current_long
+                                                  .value
+                                        });
+                                      }
                                     },
                                   ),
                                   builder: (runMutationUploadimage, result) {
@@ -357,14 +399,13 @@ class Order_medicin extends StatelessWidget {
                                                     });
                                                   }
                                                 },
-                                                icon:
-                                                    Get.find<OrderMedicinController>()
-                                                                .is_ordering
-                                                                .value ==
-                                                            true
-                                                        ? const ButtonSpinner()
-                                                        : const Icon(
-                                                            Icons.send),
+                                                icon: Get.find<OrderMedicinController>()
+                                                            .is_ordering
+                                                            .value ==
+                                                        true
+                                                    ? const ButtonSpinner()
+                                                    : const Icon(Icons
+                                                        .send_time_extension),
                                                 label:
                                                     Get.find<OrderMedicinController>()
                                                                 .is_ordering

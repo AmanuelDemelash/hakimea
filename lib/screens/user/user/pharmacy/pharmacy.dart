@@ -15,9 +15,6 @@ class Pharmacy extends StatelessWidget {
   Pharmacy({Key? key}) : super(key: key);
 
   TextEditingController _searchtext = TextEditingController();
-  ScrollController listview_controller = ScrollController();
-  int _limit = 5;
-  int _offset = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -108,10 +105,6 @@ class Pharmacy extends StatelessWidget {
                   Get.find<PharmacyController>().pharmacy_search_key.value == ""
                       ? QueryOptions(
                           document: gql(Myquery.all_pharmacy),
-                          variables: {
-                            'limit': _limit,
-                            'offset': _offset,
-                          },
                         )
                       : QueryOptions(
                           document: gql(Myquery.search_pharmacy),
@@ -141,28 +134,13 @@ class Pharmacy extends StatelessWidget {
                 if (pharmacy!.isEmpty) {
                   return no_appointment_found(title: "no pharmacy found");
                 }
-                _offset += pharmacy.length;
+
                 return Expanded(
                     child: AnimationLimiter(
                   child: ListView.builder(
-                    itemCount: pharmacy.length + (result.isLoading ? 1 : 0),
-                    controller: listview_controller,
+                    itemCount: pharmacy.length,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      if (listview_controller.position.maxScrollExtent ==
-                          listview_controller.position.pixels) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ElevatedButton(
-                            child: Text('Load More'),
-                            onPressed: result.isLoading
-                                ? null
-                                : () {
-                                    refetch!();
-                                  },
-                          ),
-                        );
-                      }
                       return AnimationConfiguration.staggeredList(
                         position: index,
                         delay: const Duration(milliseconds: 100),

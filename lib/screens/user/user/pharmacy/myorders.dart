@@ -93,6 +93,8 @@ class Myorder extends StatelessWidget {
                                       "id": orders[index]["id"],
                                       "order_code": orders[index]["order_code"],
                                       "total_cost": orders[index]["total_cost"],
+                                      "delivery_cost": orders[index]
+                                          ["delivery_fee"]
                                     }),
                                     child: NewOrderCard(
                                       order_data: {
