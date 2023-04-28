@@ -10,7 +10,8 @@ class NearByController extends GetxController {
     get_marker_icon();
     Set<Marker> markers = Set();
 
-    locations.forEach((location) {
+    locations.forEach((location) async {
+      get_marker_icon();
       markers.add(
         Marker(
             markerId: MarkerId("${location["id"]}"),

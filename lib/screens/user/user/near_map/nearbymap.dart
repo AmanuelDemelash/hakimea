@@ -133,6 +133,7 @@ class _NearByMapState extends State<NearByMap> {
                                 ["location"],
                             name: near_pharmacy[index]["name"],
                             open_time: near_pharmacy[index]["open_time"],
+                            close_time: near_pharmacy[index]["open_time"],
                             phone: near_pharmacy[index]["phone_number"],
                           );
                         },

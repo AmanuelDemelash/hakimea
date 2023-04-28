@@ -659,6 +659,7 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
       url
     }
     open_time
+    close_time
     phone_number
   }
 }

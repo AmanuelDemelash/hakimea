@@ -11,6 +11,7 @@ class near_pharmacy_card extends StatelessWidget {
   String location;
   String image;
   String open_time;
+  String close_time;
   String phone;
   double phlat;
   double phlong;
@@ -21,6 +22,7 @@ class near_pharmacy_card extends StatelessWidget {
       required this.image,
       required this.name,
       required this.open_time,
+      required this.close_time,
       required this.phlat,
       required this.phlong,
       required this.phone})
@@ -80,17 +82,6 @@ class near_pharmacy_card extends StatelessWidget {
                             style: const TextStyle(
                                 color: Colors.black54, fontSize: 15),
                           )),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              FaIcon(
-                                FontAwesomeIcons.star,
-                                color: Constants.primcolor,
-                                size: 12,
-                              ),
-                              Text("(4)")
-                            ],
-                          )
                         ],
                       ),
                     ),
@@ -101,22 +92,35 @@ class near_pharmacy_card extends StatelessWidget {
                   const Divider(
                     thickness: 1,
                   ),
+                  // time
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const FaIcon(
-                              FontAwesomeIcons.clock,
-                              size: 12,
+                            const Text(
+                              "working time",
+                              style: TextStyle(color: Colors.black54),
                             ),
-                            Text(
-                              "$open_time- 10:00 PM",
-                              style: const TextStyle(
-                                  color: Colors.black54, fontSize: 13),
-                            )
+                            Row(
+                              children: [
+                                const FaIcon(
+                                  FontAwesomeIcons.clock,
+                                  size: 12,
+                                ),
+                                const SizedBox(
+                                  width: 6,
+                                ),
+                                Text(
+                                  "$open_time- $close_time",
+                                  style: const TextStyle(
+                                      color: Colors.black54, fontSize: 13),
+                                )
+                              ],
+                            ),
                           ],
                         ),
                         GestureDetector(
