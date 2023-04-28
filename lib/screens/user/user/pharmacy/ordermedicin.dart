@@ -92,28 +92,29 @@ class Order_medicin extends StatelessWidget {
                                 style: BorderStyle.solid),
                             color: Constants.primcolor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(10)),
-                        child:
-                            Get.find<OrderMedicinController>().is_image.value ==
-                                    true
-                                ? Image(
-                                    image: FileImage(
-                                        Get.find<OrderMedicinController>()
-                                            .image
-                                            .value),
-                                  )
-                                : Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      FaIcon(FontAwesomeIcons.upload),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        "upload Prescription",
-                                        style: TextStyle(color: Colors.black54),
-                                      ),
-                                    ],
+                        child: Get.find<OrderMedicinController>()
+                                .prescrip_image_base64
+                                .value
+                                .isNotEmpty
+                            ? Image(
+                                image: FileImage(
+                                    Get.find<OrderMedicinController>()
+                                        .image
+                                        .value),
+                              )
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  FaIcon(FontAwesomeIcons.upload),
+                                  SizedBox(
+                                    height: 10,
                                   ),
+                                  Text(
+                                    "upload Prescription",
+                                    style: TextStyle(color: Colors.black54),
+                                  ),
+                                ],
+                              ),
                       ),
                     ),
                     const SizedBox(
@@ -261,29 +262,33 @@ class Order_medicin extends StatelessWidget {
                                   options: MutationOptions(
                                     document: gql(Mymutation.upload_image),
                                     onCompleted: (data) {
-                                      if (data!.isNotEmpty) {
-                                        //run calc delivery fee mutation
-                                        Get.find<OrderMedicinController>()
-                                            .uploded_image
-                                            .value = data["uploadImage"]["id"];
+                                      //run calc delivery fee mutation
+                                      Get.find<OrderMedicinController>()
+                                          .uploded_image
+                                          .value = data!["uploadImage"]["id"];
 
-                                        runMutationCalDelfee({
-                                          "ph_lat": pharmacy["phlat"],
-                                          "ph_long": pharmacy["phlong"],
-                                          "user_lat":
-                                              Get.find<Locationcontrollers>()
-                                                  .current_lat
-                                                  .value,
-                                          "user_long":
-                                              Get.find<Locationcontrollers>()
-                                                  .current_long
-                                                  .value
-                                        });
-                                      }
+                                      runMutationCalDelfee({
+                                        "ph_lat": pharmacy["phlat"],
+                                        "ph_long": pharmacy["phlong"],
+                                        "user_lat":
+                                            Get.find<Locationcontrollers>()
+                                                .current_lat
+                                                .value,
+                                        "user_long":
+                                            Get.find<Locationcontrollers>()
+                                                .current_long
+                                                .value
+                                      });
+                                    },
+                                    onError: (error) {
+                                      print(error.toString());
                                     },
                                   ),
                                   builder: (runMutationUploadimage, result) {
                                     if (result!.hasException) {
+                                      Get.find<OrderMedicinController>()
+                                          .is_ordering
+                                          .value = false;
                                       print(result.exception.toString());
                                     }
                                     if (result.isLoading) {
@@ -291,84 +296,84 @@ class Order_medicin extends StatelessWidget {
                                           .is_ordering
                                           .value = true;
                                     }
-                                    return Obx(() => SwipeableButtonView(
-                                              buttonText: 'Slide to Order',
-                                              buttonWidget: const Icon(
-                                                Icons.arrow_forward_ios_rounded,
-                                                color: Constants.primcolor,
-                                              ),
-                                              isActive: Get.find<
+                                    return Obx(() =>
+                                        // SwipeableButtonView(
+                                        //           buttonText: 'Slide to Order',
+                                        //           buttonWidget: const Icon(
+                                        //             Icons.arrow_forward_ios_rounded,
+                                        //             color: Constants.primcolor,
+                                        //           ),
+                                        //           isActive: Get.find<
+                                        //                           OrderMedicinController>()
+                                        //                       .prescrip_image_base64
+                                        //                       .value ==
+                                        //                   ""
+                                        //               ? false
+                                        //               : true,
+                                        //           activeColor: Constants.primcolor,
+                                        //           isFinished: Get.find<
+                                        //                   OrderMedicinController>()
+                                        //               .is_ordering
+                                        //               .value,
+                                        //           onWaitingProcess: () async {},
+                                        //           onFinish: () async {
+                                        //             runMutationUploadimage({
+                                        //               "image": Get.find<
+                                        //                       OrderMedicinController>()
+                                        //                   .prescrip_image_base64
+                                        //                   .value
+                                        //             });
+                                        //           },
+                                        //         )
+
+                                        SizedBox(
+                                          width: Get.width,
+                                          height: 50,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            child: ElevatedButton.icon(
+                                                style: ElevatedButton.styleFrom(
+                                                    elevation: 0,
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10)),
+                                                onPressed: () async {
+                                                  if (Get.find<
                                                               OrderMedicinController>()
                                                           .prescrip_image_base64
                                                           .value ==
-                                                      ""
-                                                  ? false
-                                                  : true,
-                                              activeColor: Constants.primcolor,
-                                              isFinished: Get.find<
-                                                      OrderMedicinController>()
-                                                  .is_ordering
-                                                  .value,
-                                              onWaitingProcess: () async {
-                                                runMutationUploadimage({
-                                                  "image": Get.find<
-                                                          OrderMedicinController>()
-                                                      .prescrip_image_base64
-                                                      .value
-                                                });
-                                              },
-                                              onFinish: () async {},
-                                            )
-
-                                        // ClipRRect(
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(50),
-                                        //       child: ElevatedButton.icon(
-                                        //           style: ElevatedButton.styleFrom(
-                                        //               elevation: 0,
-                                        //               padding:
-                                        //                   const EdgeInsets.all(
-                                        //                       10)),
-                                        //           onPressed: () async {
-                                        // if (Get.find<OrderMedicinController>()
-                                        //             .image
-                                        //             .value ==
-                                        //         "" ||
-                                        //     Get.find<OrderMedicinController>()
-                                        //             .prescrip_image_base64
-                                        //             .value ==
-                                        //         "") {
-                                        //   Get.find<SignUpController>()
-                                        //       .customsnack(
-                                        //           "please provide your prescription");
-                                        // } else {
-                                        //   // run cal upload prescription mutation
-
-                                        //   runMutationUploadimage({
-                                        //     "image": Get.find<
-                                        //             OrderMedicinController>()
-                                        //         .prescrip_image_base64
-                                        //         .value
-                                        //   });
-                                        // }
-                                        //           },
-                                        //           icon:
-                                        //               Get.find<OrderMedicinController>()
-                                        //                           .is_ordering
-                                        //                           .value ==
-                                        //                       true
-                                        //                   ? const ButtonSpinner()
-                                        //                   : const Icon(
-                                        //                       Icons.send),
-                                        //           label:
-                                        //               Get.find<OrderMedicinController>()
-                                        //                           .is_ordering
-                                        //                           .value ==
-                                        //                       true
-                                        //                   ? const Text("ordering")
-                                        //                   : const Text("Order")),
-                                        //     )
-                                        );
+                                                      "") {
+                                                    Get.find<SignUpController>()
+                                                        .customsnack(
+                                                            "please provide your prescription");
+                                                  } else {
+                                                    // run cal upload prescription mutation
+                                                    runMutationUploadimage({
+                                                      "image": Get.find<
+                                                              OrderMedicinController>()
+                                                          .prescrip_image_base64
+                                                          .value
+                                                    });
+                                                  }
+                                                },
+                                                icon:
+                                                    Get.find<OrderMedicinController>()
+                                                                .is_ordering
+                                                                .value ==
+                                                            true
+                                                        ? const ButtonSpinner()
+                                                        : const Icon(
+                                                            Icons.send),
+                                                label:
+                                                    Get.find<OrderMedicinController>()
+                                                                .is_ordering
+                                                                .value ==
+                                                            true
+                                                        ? const Text("ordering")
+                                                        : const Text("Order")),
+                                          ),
+                                        ));
                                   },
                                 );
                               });
