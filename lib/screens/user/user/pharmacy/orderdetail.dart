@@ -146,12 +146,8 @@ class OrderDetail extends StatelessWidget {
                         } else {
                           Get.find<OrderController>()
                                   .is_medicins_returned
-                                  .value =
-                              !Get.find<OrderController>()
-                                  .is_medicins_returned
-                                  .value;
+                                  .value =true;
                         }
-
                         return Column(
                           children: [
                             ListView.builder(
@@ -223,7 +219,7 @@ class OrderDetail extends StatelessWidget {
                                 const Text("SubTotal",
                                     style: TextStyle(color: Colors.black54)),
                                 Text(
-                                  "ETB ${order["total_cost"].toString()}",
+                                  "ETB  ${order["total_cost"].toString()}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -235,12 +231,13 @@ class OrderDetail extends StatelessWidget {
                             // delivery cost
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("Delivery fee",
+                              children:[
+                               const Text("Delivery fee",
                                     style: TextStyle(color: Colors.black54)),
                                 Text(
-                                  "ETB 50",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  "ETB  ${order["delivery_cost"].toString()}",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -257,12 +254,12 @@ class OrderDetail extends StatelessWidget {
                             // total
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("TOTAL",
+                              children:[
+                                const Text("TOTAL",
                                     style: TextStyle(color: Colors.black54)),
                                 Text(
-                                  "ETB 150",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  "ETB  ${order["delivery_cost"]+order["total_cost"]}",
+                                  style:const TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
                                 ),
                               ],
                             ),
@@ -367,23 +364,13 @@ class OrderDetail extends StatelessWidget {
                 child: Center(
                   child: Obx(() => SwipeableButtonView(
                         buttonText: 'SLIDE TO Confirm',
-                        buttonWidget: Container(
-                          child: const Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: Colors.grey,
-                          ),
+                        buttonWidget: const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: Colors.grey,
                         ),
                         isActive: Get.find<OrderController>()
                                     .is_medicins_returned
-                                    .value ==
-                                true
-                            ? Get.find<OrderController>()
-                                    .pharma_payment_method
-                                    .value
-                                    .isNotEmpty
-                                ? true
-                                : false
-                            : false,
+                                    .value,
                         activeColor: Constants.primcolor,
                         isFinished: Get.find<OrderController>()
                             .is_confirm_button_finshed
@@ -393,6 +380,9 @@ class OrderDetail extends StatelessWidget {
                           Get.find<OrderController>()
                               .is_confirm_button_finshed
                               .value = true;
+
+                          // run mutation of confirmed order
+
                         },
                       )),
                 ),

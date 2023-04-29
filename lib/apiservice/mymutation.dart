@@ -204,7 +204,6 @@ mutation(\$id:Int!){
 """;
 
 // order medicin
-
   static String order_medicin = """
 mutation(\$user_id:Int!,\$presc_image:Int!,\$ph_id:Int!,\$user_lat:Float!,\$user_long:Float!,\$user_loc:String!,\$del_cost:Int!,\$user_city:String!,\$distance:Int!){
   order(user_id:\$user_id, prescription_image:\$presc_image, pharmacy_id:\$ph_id, longitude:\$user_long, latitude:\$user_lat, location:\$user_loc, delivery_fee:\$del_cost, city:\$user_city,distance:\$distance) {
@@ -213,7 +212,6 @@ mutation(\$user_id:Int!,\$presc_image:Int!,\$ph_id:Int!,\$user_lat:Float!,\$user
 }
 """;
 // calculate delivery fee
-
   static String calc_delivery_fee = """
 mutation(\$ph_lat:Float!,\$ph_long:Float!,\$user_lat:Float!,\$user_long:Float!){
   calculateDeliveryFee(pharmacy_location: {latitude:\$ph_lat, longitude:\$ph_long}, user_location: {latitude:\$user_lat, longitude:\$user_long}) {
@@ -231,5 +229,16 @@ mutation(\$image:String!){
     url
   }
 }
+""";
+
+  // confirme order
+static String confirm_order="""
+mutation(\$id:Int!){
+  update_orders_by_pk(pk_columns: {id:\$id}, _set: {status: confirmed}) {
+    id
+    status
+  }
+}
+
 """;
 }
