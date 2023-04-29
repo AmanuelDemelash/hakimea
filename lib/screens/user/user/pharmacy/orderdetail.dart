@@ -105,7 +105,6 @@ class OrderDetail extends StatelessWidget {
                       ),
                     ),
                     // medicin list
-
                     Query(
                       options: QueryOptions(
                           document: gql(Myquery.order_medicins),
@@ -113,12 +112,16 @@ class OrderDetail extends StatelessWidget {
                           pollInterval: const Duration(seconds: 10)),
                       builder: (result, {fetchMore, refetch}) {
                         if (result.hasException) {
+                          Get.find<OrderController>().is_medicins_returned.value=false;
                           print(result.exception);
                         }
                         if (result.isLoading) {
-                          return Column(
+                          Get.find<OrderController>().is_medicins_returned.value=false;
+                          return
+                            Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
+                              SizedBox(height: 20,),
                               cool_loding(),
                               Text(
                                 "please wait! your order is being processing",
@@ -132,9 +135,11 @@ class OrderDetail extends StatelessWidget {
                         }
                         List? medicins = result.data!["medicine_order_detail"];
                         if (medicins!.isEmpty) {
+                          Get.find<OrderController>().is_medicins_returned.value=false;
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
+                              SizedBox(height: 20,),
                               cool_loding(),
                               Text(
                                 "please wait! your order is being processing",
@@ -275,179 +280,183 @@ class OrderDetail extends StatelessWidget {
                   ],
                 ),
               ),
-
               //payment option
-              const Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  "Payment Option.",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              AnimationConfiguration.staggeredList(
-                position: 0,
-                child: ScaleAnimation(
-                  child: FadeInAnimation(
-                    child: Container(
-                      width: Get.width,
-                      height: 200,
-                      padding: const EdgeInsets.all(15),
-                      margin: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const Text("Pay With"),
-                          const Text(
-                            "choose payment option to pay for your medicin!",
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 12),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          //cash
-                          Row(
-                            children: [
-                              Obx(() => Radio(
-                                    value: "cash",
-                                    groupValue: Get.find<OrderController>()
+              Obx(() => Visibility(
+                visible: Get.find<OrderController>().is_medicins_returned.value,
+                child: const Padding(
+                    padding: EdgeInsets.all(10),
+          child: Text(
+            "Payment Option.",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+              ),),
+              Obx(() => Visibility(
+                visible: Get.find<OrderController>().is_medicins_returned.value,
+                child: AnimationConfiguration.staggeredList(
+                  position: 0,
+                  child: ScaleAnimation(
+                    child: FadeInAnimation(
+                      child: Container(
+                        width: Get.width,
+                        height: 200,
+                        padding: const EdgeInsets.all(15),
+                        margin: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const Text("Pay With"),
+                            const Text(
+                              "choose payment option to pay for your medicin!",
+                              style:
+                              TextStyle(color: Colors.black54, fontSize: 12),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            //cash
+                            Row(
+                              children: [
+                                Obx(() => Radio(
+                                  value: "cash",
+                                  groupValue: Get.find<OrderController>()
+                                      .pharma_payment_method
+                                      .value,
+                                  onChanged: (value) {
+                                    Get.find<OrderController>()
                                         .pharma_payment_method
-                                        .value,
-                                    onChanged: (value) {
-                                      Get.find<OrderController>()
-                                          .pharma_payment_method
-                                          .value = value.toString();
-                                    },
-                                    activeColor: Constants.primcolor,
-                                  )),
-                              const Text("Cash on delivery"),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          // chapa
-                          Row(
-                            children: [
-                              Obx(() => Radio(
-                                    value: "chapa",
-                                    groupValue: Get.find<OrderController>()
+                                        .value = value.toString();
+                                  },
+                                  activeColor: Constants.primcolor,
+                                )),
+                                const Text("Cash on delivery"),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            // chapa
+                            Row(
+                              children: [
+                                Obx(() => Radio(
+                                  value: "chapa",
+                                  groupValue: Get.find<OrderController>()
+                                      .pharma_payment_method
+                                      .value,
+                                  onChanged: (value) {
+                                    Get.find<OrderController>()
                                         .pharma_payment_method
-                                        .value,
-                                    onChanged: (value) {
-                                      Get.find<OrderController>()
-                                          .pharma_payment_method
-                                          .value = value.toString();
-                                    },
-                                    activeColor: Constants.primcolor,
-                                  )),
-                              const Image(
-                                image: AssetImage("assets/images/chapa.png"),
-                                width: 100,
-                                height: 50,
-                              ),
-                            ],
-                          )
-                        ],
+                                        .value = value.toString();
+                                  },
+                                  activeColor: Constants.primcolor,
+                                )),
+                                const Image(
+                                  image: AssetImage("assets/images/chapa.png"),
+                                  width: 100,
+                                  height: 50,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
+              ),),
 
               // accept button
-              Container(
-                margin: const EdgeInsets.all(20),
-                child: Center(
-                  child:
-                  Mutation(options:MutationOptions(document: gql(Mymutation.confirm_order),
-                  onCompleted:(data) {
-                    if(data!.isNotEmpty){
-                      Get.snackbar("Confirmed", "your order is confirmed and delivery man is on the way",
-                          snackPosition: SnackPosition.TOP,
-                          backgroundColor: Colors.green,
-                          icon:const FaIcon(FontAwesomeIcons.check));
-                      Get.find<OrderController>()
-                          .pharma_payment_method.value="";
-                      Get.find<OrderController>().is_confirme_order.value=false;
+              Obx(() =>Visibility(
+                visible: Get.find<OrderController>().is_medicins_returned.value,
+                child: Container(
+                  margin: const EdgeInsets.all(20),
+                  child: Center(
+                      child:
+                      Mutation(options:MutationOptions(document: gql(Mymutation.confirm_order),
+                        onCompleted:(data) {
+                          if(data!.isNotEmpty){
+                            Get.find<OrderController>().is_confirme_order.value=false;
+                            Get.find<OrderController>().is_medicins_returned.value=false;
+                            Get.back();
+                            Get.find<SignUpController>().sucss_customsnack("your order is confirmed and delivery man is on the way");
 
-                      Get.back();
-
-                    }
-                  },
-
-                  ) ,
-                  builder:(runMutation, result) {
-                    if(result!.hasException){
-                      print(result.exception.toString());
-                      Get.find<OrderController>().is_confirme_order.value=false;
-
-                    }
-                    if(result.isLoading){
-                      Get.find<OrderController>().is_confirme_order.value=true;
-
-                    }
-                    return Obx(() =>
-                        SizedBox(
-                            width: Get.width,
-                            height: 55,
-                            child: ClipRRect(
-                            borderRadius:
-                            BorderRadius.circular(50),
-                        child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                        elevation: 0,
-
-                        padding:
-                        const EdgeInsets.all(
-                        10)),
-                          onPressed: () {
-                          if(
-                          Get.find<OrderController>()
-                          .pharma_payment_method.isEmpty
-                          ){
-                            Get.find<SignUpController>().customsnack("please choose payment option");
-                          } else if(Get.find<OrderController>().is_medicins_returned.value==false){
-                            Get.find<SignUpController>().customsnack("your order is processing please wait!");
-                          } else{
-                            // run mutation for confirmations
-                            runMutation({
-                              "id":order["id"]
-                            });
                           }
-                          },
-                          child:Center(
-                            child:Get.find<OrderController>().is_confirme_order.value?
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children:const [
-                              ButtonSpinner(),
-                              SizedBox(width: 6,),
-                              Text("Confirming"),
-                            ],
-                          )
+                        },
 
-                              :const Text("Confirm Order"),
-                          )
+                      ) ,
+                        builder:(runMutation, result) {
+                          if(result!.hasException){
+                            Get.find<OrderController>().is_confirme_order.value=false;
+                            Get.find<OrderController>().is_medicins_returned.value=false;
+
+                          }
+                          if(result.isLoading){
+                            Get.find<OrderController>().is_confirme_order.value=true;
+
+                          }
+                          return Obx(() =>
+                              SizedBox(
+                                width: Get.width,
+                                height: 55,
+                                child: ClipRRect(
+                                  borderRadius:
+                                  BorderRadius.circular(50),
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+
+                                          padding:
+                                          const EdgeInsets.all(
+                                              10)),
+                                      onPressed: () {
+                                        if(
+                                        Get.find<OrderController>()
+                                            .pharma_payment_method.isEmpty
+                                        ){
+                                          Get.find<SignUpController>().customsnack("please choose payment option");
+                                        } else if(Get.find<OrderController>().is_medicins_returned.value==false){
+                                          Get.find<SignUpController>().customsnack("your order is processing please wait!");
+                                        } else{
+                                          // run mutation for confirmations
+                                          runMutation({
+                                            "id":order["id"]
+                                          });
+                                        }
+                                      },
+                                      child:Center(
+                                        child:Get.find<OrderController>().is_confirme_order.value?
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children:const [
+                                            ButtonSpinner(),
+                                            SizedBox(width: 6,),
+                                            Text("Confirming"),
+                                          ],
+                                        )
+
+                                            :const Text("Confirm Order"),
+                                      )
 
 
 
-                    ),
-                            ),
-                        ),
+                                  ),
+                                ),
+                              ),
 
-                    );
-                  }, )
+                          );
+                        }, )
 
 
+                  ),
                 ),
-              ),
+              ) )
+              ,
             ],
           ),
         ),
