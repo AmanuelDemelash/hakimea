@@ -17,8 +17,10 @@ class NewOrderCard extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(seconds: 5),
       margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: Column(
@@ -28,94 +30,63 @@ class NewOrderCard extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "",
-                  style: TextStyle(color: Colors.black54),
-                ),
-                Row(
-                  children: [
-                    const Text("Code: "),
-                    Text(
-                      order_data["order_code"],
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          //pharmacy
-          ListTile(
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  order_data["location"],
-                  style: const TextStyle(
-                    color: Colors.black54,
+          // date and code
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                order_data["order_date"].toString().substring(0, 9),
+                style: const TextStyle(color: Colors.black54),
+              ),
+              Row(
+                children: [
+                  const Text("Code: "),
+                  Text(
+                    order_data["order_code"],
+                    style: const TextStyle(color: Colors.red),
                   ),
-                ),
-              ],
-            ),
-            leading: ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(50),
+                ],
               ),
-              child: CachedNetworkImage(
-                imageUrl: order_data["logo"],
-                width: 60,
-                height: 60,
-                placeholder: (context, url) => const Icon(Icons.image),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                fit: BoxFit.cover,
-              ),
-            ),
-            title: Text(order_data["pharm_name"]),
+            ],
           ),
           const SizedBox(
-            height: 3,
+            height: 5,
           ),
-          // user location
-          // const Padding(
-          //   padding: EdgeInsets.only(left: 10),
-          //   child: Text(
-          //     "My location",
-          //     style: TextStyle(color: Colors.black54),
-          //   ),
-          // ),
-
-          ListTile(
-            contentPadding: const EdgeInsets.only(left: 40),
-            leading: const FaIcon(FontAwesomeIcons.user),
-            title: Flexible(
-                child: Text(
-              order_data["user_addres"].toString(),
-              style: const TextStyle(color: Colors.black54),
-            )),
-            subtitle: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Text("Date: "),
-                        Text(
-                          order_data["order_date"].toString().substring(0, 9),
-                          style: const TextStyle(color: Colors.black54),
-                        ),
-                      ],
-                    ),
-                  ],
+          //pharmacy
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: CachedNetworkImage(
+                  imageUrl: order_data["logo"],
+                  width: 50,
+                  height: 50,
+                  placeholder: (context, url) => const Icon(Icons.image),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  fit: BoxFit.cover,
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(order_data["pharm_name"]),
+                  Text(
+                    order_data["location"],
+                    style: const TextStyle(
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
+              ))
+            ],
+          ),
+
+          const SizedBox(
+            height: 3,
           ),
 
           const SizedBox(

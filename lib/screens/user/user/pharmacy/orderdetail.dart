@@ -110,6 +110,9 @@ class OrderDetail extends StatelessWidget {
                           variables: {"id": order["id"]},
                           pollInterval: const Duration(seconds: 10)),
                       builder: (result, {fetchMore, refetch}) {
+                        if (result.hasException) {
+                          print(result.exception);
+                        }
                         if (result.isLoading) {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
