@@ -4,12 +4,14 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hakimea/apiservice/mymutation.dart';
 import 'package:hakimea/apiservice/myquery.dart';
 import 'package:hakimea/controllers/user_controllers/ordercontroller.dart';
+import 'package:hakimea/widgets/buttonspinner.dart';
 import 'package:hakimea/widgets/cool_loading.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
-import 'package:swipeable_button_view/swipeable_button_view.dart';
 
+import '../../../../controllers/user_controllers/signupcontroller.dart';
 import '../../../../utils/constants.dart';
 
 class OrderDetail extends StatelessWidget {
@@ -29,8 +31,8 @@ class OrderDetail extends StatelessWidget {
         ),
         leading: IconButton(
             onPressed: () {
-              Get.find<OrderController>().is_medicins_returned.value = false;
               Get.find<OrderController>().pharma_payment_method.value == "";
+              Get.find<OrderController>().is_confirme_order.value=false;
 
               Get.back();
             },
@@ -273,6 +275,7 @@ class OrderDetail extends StatelessWidget {
                   ],
                 ),
               ),
+
               //payment option
               const Padding(
                 padding: EdgeInsets.all(10),
@@ -362,29 +365,87 @@ class OrderDetail extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.all(20),
                 child: Center(
-                  child: Obx(() => SwipeableButtonView(
-                        buttonText: 'SLIDE TO Confirm',
-                        buttonWidget: const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: Colors.grey,
-                        ),
-                        isActive: Get.find<OrderController>()
-                                    .is_medicins_returned
-                                    .value,
-                        activeColor: Constants.primcolor,
-                        isFinished: Get.find<OrderController>()
-                            .is_confirm_button_finshed
-                            .value,
-                        onWaitingProcess: () {},
-                        onFinish: () async {
+                  child:
+                  Mutation(options:MutationOptions(document: gql(Mymutation.confirm_order),
+                  onCompleted:(data) {
+                    if(data!.isNotEmpty){
+                      Get.snackbar("Confirmed", "your order is confirmed and delivery man is on the way",
+                          snackPosition: SnackPosition.TOP,
+                          backgroundColor: Colors.green,
+                          icon:const FaIcon(FontAwesomeIcons.check));
+                      Get.find<OrderController>()
+                          .pharma_payment_method.value="";
+                      Get.find<OrderController>().is_confirme_order.value=false;
+
+                      Get.back();
+
+                    }
+                  },
+
+                  ) ,
+                  builder:(runMutation, result) {
+                    if(result!.hasException){
+                      print(result.exception.toString());
+                      Get.find<OrderController>().is_confirme_order.value=false;
+
+                    }
+                    if(result.isLoading){
+                      Get.find<OrderController>().is_confirme_order.value=true;
+
+                    }
+                    return Obx(() =>
+                        SizedBox(
+                            width: Get.width,
+                            height: 55,
+                            child: ClipRRect(
+                            borderRadius:
+                            BorderRadius.circular(50),
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                        elevation: 0,
+
+                        padding:
+                        const EdgeInsets.all(
+                        10)),
+                          onPressed: () {
+                          if(
                           Get.find<OrderController>()
-                              .is_confirm_button_finshed
-                              .value = true;
+                          .pharma_payment_method.isEmpty
+                          ){
+                            Get.find<SignUpController>().customsnack("please choose payment option");
+                          } else if(Get.find<OrderController>().is_medicins_returned.value==false){
+                            Get.find<SignUpController>().customsnack("your order is processing please wait!");
+                          } else{
+                            // run mutation for confirmations
+                            runMutation({
+                              "id":order["id"]
+                            });
+                          }
+                          },
+                          child:Center(
+                            child:Get.find<OrderController>().is_confirme_order.value?
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:const [
+                              ButtonSpinner(),
+                              SizedBox(width: 6,),
+                              Text("Confirming"),
+                            ],
+                          )
 
-                          // run mutation of confirmed order
+                              :const Text("Confirm Order"),
+                          )
 
-                        },
-                      )),
+
+
+                    ),
+                            ),
+                        ),
+
+                    );
+                  }, )
+
+
                 ),
               ),
             ],

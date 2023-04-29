@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -309,7 +308,7 @@ class Order_medicin extends StatelessWidget {
                                       if (data!.isNotEmpty) {
                                         Get.find<OrderMedicinController>()
                                             .uploded_image
-                                            .value = data!["uploadImage"]["id"];
+                                            .value = data["uploadImage"]["id"];
 
                                         runMutationCalDelfee({
                                           "ph_lat": pharmacy["phlat"],
@@ -339,35 +338,6 @@ class Order_medicin extends StatelessWidget {
                                           .value = true;
                                     }
                                     return Obx(() =>
-                                        // SwipeableButtonView(
-                                        //           buttonText: 'Slide to Order',
-                                        //           buttonWidget: const Icon(
-                                        //             Icons.arrow_forward_ios_rounded,
-                                        //             color: Constants.primcolor,
-                                        //           ),
-                                        //           isActive: Get.find<
-                                        //                           OrderMedicinController>()
-                                        //                       .prescrip_image_base64
-                                        //                       .value ==
-                                        //                   ""
-                                        //               ? false
-                                        //               : true,
-                                        //           activeColor: Constants.primcolor,
-                                        //           isFinished: Get.find<
-                                        //                   OrderMedicinController>()
-                                        //               .is_ordering
-                                        //               .value,
-                                        //           onWaitingProcess: () async {},
-                                        //           onFinish: () async {
-                                        //             runMutationUploadimage({
-                                        //               "image": Get.find<
-                                        //                       OrderMedicinController>()
-                                        //                   .prescrip_image_base64
-                                        //                   .value
-                                        //             });
-                                        //           },
-                                        //         )
-
                                         SizedBox(
                                           width: Get.width,
                                           height: 50,
