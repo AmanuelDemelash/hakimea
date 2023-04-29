@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../../../utils/constants.dart';
 
@@ -11,6 +10,7 @@ class UpcomingOrderCard extends StatelessWidget {
   String image;
   String code;
   String date;
+  String status;
   UpcomingOrderCard(
       {Key? key,
       required this.id,
@@ -18,80 +18,98 @@ class UpcomingOrderCard extends StatelessWidget {
       required this.image,
       required this.location,
       required this.date,
+      required this.status,
       required this.phname})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 90,
-        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(10)),
-        child: ListTile(
-          leading: ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            child: CachedNetworkImage(
-              imageUrl: image,
-              width: 80,
-              height: 80,
-              placeholder: (context, url) => const Icon(Icons.image),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              fit: BoxFit.cover,
-            ),
-          ),
-          title: Column(
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () {
+            Get.toNamed("/orderdetailstatus",arguments: id);
+          },
+          child: Container(
+          height: 110,
+          margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+          padding:const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(child: Text(phname)),
-              Flexible(
-                child: Text(
-                  location,
-                  style: const TextStyle(color: Colors.black54, fontSize: 15),
+              ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: image,
+                  width:50,
+                  height:50,
+                  placeholder: (context, url) => const Icon(Icons.image),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(
-                height: 6,
-              ),
-              Text(
-                date.substring(0, 10),
-                style: const TextStyle(color: Colors.black54, fontSize: 14),
-              ),
-              Row(
+              const SizedBox(width: 6,),
+              Expanded(child:
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
-                  const Text(
-                    "Order Code: ",
-                    style: TextStyle(color: Colors.black54, fontSize: 14),
+                  Flexible(child: Text(phname)),
+                  Flexible(
+                    child: Text(
+                      location,
+                      style: const TextStyle(color: Colors.black54, fontSize: 15),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 6,
                   ),
                   Text(
-                    code,
-                    style: const TextStyle(color: Colors.red, fontSize: 14),
+                    "Date: ${date.substring(0, 10)}",
+                    style: const TextStyle(color: Colors.black54, fontSize: 14),
                   ),
+                  Row(
+                    children: [
+                      const Text(
+                        "Order Code: ",
+                        style: TextStyle(color: Colors.black54, fontSize: 14),
+                      ),
+                      Text(
+                        code,
+                        style: const TextStyle(color: Colors.red, fontSize: 14),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  )
                 ],
-              ),
-              const SizedBox(
-                height: 10,
+              )
               )
             ],
-          ),
-          trailing: GestureDetector(
-            onTap: () => Get.toNamed("/orderdetailstatus", arguments: id),
-            child: Container(
-              width: 40,
-              height: 40,
-              margin: const EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                  color: Constants.primcolor.withOpacity(0.3),
-                  shape: BoxShape.circle),
-              child: const Center(
-                child: FaIcon(
-                  FontAwesomeIcons.angleRight,
-                  color: Constants.primcolor,
-                ),
-              ),
-            ),
-          ),
-        ));
+          )
+    ),
+        ),
+
+    Positioned(
+      top: 5,
+      right: 0,
+      child:  Container(
+        padding:const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Constants.primcolor.withOpacity(0.7),
+        borderRadius: BorderRadius.circular(5)
+      ),
+      child:Text(status,style:const TextStyle(color: Colors.white),),
+
+    ),)
+      ],
+    );
+
   }
 }

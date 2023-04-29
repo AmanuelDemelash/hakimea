@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../utils/constants.dart';
 
@@ -16,7 +17,7 @@ class order_detail_card extends StatelessWidget {
       children: [
         Container(
           width: Get.width,
-          height: Get.height / 2.5,
+          height:300,
           decoration: const BoxDecoration(
               color: Constants.primcolor,
               borderRadius: BorderRadius.only(
@@ -43,28 +44,30 @@ class order_detail_card extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(left: 20, right: 20),
                 child: delivery.isEmpty
-                    ? Column(
+                    ?
+                Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children:const [
                           CircularProgressIndicator(
                             color: Colors.white,
                           ),
+                          SizedBox(height: 5,),
                           Text(
                             "your delivery man is not yet assigned",
                             style: TextStyle(
-                              color: Constants.whitesmoke,
+                              color:Colors.white54,
                             ),
                           ),
                           Text(
                             "please wait!",
                             style: TextStyle(
-                              color: Constants.whitesmoke,
+                              color: Colors.white54,
                             ),
                           ),
                         ],
                       )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    :
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Row(
@@ -84,7 +87,7 @@ class order_detail_card extends StatelessWidget {
                                         style: const TextStyle(
                                             color: Constants.whitesmoke,
                                             fontSize: 16)),
-                                    const Text("delibvery man",
+                                    const Text("delivery person",
                                         style:
                                             TextStyle(color: Colors.white54)),
                                   ],
@@ -93,18 +96,21 @@ class order_detail_card extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: ()async{
+                              launch("tel:${delivery["phone"]}");
+
+                            },
                             child: Container(
                               width: 40,
                               height: 40,
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Constants.secondcolor),
+                                  color: Constants.whitesmoke),
                               child: const Center(
                                 child: FaIcon(
                                   FontAwesomeIcons.phone,
                                   size: 20,
-                                  color: Constants.whitesmoke,
+                                  color: Constants.primcolor,
                                 ),
                               ),
                             ),
@@ -121,7 +127,7 @@ class order_detail_card extends StatelessWidget {
             right: 0,
             child: Container(
               width: Get.width,
-              height: 195,
+              height: 165,
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -216,13 +222,7 @@ class order_detail_card extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  const Text(
-                    "Estimated delivery time is 20 min",
-                    style: TextStyle(color: Constants.primcolor, fontSize: 18),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
+
                   Text(
                     "your order is already on its way to you!",
                     style:

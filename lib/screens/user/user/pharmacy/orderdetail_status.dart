@@ -18,27 +18,23 @@ class OrderDetailStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     Completer<GoogleMapController> _controller = Completer();
 
-    CameraPosition kGooglePlex = const CameraPosition(
-      target: LatLng(9.005401, 38.763611),
-      zoom: 17.4746,
-    );
-
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Constants.primcolor,
+          backgroundColor: Constants.whitesmoke,
           title: const Text(
             "Order Status",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black),
           ),
           leading: IconButton(
               onPressed: () => Get.back(),
               icon: const FaIcon(
                 FontAwesomeIcons.angleLeft,
-                color: Colors.white,
+                color: Colors.black,
               )),
         ),
-        body: Subscription(
+        body:
+        Subscription(
           options: SubscriptionOptions(
               document: gql(MySubscription.upcoming_order_detail),
               variables: {"id": id}),
@@ -58,8 +54,8 @@ class OrderDetailStatus extends StatelessWidget {
                 ],
               );
             }
-
             var order = result.data!["orders_by_pk"];
+
 
             return Stack(
               children: [
@@ -92,7 +88,7 @@ class OrderDetailStatus extends StatelessWidget {
                           position: LatLng(
                               order["pharmacy"]["address"]["latitude"],
                               order["pharmacy"]["address"]["longitude"])),
-                      Marker(
+                     order["deliverer_id"]==null?const Marker(markerId: MarkerId("delivery")) :Marker(
                           markerId: const MarkerId("pharmacy"),
                           icon: BitmapDescriptor.defaultMarkerWithHue(200),
                           position: LatLng(
@@ -104,7 +100,6 @@ class OrderDetailStatus extends StatelessWidget {
                     },
                   ),
                 ),
-
                 // detail
                 Positioned(
                     bottom: 0,

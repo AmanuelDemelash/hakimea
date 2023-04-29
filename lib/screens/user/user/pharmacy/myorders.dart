@@ -94,7 +94,8 @@ class Myorder extends StatelessWidget {
                                       "order_code": orders[index]["order_code"],
                                       "total_cost": orders[index]["total_cost"],
                                       "delivery_cost": orders[index]
-                                          ["delivery_fee"]
+                                          ["delivery_fee"],
+
                                     }),
                                     child: NewOrderCard(
                                       order_data: {
@@ -110,7 +111,8 @@ class Myorder extends StatelessWidget {
                                         "logo": orders[index]["pharmacy"]
                                             ["logo_image"]["url"],
                                         "order_date": orders[index]
-                                            ["created_at"]
+                                            ["created_at"],
+                                        "status":orders[index]["status"]
                                       },
                                     ),
                                   )),
@@ -170,6 +172,7 @@ class Myorder extends StatelessWidget {
                                       phname: upcomingorder[index]["pharmacy"]
                                           ["name"],
                                       date: upcomingorder[index]["created_at"],
+                                      status: upcomingorder[index]["status"],
                                     ),
                                   )),
                                 ),

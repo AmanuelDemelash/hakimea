@@ -603,6 +603,7 @@ query(\$name:String!){
     created_at
     total_cost
     delivery_fee
+    status
   }
 }
 """;
@@ -623,6 +624,7 @@ query(\$name:String!){
       phone_number
     }
     created_at
+    status
   }
 }
 """;
