@@ -5,13 +5,20 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class NearByController extends GetxController {
   BitmapDescriptor pharm_marker = BitmapDescriptor.defaultMarker;
 
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    get_marker_icon();
+  }
+
   Set<Marker> generateMarkers(List locations) {
     //near pharmacy
-    get_marker_icon();
+
     Set<Marker> markers = Set();
 
     locations.forEach((location) async {
-      get_marker_icon();
       markers.add(
         Marker(
             markerId: MarkerId("${location["id"]}"),
