@@ -49,12 +49,12 @@ import 'package:hakimea/translations/apptranslations.dart';
 import 'package:hakimea/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-late final prefs;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initHiveForFlutter();
+
   // notification
-  prefs = await SharedPreferences.getInstance();
   AwesomeNotifications().initialize(
       //set the icon to null if you want to use the default app icon
       'resource://drawable/logo',
@@ -86,30 +86,41 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+
   MyApp({super.key});
+
+  Future<String> getTokenFromSharedPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token') ?? '';
+  }
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     HttpLink httpLink = HttpLink("https://hakime-2.hasura.app/v1/graphql",
-        defaultHeaders: {"x-hasura-admin-secret": "hakime"});
+        defaultHeaders: {"x-hasura-admin-secret": "hakime"}
+    );
     final WebSocketLink websocketLink = WebSocketLink(
       "wss://hakime-2.hasura.app/v1/graphql",
       config: const SocketClientConfig(
           autoReconnect: true,
           inactivityTimeout: Duration(seconds: 30),
-          headers: {"x-hasura-admin-secret": "hakime"}),
+         headers: {"x-hasura-admin-secret": "hakime"}
+      ),
     );
     final Link link = Link.split(
         (request) => request.isSubscription, websocketLink, httpLink);
 
-    var token = prefs.getString("token");
-    final AuthLink authLink = AuthLink(
-      getToken: () async => 'Bearer $token',
+    final authLink =AuthLink(
+      getToken: () async {
+        String token = await getTokenFromSharedPreferences();
+        return 'Bearer $token';
+      },
     );
-    final Link main_link = authLink.concat(link);
+
+    final Link mainLink = authLink.concat(link);
     ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
-        link: main_link,
+        link: link,
         // The default store is the InMemoryStofre, which does NOT persist to disk
         cache: GraphQLCache(store: HiveStore()),
       ),

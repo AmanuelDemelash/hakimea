@@ -196,7 +196,7 @@ class Login extends StatelessWidget {
                           document: gql(Mymutation.login),
                           onError: (error) {
                             Get.find<LoginController>().is_loging.value = false;
-                            customsnack("cheek your email and passsword");
+                            customsnack(error!.graphqlErrors.first.message);
                           },
                           onCompleted: (data) {
                             if (data != null) {
@@ -215,7 +215,9 @@ class Login extends StatelessWidget {
                           },
                         ),
                         builder: (runMutation, result) {
-                          if (result!.hasException) {}
+                          if (result!.hasException) {
+                            Get.find<LoginController>().is_loging.value =false;
+                          }
                           if (result.isLoading) {
                             Get.find<LoginController>().is_loging.value = true;
                           }
@@ -231,7 +233,7 @@ class Login extends StatelessWidget {
                                         style: ElevatedButton.styleFrom(
                                             elevation: 0,
                                             padding: const EdgeInsets.all(15)),
-                                        onPressed: () {
+                                        onPressed: ()async{
                                           _formkey.currentState!.save();
                                           if (_formkey.currentState!
                                               .validate()) {

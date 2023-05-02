@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hakimea/apiservice/subscriptions.dart';
 import 'package:hakimea/controllers/locationcontrollers.dart';
+import 'package:hakimea/controllers/user_controllers/ordercontroller.dart';
 import 'package:hakimea/screens/user/user/pharmacy/widget/order_detail_card.dart';
 import 'package:hakimea/utils/constants.dart';
 import 'package:hakimea/widgets/cool_loading.dart';
@@ -54,7 +55,7 @@ class OrderDetailStatus extends StatelessWidget {
                 ],
               );
             }
-            var order = result.data!["orders_by_pk"];
+            Map<String, dynamic> order = result.data!["orders_by_pk"];
 
 
             return Stack(
@@ -65,40 +66,58 @@ class OrderDetailStatus extends StatelessWidget {
                 ),
                 // map
                 SizedBox(
-                  child: GoogleMap(
-                    mapType: MapType.normal,
-                    myLocationEnabled: true,
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(
+                  child:
+                      Obx(() =>GoogleMap(
+                mapType: MapType.normal,
+                myLocationEnabled: true,
+                initialCameraPosition: CameraPosition(
+                target: LatLng(
+                Get.find<Locationcontrollers>().current_lat.value,
+                Get.find<Locationcontrollers>().current_long.value),
+                zoom: 17.4746,
+                ),
+                compassEnabled: false,
+                polylines:  {
+                  Polyline(
+                      polylineId: const PolylineId("route"),
+                      points:Get.find<OrderController>().polylinecordinates.value,
+                      color: Constants.primcolor,
+                      width: 5)
+                },
+                markers:{
+                  //pharmacy
+                  Marker(
+                      markerId:const MarkerId("pharma"),
+                      icon:Get.find<OrderController>().pharm_marker,
+                      infoWindow: const InfoWindow(
+                          title: "pharmacy"
+                      ),
+                      position:LatLng(
+                          order["pharmacy"]["address"]["latitude"],
+                          order["pharmacy"]["address"]["longitude"])),
+                  // user
+                  Marker(
+                      markerId:const MarkerId("user"),
+                      icon:Get.find<OrderController>().user_marker,
+                      position:LatLng(
                           Get.find<Locationcontrollers>().current_lat.value,
-                          Get.find<Locationcontrollers>().current_long.value),
-                      zoom: 17.4746,
-                    ),
-                    compassEnabled: false,
-                    markers: {
-                      Marker(
-                          markerId: const MarkerId("user"),
-                          position: LatLng(
-                              Get.find<Locationcontrollers>().current_lat.value,
-                              Get.find<Locationcontrollers>()
-                                  .current_long
-                                  .value)),
-                      Marker(
-                          markerId: const MarkerId("pharmacy"),
-                          position: LatLng(
-                              order["pharmacy"]["address"]["latitude"],
-                              order["pharmacy"]["address"]["longitude"])),
-                     order["deliverer_id"]==null?const Marker(markerId: MarkerId("delivery")) :Marker(
-                          markerId: const MarkerId("pharmacy"),
-                          icon: BitmapDescriptor.defaultMarkerWithHue(200),
-                          position: LatLng(
-                              order["deliverer"]["address"]["latitude"],
-                              order["deliverer"]["address"]["longitude"]))
-                    },
-                    onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
-                    },
-                  ),
+                          Get.find<Locationcontrollers>()
+                              .current_long
+                              .value)),
+                  order["deliverer_id"]==null?const Marker(markerId: MarkerId("delivery")):
+                  Marker(
+                      markerId:const MarkerId("delivery"),
+                      icon:Get.find<OrderController>().delivery_marker,
+                      position: LatLng(
+                          order["deliverer"]["address"]["latitude"],
+                          order["deliverer"]["address"]["longitude"]))
+                },
+                onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+                },
+            ),
+                      )
+                  
                 ),
                 // detail
                 Positioned(
@@ -114,7 +133,8 @@ class OrderDetailStatus extends StatelessWidget {
                               "phone": order["deliverer"]["phone_number"]
                             },
                       status: order["status"].toString(),
-                    ))
+                    )
+                )
               ],
             );
           },

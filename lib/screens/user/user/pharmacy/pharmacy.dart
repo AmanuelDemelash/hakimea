@@ -100,7 +100,8 @@ class Pharmacy extends StatelessWidget {
             height: 15,
           ),
           Obx(
-            () => Query(
+            () =>
+                Query(
               options:
                   Get.find<PharmacyController>().pharmacy_search_key.value == ""
                       ? QueryOptions(
@@ -114,10 +115,12 @@ class Pharmacy extends StatelessWidget {
                             }),
               builder: (result, {fetchMore, refetch}) {
                 if (result.hasException) {
-                  return Expanded(
+                  print(result.exception.toString());
+                  return
+                    Expanded(
                     child: ListView.builder(
                       itemCount: 6,
-                      itemBuilder: (context, index) => pharmacy_shimmer(),
+                      itemBuilder: (context, index) =>const pharmacy_shimmer(),
                     ),
                   );
                 }
@@ -125,7 +128,7 @@ class Pharmacy extends StatelessWidget {
                   return Expanded(
                     child: ListView.builder(
                       itemCount: 6,
-                      itemBuilder: (context, index) => pharmacy_shimmer(),
+                      itemBuilder: (context, index) =>const pharmacy_shimmer(),
                     ),
                   );
                 }

@@ -433,7 +433,6 @@ class Signup extends StatelessWidget {
 
                                 Get.offAllNamed("/mainhomepage");
                               }
-
                               Get.find<SignUpController>().is_signup.value =
                                   false;
                             },
