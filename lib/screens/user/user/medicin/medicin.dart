@@ -8,11 +8,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hakimea/apiservice/myquery.dart';
 import 'package:hakimea/controllers/user_controllers/medcincontroller.dart';
 import 'package:hakimea/utils/constants.dart';
-import 'package:hakimea/widgets/cool_loading.dart';
 import 'package:hakimea/widgets/no_appointment_found.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../controllers/user_controllers/signupcontroller.dart';
 import '../pharmacy/widget/pharmacy_shmmer.dart';
 
@@ -119,8 +117,8 @@ class Medicin extends StatelessWidget {
                   if (result.hasException) {
                     return Expanded(
                       child: ListView.builder(
-                        itemCount: 6,
-                        itemBuilder: (context, index) => pharmacy_shimmer(),
+
+                        itemBuilder: (context, index) => const pharmacy_shimmer(),
                       ),
                     );
                   }
@@ -128,14 +126,14 @@ class Medicin extends StatelessWidget {
                     return Expanded(
                       child: ListView.builder(
                         itemCount: 6,
-                        itemBuilder: (context, index) => pharmacy_shimmer(),
+                        itemBuilder: (context, index) => const pharmacy_shimmer(),
                       ),
                     );
                   }
                   List? medicins = result.data!["medicine"];
 
                   if (medicins!.isEmpty) {
-                    return no_appointment_found(title: "No medicin found!");
+                    return no_appointment_found(title: "No medicine found!");
                   }
 
                   return Expanded(
@@ -164,10 +162,11 @@ class Medicin extends StatelessWidget {
                                     leading: ClipRRect(
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(10)),
-                                      child: InstaImageViewer(
+                                      child:
+                                      InstaImageViewer(
                                         child: CachedNetworkImage(
                                           imageUrl:
-                                              "https://media.istockphoto.com/id/606218650/fr/photo/m%C3%A9dicaments.webp?s=1024x1024&w=is&k=20&c=LINctpwKDi-5uqKcQ1z33JwXz8phdkH-V_SC9jPWNvM=",
+                                            medicins[index]["medicine_image"]["url"],
                                           width: 70,
                                           height: 70,
                                           placeholder: (context, url) =>
@@ -185,6 +184,8 @@ class Medicin extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(medicins[index]
+                                        ["description"]),
+                                        Text(medicins[index]
                                             ["medicine_pharmacy"]["name"]),
                                         Text(medicins[index]
                                                 ["medicine_pharmacy"]["address"]
@@ -199,15 +200,11 @@ class Medicin extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    trailing: IconButton(
-                                        onPressed: () async {
-                                          launch(
-                                              "tel:${medicins[index]["medicine_pharmacy"]["phone_number"]}");
-                                        },
-                                        icon: const FaIcon(
-                                          FontAwesomeIcons.phone,
-                                          color: Constants.primcolor,
-                                        )),
+                                    trailing: Text(
+                                      "ETB ${medicins[index]["price"]}",
+                                      style: const TextStyle(
+                                          color: Colors.black),
+                                    ),
                                   ),
                                 ))));
                           },

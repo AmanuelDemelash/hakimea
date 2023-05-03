@@ -545,6 +545,7 @@ query{
       url
     }
     name
+    description
     price
     medicine_pharmacy {
       name
@@ -568,6 +569,7 @@ query(\$name:String!){
       url
     }
     name
+    description
     price
     description
     medicine_pharmacy {
