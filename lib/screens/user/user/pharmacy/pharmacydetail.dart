@@ -79,11 +79,12 @@ class PharmacyDetail extends StatelessWidget {
                             child: Container(
                               width: 100,
                               height: 30,
+                              padding:const EdgeInsets.all(3),
                               decoration:const BoxDecoration(
                                 color: Constants.primcolor
                               ),
                               child: Center(child: Text("${Get.find<PharmacyController>().calculateDistance(pharma["address"]["latitude"], pharma["address"]["longitude"],
-                                  Get.find<Locationcontrollers>().current_lat.value, Get.find<Locationcontrollers>().current_long.value)} Km apart",
+                                  Get.find<Locationcontrollers>().current_lat.value, Get.find<Locationcontrollers>().current_long.value)} Km",
                                 style:const TextStyle(color: Constants.whitesmoke),
                               )
                               ),
