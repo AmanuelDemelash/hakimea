@@ -581,6 +581,19 @@ query(\$name:String!){
 }
 """;
 
+  static String pharma_medicins= """
+  query(\$id:Int!){
+  medicine(where: {pharmacy_id: {_eq:\$id}}, order_by: {name: asc}) {
+    id
+    medicine_image {
+      url
+    }
+    name
+    price
+  }
+}
+  """;
+
 // orders
 
   static String newOrder = """

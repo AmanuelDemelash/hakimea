@@ -1,16 +1,8 @@
+import 'package:get/get.dart';
 import 'dart:math';
 
-import 'package:get/get.dart';
-
 class PharmacyController extends GetxController {
-  List<Map<String, dynamic>> medicin = List.generate(
-      14,
-      (index) => {
-            "image":
-                "https://media.istockphoto.com/id/1338513385/photo/white-pills-or-tablets-for-virus-on-blue-background.jpg?s=1024x1024&w=is&k=20&c=obmywHZqEEse2Nc9ikyP0zNxk_ulHjpnkswQv52vRd8=",
-            "name": "medicin name",
-            "price": Random().nextInt(50)
-          });
+  Rx<List> medicin = Rx<List>([]);
 
   //pharmacys
   RxString pharmacy_search_key="".obs;
@@ -21,5 +13,16 @@ class PharmacyController extends GetxController {
     pharmacy_search_key.value=skey.toString();
     update();
 
+  }
+
+  // calculate distance b/n pharmacy and user
+  double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+    var result = 12742 * asin(sqrt(a));
+    return result.ceilToDouble();
   }
 }

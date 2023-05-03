@@ -151,7 +151,7 @@ class Pharmacy extends StatelessWidget {
                         child: ScaleAnimation(
                           child: FadeInAnimation(
                             child: GestureDetector(
-                                onTap: () => Get.toNamed("/pharmdetail"),
+                                onTap: () => Get.toNamed("/pharmdetail",arguments:pharmacy[index]),
                                 child: pharmacy_card(
                                   image: pharmacy[index]["logo_image"]["url"],
                                   id: pharmacy[index]["id"],

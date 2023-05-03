@@ -6,8 +6,14 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hakimea/apiservice/myquery.dart';
 import 'package:hakimea/controllers/locationcontrollers.dart';
+import 'package:hakimea/controllers/user_controllers/ordercontroller.dart';
 import 'package:hakimea/controllers/user_controllers/pharmacycontroller.dart';
+import 'package:hakimea/widgets/cool_loading.dart';
+import 'package:hakimea/widgets/no_appointment_found.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../utils/constants.dart';
 
 class PharmacyDetail extends StatelessWidget {
@@ -15,6 +21,7 @@ class PharmacyDetail extends StatelessWidget {
 
   Completer<GoogleMapController> _controller = Completer();
   MedicinDatatableSource medsource = MedicinDatatableSource();
+  Map<String,dynamic> pharma=Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -31,56 +38,69 @@ class PharmacyDetail extends StatelessWidget {
                 onPressed: () => Get.back(),
                 icon: const FaIcon(
                   FontAwesomeIcons.angleLeft,
-                  color: Colors.black,
+                  color: Constants.primcolor,
                 )),
             elevation: 0,
             pinned: false,
             expandedHeight: 120,
             flexibleSpace: FlexibleSpaceBar(
-                background: GetBuilder<Locationcontrollers>(
-              initState: (state) => Get.find<Locationcontrollers>(),
-              builder: (controller) {
-                return AnimationConfiguration.staggeredList(
+                background: AnimationConfiguration.staggeredList(
                   position: 3,
                   child: ScaleAnimation(
                     child: FadeInAnimation(
-                      child: GoogleMap(
-                        mapType: MapType.terrain,
-                        zoomControlsEnabled: false,
-                        initialCameraPosition: CameraPosition(
-                            target: LatLng(
-                                Get.find<Locationcontrollers>()
-                                    .locationData
-                                    .latitude!,
-                                Get.find<Locationcontrollers>()
-                                    .locationData
-                                    .longitude!),
-                            zoom: 12.5),
-                        onMapCreated: (GoogleMapController controller) {
-                          _controller.complete(controller);
-                        },
-                        markers: {
-                          Marker(
-                              markerId: MarkerId("myloc"),
-                              icon: BitmapDescriptor.defaultMarkerWithHue(
-                                  BitmapDescriptor.hueGreen),
-                              position: LatLng(
-                                  controller.locationData.latitude!,
-                                  controller.locationData.longitude!))
-                        },
-                      ),
-                    ),
-                  ),
-                );
-              },
-            )),
-          ),
+                      child: Stack(
+                        children: [
+                          GoogleMap(
+                            mapType: MapType.terrain,
+                            zoomControlsEnabled: false,
+                            initialCameraPosition: CameraPosition(
+                                target: LatLng(
+                                    pharma["address"]["latitude"],
+                                    pharma["address"]["longitude"]
+                                ),
+                                zoom: 17.5),
+
+                            onMapCreated: (GoogleMapController controller) {
+                              _controller.complete(controller);
+                            },
+                            markers: {
+                              Marker(
+                                  markerId:const MarkerId("pharma"),
+                                  icon: Get.find<OrderController>().pharm_marker,
+                                  position: LatLng(
+                                      pharma["address"]["latitude"],
+                                      pharma["address"]["longitude"]))
+                            },
+                          ),
+
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            child: Container(
+                              width: 100,
+                              height: 30,
+                              decoration:const BoxDecoration(
+                                color: Constants.primcolor
+                              ),
+                              child: Center(child: Text("${Get.find<PharmacyController>().calculateDistance(pharma["address"]["latitude"], pharma["address"]["longitude"],
+                                  Get.find<Locationcontrollers>().current_lat.value, Get.find<Locationcontrollers>().current_long.value)} Km apart",
+                                style:const TextStyle(color: Constants.whitesmoke),
+                              )
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+
+    ) )))),
+
           SliverFillRemaining(
               hasScrollBody: true,
               fillOverscroll: true,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 10,),
                     //pharmacy
                     AnimationConfiguration.staggeredList(
                       position: 1,
@@ -105,8 +125,8 @@ class PharmacyDetail extends StatelessWidget {
                                           topLeft: Radius.circular(10),
                                           bottomLeft: Radius.circular(10)),
                                       child: CachedNetworkImage(
-                                        imageUrl:
-                                            "https://images.unsplash.com/photo-1622230208995-0f26eba75875?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80",
+                                        imageUrl:pharma["logo_image"]["url"]
+                                            ,
                                         width: 100,
                                         height: 130,
                                         placeholder: (context, url) =>
@@ -123,20 +143,19 @@ class PharmacyDetail extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
-                                          "Pharmacy name",
-                                          style: TextStyle(
+                                         Text(
+                                          pharma["name"],
+                                          style:const  TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16),
                                         ),
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        const Text("kebele 12, Bahirdar "),
-                                        Row(
-                                          children: [
+                                         Text(pharma["address"]["location"]),
+
                                             RatingBar.builder(
-                                              initialRating: 3,
+                                              initialRating:double.parse(pharma["rate"].toString()),
                                               minRating: 1,
                                               direction: Axis.horizontal,
                                               allowHalfRating: true,
@@ -152,50 +171,48 @@ class PharmacyDetail extends StatelessWidget {
                                               ),
                                               onRatingUpdate: (rating) {},
                                             ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            const Text("(4.5)"),
-                                          ],
-                                        ),
+
                                         const SizedBox(
                                           height: 10,
                                         ),
                                         Row(
                                           children: [
-                                            const CircleAvatar(
+                                            CircleAvatar(
                                                 radius: 16,
                                                 backgroundImage: NetworkImage(
-                                                    "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")),
+                                                    pharma["owner_information"]["image"]["url"])),
                                             const SizedBox(
                                               width: 10,
                                             ),
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
-                                              children: const [
-                                                Text("Amanuel demelash"),
+                                              children:[
+                                                Text(pharma ["owner_information"]["full_name"]),
                                                 Text(
-                                                  "0947054595",
-                                                  style: TextStyle(
+                                                  pharma["phone_number"],
+                                                  style:const TextStyle(
                                                       color: Colors.black54),
                                                 )
                                               ],
                                             ),
                                             const SizedBox(
-                                              width: 20,
+                                              width:50,
                                             ),
-                                            Container(
-                                              width: 35,
-                                              height: 35,
-                                              decoration: const BoxDecoration(
-                                                  color: Constants.primcolor,
-                                                  shape: BoxShape.circle),
-                                              child: const Center(
-                                                child: FaIcon(
-                                                  FontAwesomeIcons.phone,
-                                                  color: Constants.whitesmoke,
-                                                  size: 16,
+                                            GestureDetector(
+                                              onTap: () => launch("tel:${pharma["phone_number"]}"),
+                                              child: Container(
+                                                width: 35,
+                                                height: 35,
+                                                decoration: const BoxDecoration(
+                                                    color: Constants.primcolor,
+                                                    shape: BoxShape.circle),
+                                                child: const Center(
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.phone,
+                                                    color: Constants.whitesmoke,
+                                                    size: 16,
+                                                  ),
                                                 ),
                                               ),
                                             )
@@ -217,28 +234,72 @@ class PharmacyDetail extends StatelessWidget {
                       height: 10,
                     ),
                     Expanded(
-                      child: PaginatedDataTable(
-                          header: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                "Medicine stock",
-                                style: TextStyle(),
-                              ),
-                              Text(
-                                "210 medicines",
-                                style: TextStyle(color: Colors.black54),
-                              ),
-                            ],
-                          ),
-                          rowsPerPage: 5,
-                          headingRowHeight: 40,
-                          columns: const [
-                            DataColumn(label: Text("Image")),
-                            DataColumn(label: Text("name")),
-                            DataColumn(label: Text("price"))
+                      child:
+                    Query(options: QueryOptions(document: gql(Myquery.pharma_medicins),
+                    variables: {
+                      "id":pharma["id"]
+                    }
+                    ),
+                   builder: (result, {fetchMore, refetch}) {
+                     if(result.hasException){
+                       return Column(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children:[
+                           const cool_loding(),
+                           const SizedBox(height: 15,),
+                           Text("medicines found in ${pharma["name"]} ..")
+                         ],
+                       );
+                     }
+
+                      if(result.isLoading){
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:[
+                           const cool_loding(),
+                            const SizedBox(height: 15,),
+                            Text("medcines found in ${pharma["name"]} ..")
                           ],
-                          source: medsource),
+                        );
+                      }
+
+                    List medicines=result.data!["medicine"];
+                    if(medicines!.isEmpty){
+                    return  Column(children: [
+                        no_appointment_found(title: "no medicine found in ${pharma["name"]} ")
+                      ],);
+                    }else{
+                      Get.find<PharmacyController>().medicin.value=medicines;
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: PaginatedDataTable(
+                            header: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children:[
+                               const Text(
+                                  "Medicine stock",
+                                  style: TextStyle(),
+                                ),
+                                Text(
+                                  "${medicines.length} medicines",
+                                  style:const TextStyle(color: Colors.black54),
+                                ),
+                              ],
+                            ),
+                            rowsPerPage: 5,
+                            headingRowHeight: 40,
+                            columnSpacing:70.0,
+                            columns: const [
+                              DataColumn(label: Text("Image")),
+                              DataColumn(label: Text("name")),
+                              DataColumn(label: Text("price"))
+                            ],
+                            source: medsource),
+                    );
+
+                    },)
+
                     ),
                   ]))
         ]));
@@ -248,13 +309,14 @@ class PharmacyDetail extends StatelessWidget {
 class MedicinDatatableSource extends DataTableSource {
   @override
   DataRow? getRow(int index) {
-    return DataRow(cells: [
+    return DataRow(
+        cells: [
       DataCell(Padding(
-        padding: const EdgeInsets.all(2),
+        padding: const EdgeInsets.all(4),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: CachedNetworkImage(
-            imageUrl: Get.find<PharmacyController>().medicin[index]["image"],
+            imageUrl: Get.find<PharmacyController>().medicin.value[index]["medicine_image"]["url"],
             width: 50,
             height: 50,
             placeholder: (context, url) => const Icon(Icons.image),
@@ -263,9 +325,9 @@ class MedicinDatatableSource extends DataTableSource {
           ),
         ),
       )),
-      DataCell(Text(Get.find<PharmacyController>().medicin[index]["name"])),
+      DataCell(Text(Get.find<PharmacyController>().medicin.value[index]["name"])),
       DataCell(Text(
-          "ETB ${Get.find<PharmacyController>().medicin[index]["price"].toString()}")),
+          "ETB ${Get.find<PharmacyController>().medicin.value[index]["price"].toString()}")),
     ]);
   }
 
@@ -273,7 +335,7 @@ class MedicinDatatableSource extends DataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  int get rowCount => Get.find<PharmacyController>().medicin.length;
+  int get rowCount => Get.find<PharmacyController>().medicin.value.length;
 
   @override
   int get selectedRowCount => 0;
