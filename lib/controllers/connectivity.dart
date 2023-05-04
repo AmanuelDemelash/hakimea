@@ -19,7 +19,7 @@ class CheekConnecctivityController extends GetxController {
     } else if (connectivityResult == ConnectivityResult.wifi) {
       has_connecction.value = true;
     } else {
-      Get.snackbar("", "connection lost",
+      Get.snackbar("connection lost", "cheek your internet connection ",
           icon: const FaIcon(FontAwesomeIcons.wifi));
       has_connecction.value = false;
     }
@@ -33,7 +33,7 @@ class CheekConnecctivityController extends GetxController {
         has_connecction.value = true;
       } else {
         has_connecction.value = false;
-        Get.snackbar("", "connection lost",
+        Get.snackbar("connection lost", "cheek your internet connection ",
             icon: const FaIcon(FontAwesomeIcons.wifi));
       }
     });
