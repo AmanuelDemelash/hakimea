@@ -1,11 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hakimea/apiservice/mymutation.dart';
-import 'package:hakimea/controllers/user_controllers/ordercontroller.dart';
-import 'package:hakimea/widgets/cool_loading.dart';
 import '../../../../../utils/constants.dart';
+import 'cancelbutton.dart';
 
 class NewOrderCard extends StatelessWidget {
   Map<String, dynamic> order_data;
@@ -91,49 +88,8 @@ class NewOrderCard extends StatelessWidget {
     Container(
     width: Get.width,
     margin: const EdgeInsets.only(left: 10, right: 10),
-    child: Mutation(
-    options: MutationOptions(
-    document: gql(Mymutation.delete_order),
-    onCompleted: (data) async {
-    if (data!.isNotEmpty) {
-    Get.find<OrderController>().is_canceling_order.value =
-    false;
-    }
-    },
-    onError: (error) {
-    Get.find<OrderController>().is_canceling_order.value =
-    false;
-    },
-    ),
-    builder: (runMutation, result) {
-    if (result!.hasException) {
-    Get.find<OrderController>().is_canceling_order.value =
-    false;
-    }
-    if (result.isLoading) {
-    Get.find<OrderController>().is_canceling_order.value =
-    true;
-    }
-
-    return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-    elevation: 0,
-    side: const BorderSide(color: Constants.primcolor),
-    backgroundColor: Colors.white),
-    onPressed: () async {
-    // run cancel order mutation
-    runMutation({"id": order_data["id"]});
-    },
-    child: Get.find<OrderController>()
-        .is_canceling_order
-        .value ==
-    true
-    ? const cool_loding()
-        : const Text(
-    "Cancel Order",
-    style: TextStyle(color: Constants.primcolor),
-    ));
-    }))
+    child:CancelButton(order_id:order_data["id"] ,)
+    )
     ],
     ),
     ),
