@@ -49,7 +49,8 @@ class Homepage extends StatelessWidget {
                         icon: const FaIcon(
                           FontAwesomeIcons.barsStaggered,
                           color: Colors.black,
-                        )),
+                        )
+                ),
             title: const Text(
               Constants.app_name,
               style: TextStyle(
@@ -126,52 +127,52 @@ class Homepage extends StatelessWidget {
                                 );
                               },
                             )),
-                        // cart
-                        // IconButton(
-                        //     onPressed: () {
-                        //       Get.toNamed("/myorder");
-                        //     },
-                        //     icon: Query(
-                        //   options: QueryOptions(
-                        //       document: gql(Myquery.notification),
-                        //       variables: {
-                        //         "id": Get.find<SplashController>()
-                        //             .prefs
-                        //             .getInt("id")
-                        //       }),
-                        //   builder: (result, {fetchMore, refetch}) {
-                        //     if (result.hasException) {
-                        //       return const FaIcon(
-                        //         FontAwesomeIcons.bell,
-                        //         color: Colors.black,
-                        //       );
-                        //     }
-                        //     if (result.isLoading) {
-                        //       return const FaIcon(
-                        //         FontAwesomeIcons.bell,
-                        //         color: Colors.black,
-                        //       );
-                        //     }
-                        //     List? notifi = result.data!["notifications"];
-                        //     return Badge(
-                        //       showBadge: notifi!.isEmpty ? false : true,
-                        //       badgeColor: Colors.red,
-                        //       shape: BadgeShape.circle,
-                        //       padding: const EdgeInsets.all(5),
-                        //       alignment: Alignment.center,
-                        //       position:
-                        //           BadgePosition.topEnd(top: -10, end: 1),
-                        //       badgeContent: Text(
-                        //         notifi.length.toString(),
-                        //         style: const TextStyle(color: Colors.white),
-                        //       ),
-                        //       child: const FaIcon(
-                        //         FontAwesomeIcons.cartPlus,
-                        //         color: Colors.black,
-                        //       ),
-                        //     );
-                        //   },
-                        // )),
+                        //cart
+                        IconButton(
+                            onPressed: () {
+                              Get.toNamed("/myorder");
+                            },
+                            icon: Query(
+                          options: QueryOptions(
+                              document: gql(Myquery.notification),
+                              variables: {
+                                "id": Get.find<SplashController>()
+                                    .prefs
+                                    .getInt("id")
+                              }),
+                          builder: (result, {fetchMore, refetch}) {
+                            if (result.hasException) {
+                              return const FaIcon(
+                                FontAwesomeIcons.bell,
+                                color: Colors.black,
+                              );
+                            }
+                            if (result.isLoading) {
+                              return const FaIcon(
+                                FontAwesomeIcons.bell,
+                                color: Colors.black,
+                              );
+                            }
+                            List? notifi = result.data!["notifications"];
+                            return Badge(
+                              showBadge: notifi!.isEmpty ? false : true,
+                              badgeColor: Colors.red,
+                              shape: BadgeShape.circle,
+                              padding: const EdgeInsets.all(5),
+                              alignment: Alignment.center,
+                              position:
+                                  BadgePosition.topEnd(top: -10, end: 1),
+                              badgeContent: Text(
+                                notifi.length.toString(),
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              child: const FaIcon(
+                                FontAwesomeIcons.cartPlus,
+                                color: Colors.black,
+                              ),
+                            );
+                          },
+                        )),
                       ],
                     )
             ],

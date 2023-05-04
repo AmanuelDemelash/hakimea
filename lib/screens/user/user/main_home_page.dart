@@ -67,359 +67,124 @@ class MainHomePage extends StatelessWidget {
           drawer: Drawer(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            child: Center(
-              child: SafeArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Get.find<SplashController>().prefs.getString("token") ==
-                              null
-                          ? const Text("")
-                          : Query(
-                              options: QueryOptions(
-                                  document: gql(Myquery.userprofile),
-                                  variables: {
-                                    "id": Get.find<SplashController>()
-                                        .prefs
-                                        .getInt("id")
-                                  }),
-                              builder: (result, {fetchMore, refetch}) {
-                                if (result.hasException) {}
-                                if (result.isLoading) {
-                                  return Container(
-                                    width: Get.width,
-                                    height: 200,
-                                    margin: const EdgeInsets.only(left: 10),
-                                    decoration: const BoxDecoration(
-                                        //color: Colors.white,
-                                        ),
-                                    child: Row(
-                                      children: [
-                                        Shimmer.fromColors(
-                                          baseColor: Colors.grey.shade200,
-                                          highlightColor: Colors.white,
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey.shade200,
-                                                highlightColor: Colors.white,
-                                                child: Container(
-                                                  width: 100,
-                                                  height: 15,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          10))),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 6,
-                                              ),
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey.shade200,
-                                                highlightColor: Colors.white,
-                                                child: Container(
-                                                  width: 70,
-                                                  height: 15,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          10))),
-                                                ),
-                                              )
-                                            ])
-                                      ],
-                                    ),
-                                  );
-                                }
-                                return Container(
-                                  width: Get.width,
-                                  height: 200,
-                                  decoration: const BoxDecoration(
-                                      //color: Colors.white,
-                                      ),
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      //profile
-                                      Container(
-                                        margin: const EdgeInsets.only(
-                                            left: 10, right: 10),
-                                        child: Row(
-                                          children: [
-                                            CircleAvatar(
-                                                radius: 40,
-                                                backgroundColor: Constants
-                                                    .primcolor
-                                                    .withOpacity(0.3),
-                                                backgroundImage: result.data![
-                                                                "users_by_pk"]
-                                                            ["profile_image"] ==
-                                                        null
-                                                    ? const AssetImage(
-                                                        "assets/images/user.png")
-                                                    : NetworkImage(result.data![
-                                                                "users_by_pk"]
-                                                            ["profile_image"][
-                                                        "url"]) as ImageProvider),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  result.data!["users_by_pk"]
-                                                      ["full_name"],
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Text(
-                                                  result.data!["users_by_pk"]
-                                                      ["phone_number"],
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 15, right: 15, bottom: 10),
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+
                         decoration: const BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: ListTile(
-                          onTap: () => Get.toNamed("/myprofile"),
-                          leading: const Icon(
-                            Icons.person,
-                            color: Colors.white,
-                          ),
-                          title: const Text(
-                            "My Account",
-                            style: TextStyle(
-                              color: Colors.white,
+                            //color: Colors.white,
                             ),
-                          ),
-                          trailing: const FaIcon(
-                            FontAwesomeIcons.angleRight,
+                        child: CircleAvatar(
+                            radius: 70,
+                            backgroundColor:
+                                Constants.primcolor.withOpacity(0.3),
+                            backgroundImage: const AssetImage(
+                                "assets/images/splash_logo.png"))),
+                    const Text(
+                      "Hakime ET V1.0",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      height:100,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 10),
+                      decoration: const BoxDecoration(
+                          color: Colors.white12,
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                      child: ListTile(
+                        onTap: () {
+                          Get.toNamed("/history");
+                        },
+                        leading: const FaIcon(
+                          FontAwesomeIcons.history,
+                          color: Colors.white,
+                        ),
+                        title: const Text(
+                          "History",
+                          style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
+                        trailing: const FaIcon(
+                          FontAwesomeIcons.angleRight,
+                          color: Colors.white,
+                        ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 15, right: 15, bottom: 10),
-                        decoration: const BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: const ListTile(
-                          leading: FaIcon(
-                            FontAwesomeIcons.moneyBill,
-                            color: Colors.white,
-                          ),
-                          title: Text(
-                            "Payment",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          trailing: FaIcon(
-                            FontAwesomeIcons.angleRight,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 10),
+                      decoration: const BoxDecoration(
+                          color: Colors.white12,
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                      child: ListTile(
+                        leading: const FaIcon(
+                          FontAwesomeIcons.earth,
+                          color: Colors.white,
+                        ),
+                        title: Text(
+                          'language'.tr,
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 15, right: 15, bottom: 10),
-                        decoration: const BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: ListTile(
-                          onTap: () {
-                            Get.toNamed("/history");
+                        trailing: PopupMenuButton(
+                          padding: const EdgeInsets.only(left: 40),
+                          icon: const FaIcon(
+                            FontAwesomeIcons.angleRight,
+                            color: Colors.white,
+                          ),
+                          onSelected: (value) {
+                            if (value == 'am') {
+                              Get.updateLocale(Locale('am', 'ET'));
+                            }
+                            if (value == 'en') {
+                              Get.updateLocale(Locale('en', 'US'));
+                            }
                           },
-                          leading: const FaIcon(
-                            FontAwesomeIcons.history,
-                            color: Colors.white,
-                          ),
-                          title: const Text(
-                            "History",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          trailing: const FaIcon(
-                            FontAwesomeIcons.angleRight,
-                            color: Colors.white,
-                          ),
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                                value: 'en', child: Text("English")),
+                            const PopupMenuItem(
+                                value: 'am', child: Text("Amharic")),
+                          ],
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 15, right: 15, bottom: 10),
-                        decoration: const BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: ListTile(
-                          leading: const FaIcon(
-                            FontAwesomeIcons.earth,
-                            color: Colors.white,
-                          ),
-                          title: Text(
-                            'language'.tr,
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          trailing: PopupMenuButton(
-                            padding: const EdgeInsets.only(left: 40),
-                            icon: const FaIcon(
-                              FontAwesomeIcons.angleRight,
-                              color: Colors.white,
-                            ),
-                            onSelected: (value) {
-                              if (value == 'am') {
-                                Get.updateLocale(Locale('am', 'ET'));
-                              }
-                              if (value == 'en') {
-                                Get.updateLocale(Locale('en', 'US'));
-                              }
-                            },
-                            itemBuilder: (context) => [
-                              const PopupMenuItem(
-                                  value: 'en', child: Text("English")),
-                              const PopupMenuItem(
-                                  value: 'am', child: Text("Amharic")),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 15, right: 15, bottom: 10),
-                        decoration: const BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: ListTile(
-                            leading: const Icon(
-                              Icons.visibility,
-                              color: Colors.white,
-                            ),
-                            title: const Text(
-                              "Dark Mode",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            trailing: Switch.adaptive(
-                              value: false,
-                              onChanged: (value) {},
-                            )),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 15, right: 15, bottom: 10),
-                        decoration: const BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: const ListTile(
-                          leading: FaIcon(
-                            FontAwesomeIcons.servicestack,
-                            color: Colors.white,
-                          ),
-                          title: Text(
-                            "Help center",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          trailing: FaIcon(
-                            FontAwesomeIcons.angleRight,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 15, right: 15, bottom: 10),
-                        decoration: const BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: ListTile(
-                          onTap: () async {
-                            await Get.find<SplashController>()
-                                .prefs
-                                .remove('id');
-                            await Get.find<SplashController>()
-                                .prefs
-                                .remove('token');
-                            await Get.find<SplashController>()
-                                .prefs
-                                .remove('isdoctor');
-                            Get.offAllNamed("/login");
-                          },
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 10),
+                      decoration: const BoxDecoration(
+                          color: Colors.white12,
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                      child: ListTile(
                           leading: const Icon(
-                            Icons.logout,
-                            color: Colors.yellow,
+                            Icons.visibility,
+                            color: Colors.white,
                           ),
                           title: const Text(
-                            "Logout",
-                            style: TextStyle(color: Colors.yellow),
+                            "Dark Mode",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
+                          trailing: Switch.adaptive(
+                            value: false,
+                            onChanged: (value) {},
+                          )),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -436,7 +201,7 @@ class MainHomePage extends StatelessWidget {
                   Homepage(),
                   DoctorSearch(),
                   Myappointment(),
-                  Myorder()
+                  Myprofile()
                 ],
               ),
             ),
@@ -455,7 +220,7 @@ class MainHomePage extends StatelessWidget {
                       Icons.home,
                       Icons.search,
                       Icons.calendar_month,
-                      Icons.shopping_bag,
+                      Icons.person,
                     ],
                     activeIndex:
                         Get.find<HomePageController>().current_bnb_item.value,
