@@ -57,7 +57,7 @@ class Myorder extends StatelessWidget {
                         "user_id":
                             Get.find<SplashController>().prefs.getInt("id")
                       },
-                      pollInterval: const Duration(seconds: 3)),
+                      pollInterval: const Duration(seconds:3)),
                   builder: (result, {fetchMore, refetch}) {
                     if (result.hasException) {
                       print(result.exception.toString());

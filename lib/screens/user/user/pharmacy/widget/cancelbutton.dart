@@ -63,6 +63,7 @@ class CancelButton extends StatelessWidget {
                             TextButton(onPressed:() => Get.back(), child:const Text("No",style: TextStyle(color: Colors.red))),
                             TextButton(onPressed:(){
                               runMutation({"id":order_id});
+                              Get.back();
 
                             }, child:const Text("Yes",style: TextStyle(color: Constants.primcolor),)),
 
