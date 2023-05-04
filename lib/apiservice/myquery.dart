@@ -547,6 +547,7 @@ query{
     name
     description
     price
+    must_prescribed
     medicine_pharmacy {
       name
       phone_number
@@ -572,6 +573,7 @@ query(\$name:String!){
     description
     price
     description
+    must_prescribed
     medicine_pharmacy {
       name
       address {

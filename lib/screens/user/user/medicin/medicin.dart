@@ -185,19 +185,33 @@ class Medicin extends StatelessWidget {
                                       children: [
                                         Text(medicins[index]
                                         ["description"]),
-                                        Text(medicins[index]
-                                            ["medicine_pharmacy"]["name"]),
+                                        const SizedBox(height: 10,),
+                                        Row(
+                                          children: [
+                                            const FaIcon(FontAwesomeIcons.locationDot,size: 13,color: Constants.primcolor,),
+                                            const SizedBox(width: 5,),
+                                            Text(medicins[index]
+                                                ["medicine_pharmacy"]["name"]),
+                                          ],
+                                        ),
                                         Text(medicins[index]
                                                 ["medicine_pharmacy"]["address"]
                                             ["location"]),
                                         const SizedBox(
                                           height: 15,
                                         ),
-                                        Text(
-                                          "ETB ${medicins[index]["price"]}",
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                        ),
+                                        medicins[index]
+                                        ["must_prescribed"]==true? Container(
+                                          padding:const EdgeInsets.all(4),
+                                          decoration: BoxDecoration(
+                                            color: Constants.primcolor.withOpacity(0.4),
+                                            borderRadius:const BorderRadius.all(Radius.circular(50))
+                                          ),
+
+                                          child:const Text("need prescription",style: TextStyle(color: Colors.black,fontSize:11),),
+                                        ):const SizedBox(),
+                                        const SizedBox(height: 15,)
+
                                       ],
                                     ),
                                     trailing: Text(
