@@ -480,7 +480,7 @@ query(\$id:Int!){
   // pharmacy
   static String all_pharmacy = """
 query{
-  pharmacies(order_by: {rate: desc}) {
+  pharmacies(order_by: {name: asc,rate: desc}) {
     id
     address {
       latitude
@@ -510,7 +510,7 @@ query{
 
   static String search_pharmacy = """
  query(\$name:String!){
-   pharmacies(where: {name: {_ilike:\$name}}) {
+   pharmacies(where: {name: {_ilike:\$name}},order_by: {name: asc,rate: desc}) {
     id
     address {
       latitude
