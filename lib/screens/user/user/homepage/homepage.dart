@@ -115,7 +115,7 @@ class Homepage extends StatelessWidget {
                                   padding: const EdgeInsets.all(5),
                                   alignment: Alignment.center,
                                   position:
-                                      BadgePosition.topEnd(top: -10, end: 1),
+                                      BadgePosition.topEnd(top: -13, end: -10),
                                   badgeContent: Text(
                                     notifi.length.toString(),
                                     style: const TextStyle(color: Colors.white),
@@ -134,7 +134,7 @@ class Homepage extends StatelessWidget {
                             },
                             icon: Query(
                           options: QueryOptions(
-                              document: gql(Myquery.notification),
+                              document: gql(Myquery.not_order),
                               variables: {
                                 "id": Get.find<SplashController>()
                                     .prefs
@@ -143,17 +143,17 @@ class Homepage extends StatelessWidget {
                           builder: (result, {fetchMore, refetch}) {
                             if (result.hasException) {
                               return const FaIcon(
-                                FontAwesomeIcons.bell,
+                                FontAwesomeIcons.cartShopping,
                                 color: Colors.black,
                               );
                             }
                             if (result.isLoading) {
                               return const FaIcon(
-                                FontAwesomeIcons.bell,
+                                FontAwesomeIcons.cartShopping,
                                 color: Colors.black,
                               );
                             }
-                            List? notifi = result.data!["notifications"];
+                            List? notifi = result.data!["orders"];
                             return Badge(
                               showBadge: notifi!.isEmpty ? false : true,
                               badgeColor: Colors.red,
@@ -161,13 +161,13 @@ class Homepage extends StatelessWidget {
                               padding: const EdgeInsets.all(5),
                               alignment: Alignment.center,
                               position:
-                                  BadgePosition.topEnd(top: -10, end: 1),
+                                  BadgePosition.topEnd(top: -13, end:-10),
                               badgeContent: Text(
                                 notifi.length.toString(),
                                 style: const TextStyle(color: Colors.white),
                               ),
                               child: const FaIcon(
-                                FontAwesomeIcons.cartPlus,
+                                FontAwesomeIcons.prescription,
                                 color: Colors.black,
                               ),
                             );

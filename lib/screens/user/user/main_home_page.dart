@@ -4,19 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hakimea/screens/user/user/appointment/myappointment.dart';
 import 'package:hakimea/screens/user/user/doctor_detail/doctorsearch.dart';
-import 'package:hakimea/screens/user/user/history/history.dart';
-import 'package:hakimea/screens/user/user/pharmacy/myorders.dart';
 import 'package:hakimea/screens/user/user/profile/myprofile.dart';
 import 'package:hakimea/utils/constants.dart';
-import 'package:shimmer/shimmer.dart';
-import '../../../apiservice/myquery.dart';
-import '../../../controllers/splashcontroller.dart';
 import '../../../controllers/user_controllers/homepagecontroller.dart';
 import 'homepage/homepage.dart';
-import 'near_map/nearbymap.dart';
 
 class MainHomePage extends StatelessWidget {
   MainHomePage({super.key});
@@ -91,6 +84,12 @@ class MainHomePage extends StatelessWidget {
                       "Hakime ET V1.0",
                       style: TextStyle(
                         color: Colors.white,
+                      ),
+                    ),
+                    const Text(
+                      "V1.0",
+                      style: TextStyle(
+                        color: Colors.white54,
                       ),
                     ),
                     const SizedBox(

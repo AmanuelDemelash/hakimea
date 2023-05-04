@@ -699,4 +699,15 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
 }
 
 """;
+
+  // order_noti
+  static String not_order="""
+  query(\$id:Int!){
+  orders(where: {user_id: {_eq:\$id}, status: {_eq: pending}}) {
+    id
+  }
+}
+
+  
+  """;
 }

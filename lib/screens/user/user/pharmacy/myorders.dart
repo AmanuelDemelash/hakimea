@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hakimea/apiservice/myquery.dart';
@@ -22,16 +23,24 @@ class Myorder extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Constants.whitesmoke,
+          backgroundColor: Constants.primcolor,
           automaticallyImplyLeading: false,
           title: const Text(
             "My Orders",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const FaIcon(
+                FontAwesomeIcons.angleLeft,
+                color: Colors.white,
+              )),
           bottom: const TabBar(
-              indicatorColor: Constants.primcolor,
-              unselectedLabelColor: Colors.black54,
-              labelColor: Colors.black,
+              indicatorColor: Constants.whitesmoke,
+              unselectedLabelColor: Colors.white54,
+              labelColor: Colors.white,
               labelStyle:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
               tabs: [
