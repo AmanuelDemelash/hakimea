@@ -20,12 +20,6 @@ class Myprofile extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
-          leading: IconButton(
-              onPressed: () => Get.back(),
-              icon: const FaIcon(
-                FontAwesomeIcons.angleLeft,
-                color: Colors.black,
-              )),
 
           elevation: 0,
         ),
@@ -131,17 +125,12 @@ class Myprofile extends StatelessWidget {
                         }
                         return Container(
                           width: Get.width,
-                          height: 200,
                           decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(100))),
                           child: Column(
                             children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Stack(children: [
                                 CircleAvatar(
                                     radius: 60,
                                     backgroundColor:
@@ -149,33 +138,12 @@ class Myprofile extends StatelessWidget {
                                     backgroundImage: result.data!["users_by_pk"]
                                                 ["profile_image"] ==
                                             null
-                                        ? AssetImage("assets/images/user.png")
+                                        ? const AssetImage("assets/images/user.png")
                                             as ImageProvider
                                         : NetworkImage(
                                                 result.data!["users_by_pk"]
-                                                    ["profile_image"]["url"])
-                                            as ImageProvider),
-                                Positioned(
-                                  bottom: 5,
-                                  right: 5,
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Constants.primcolor),
-                                    child: Center(
-                                      child: IconButton(
-                                          onPressed: () {},
-                                          icon: const FaIcon(
-                                            FontAwesomeIcons.camera,
-                                            color: Colors.white,
-                                            size: 13,
-                                          )),
-                                    ),
-                                  ),
-                                )
-                              ]),
+                                                    ["profile_image"]["url"])),
+
                               const SizedBox(
                                 height: 10,
                               ),
@@ -188,6 +156,9 @@ class Myprofile extends StatelessWidget {
                                 result.data!["users_by_pk"]["phone_number"],
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 10,
                               ),
                             ],
                           ),
