@@ -65,64 +65,117 @@ class Myprofile extends StatelessWidget {
         builder: (result, {fetchMore, refetch}) {
           if (result.hasException) {}
           if (result.isLoading) {
-            return Container(
-              width: Get.width,
-              height: 200,
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(100))),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Stack(children: [
-                    Shimmer.fromColors(
-                      baseColor: Colors.grey.shade200,
-                      highlightColor: Colors.white,
+            return Column(
+              children: [
+                Stack(
+                  children: [
+                    SizedBox(
+                      width: Get.width,
+                      height: 190,
+                    ),
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
                       child: Container(
-                        width: 100,
+                        width: Get.width,
                         height: 100,
                         decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
+                            color: Constants.primcolor,
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20))),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      top: 20,
+                      left: Get.width / 2 - 50,
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white
+
+                            ),
+                            child: Shimmer.fromColors(
+                              baseColor: Colors.grey.shade200,
+                              highlightColor: Colors.white,
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Shimmer.fromColors(
+                            baseColor: Colors.grey.shade200,
+                            highlightColor: Colors.white,
+                            child: Container(
+                              width: 100,
+                              height: 10,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10,),
+                          Shimmer.fromColors(
+                            baseColor: Colors.grey.shade200,
+                            highlightColor: Colors.white,
+                            child: Container(
+                              width: 100,
+                              height: 10,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+
+                        ],
                       ),
                     )
-                  ]),
-                  const SizedBox(
-                    height: 10,
+                  ],
+                ),
+                // info
+                Container(
+                  width: Get.width,
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+
+                      borderRadius: BorderRadius.all(Radius.circular(10))
                   ),
-                  Shimmer.fromColors(
-                    baseColor: Colors.grey.shade200,
-                    highlightColor: Colors.white,
-                    child: Container(
-                      width: 100,
-                      height: 15,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(10))),
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Information",
+                        style: TextStyle(color: Colors.black, fontSize: 18),),
+                      //edit account
+                      ListTile(
+                        leading: const Icon(Icons.phone,color: Colors.black54,),
+                        title:const Text("Phone",style: TextStyle(color: Colors.black54),),
+                        trailing:Text(result.data!["users_by_pk"]["phone_number"],style:const TextStyle(color: Colors.black),),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.email,color: Colors.black54,),
+                        title:const Text("Email",style: TextStyle(color: Colors.black54),),
+                        trailing:Text(result.data!["users_by_pk"]["email"],style:const TextStyle(color: Colors.black),),
+                      ),
+
+                    ],
                   ),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Shimmer.fromColors(
-                    baseColor: Colors.grey.shade200,
-                    highlightColor: Colors.white,
-                    child: Container(
-                      width: 100,
-                      height: 15,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(10))),
-                    ),
-                  )
-                ],
-              ),
+                ),
+              ],
             );
           }
           return Column(
