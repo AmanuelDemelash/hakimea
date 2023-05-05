@@ -97,18 +97,26 @@ class EditAccount extends StatelessWidget {
                                 top:1,
                                 left:Get.width/2-60,
 
-                                child: CircleAvatar(
-                                    radius: 60,
-                                    backgroundColor:
-                                    Constants.primcolor.withOpacity(0.3),
-                                    backgroundImage: result.data!["users_by_pk"]
-                                    ["profile_image"] ==
-                                        null
-                                        ? const AssetImage("assets/images/user.png")
-                                        : NetworkImage(
-                                        result.data!["users_by_pk"]
-                                        ["profile_image"]["url"])
-                                    as ImageProvider),
+                                child: Container(
+                                  padding:const EdgeInsets.all(5),
+                                  decoration:const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white
+
+                                  ),
+                                  child: CircleAvatar(
+                                      radius: 60,
+                                      backgroundColor:
+                                      Constants.primcolor.withOpacity(0.3),
+                                      backgroundImage: result.data!["users_by_pk"]
+                                      ["profile_image"] ==
+                                          null
+                                          ? const AssetImage("assets/images/user.png")
+                                          : NetworkImage(
+                                          result.data!["users_by_pk"]
+                                          ["profile_image"]["url"])
+                                      as ImageProvider),
+                                ),
                               )
 
                             ],

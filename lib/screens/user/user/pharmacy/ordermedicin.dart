@@ -26,10 +26,10 @@ class Order_medicin extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Constants.whitesmoke,
+          backgroundColor: Constants.primcolor,
           title: const Text(
-            "Order Medicin",
-            style: TextStyle(color: Colors.black),
+            "Order Medicine",
+            style: TextStyle(color: Colors.white),
           ),
           leading: IconButton(
               onPressed: () {
@@ -42,15 +42,25 @@ class Order_medicin extends StatelessWidget {
               },
               icon: const FaIcon(
                 FontAwesomeIcons.angleLeft,
-                color: Colors.black,
+                color: Colors.white,
               )),
         ),
         body: Stack(
           children: [
+            Container(
+              width: Get.width,
+              height: 60,
+              color: Constants.primcolor,
+            ),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              child: Padding(
+              child: Container(
                 padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                    color: Constants.whitesmoke,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -337,8 +347,7 @@ class Order_medicin extends StatelessWidget {
                                           .is_ordering
                                           .value = true;
                                     }
-                                    return Obx(() =>
-                                        SizedBox(
+                                    return Obx(() => SizedBox(
                                           width: Get.width,
                                           height: 50,
                                           child: ClipRRect(
