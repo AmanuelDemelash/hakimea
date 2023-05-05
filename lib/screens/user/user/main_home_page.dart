@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hakimea/controllers/locationcontrollers.dart';
 import 'package:hakimea/screens/user/user/appointment/myappointment.dart';
 import 'package:hakimea/screens/user/user/doctor_detail/doctorsearch.dart';
 import 'package:hakimea/screens/user/user/profile/myprofile.dart';
@@ -11,9 +12,14 @@ import 'package:hakimea/utils/constants.dart';
 import '../../../controllers/user_controllers/homepagecontroller.dart';
 import 'homepage/homepage.dart';
 
-class MainHomePage extends StatelessWidget {
+class MainHomePage extends StatefulWidget {
   MainHomePage({super.key});
 
+  @override
+  State<MainHomePage> createState() => _MainHomePageState();
+}
+
+class _MainHomePageState extends State<MainHomePage> {
   final _pagecontroller = PageController(initialPage: 0);
 
   Future<void> _onWillPop(BuildContext context) async {
@@ -35,6 +41,13 @@ class MainHomePage extends StatelessWidget {
       ),
       context: context,
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.find<Locationcontrollers>().get_current_location();
   }
 
   @override

@@ -234,6 +234,7 @@ query MyQuery {
   }
 }
   """;
+
   // search doc
   static String search_doc = """
 query search_doc(\$filter:String!){
@@ -585,7 +586,7 @@ query(\$name:String!){
 }
 """;
 
-  static String pharma_medicins= """
+  static String pharma_medicins = """
   query(\$id:Int!){
   medicine(where: {pharmacy_id: {_eq:\$id}}, order_by: {name: asc}) {
     id
@@ -668,19 +669,27 @@ query(\$name:String!){
   static String near_pharmacys = """
 query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
   nearByPharmacy(latitude:\$latitude,longitude:\$longitude, radius:\$radius) {
-  id
+    id
     name
-    address {
-      latitude
-      longitude
-      location
+    open_time
+    close_time
+    phone_number
+    owner_information {
+      full_name
+      phone_number
+      image {
+        url
+      }
     }
     logo_image {
       url
     }
-    open_time
-    close_time
-    phone_number
+    address {
+      city
+      latitude
+      location
+      longitude
+    }
   }
 }
 """;
@@ -701,7 +710,7 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
 """;
 
   // order_noti
-  static String not_order="""
+  static String not_order = """
   query(\$id:Int!){
   orders(where: {user_id: {_eq:\$id}, status: {_eq: pending}}) {
     id

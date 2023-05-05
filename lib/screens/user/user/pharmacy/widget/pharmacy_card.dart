@@ -90,7 +90,7 @@ class pharmacy_card extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 1.0),
                             itemBuilder: (context, _) => const Icon(
                               Icons.star,
-                              color: Constants.secondcolor,
+                              color: Constants.primcolor,
                             ),
                             onRatingUpdate: (rating) {},
                           ),

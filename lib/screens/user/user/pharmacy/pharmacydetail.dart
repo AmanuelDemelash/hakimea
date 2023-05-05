@@ -42,7 +42,7 @@ class PharmacyDetail extends StatelessWidget {
                 )),
             elevation: 0,
             pinned: false,
-            expandedHeight: 120,
+            expandedHeight: 170,
             flexibleSpace: FlexibleSpaceBar(
                 background: AnimationConfiguration.staggeredList(
                   position: 3,
@@ -105,9 +105,7 @@ class PharmacyDetail extends StatelessWidget {
                     //pharmacy
                     AnimationConfiguration.staggeredList(
                       position: 1,
-                      child: ScaleAnimation(
-                        child: FadeInAnimation(
-                          child: Container(
+                      child:  Container(
                             width: Get.width,
                             height: 130,
                             margin: const EdgeInsets.all(10),
@@ -156,7 +154,7 @@ class PharmacyDetail extends StatelessWidget {
                                          Text(pharma["address"]["location"]),
 
                                             RatingBar.builder(
-                                              initialRating:double.parse(pharma["rate"].toString()),
+                                              initialRating:pharma["rate"]==null?1.0:double.parse(pharma["rate"].toString()),
                                               minRating: 1,
                                               direction: Axis.horizontal,
                                               allowHalfRating: true,
@@ -226,10 +224,8 @@ class PharmacyDetail extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ),
-                      ),
-                    ),
 
+                    ),
                     // medicines
                     const SizedBox(
                       height: 10,
@@ -284,13 +280,13 @@ class PharmacyDetail extends StatelessWidget {
                                 ),
                                 Text(
                                   "${medicines.length} medicines",
-                                  style:const TextStyle(color: Colors.black54),
+                                  style:const TextStyle(color: Colors.black54,fontSize: 15),
                                 ),
                               ],
                             ),
-                            rowsPerPage: 5,
-                            headingRowHeight: 40,
-                            columnSpacing:70.0,
+                            rowsPerPage: 4,
+                            headingRowHeight: 30,
+                            columnSpacing:60.0,
                             columns: const [
                               DataColumn(label: Text("Image")),
                               DataColumn(label: Text("name")),
@@ -302,7 +298,10 @@ class PharmacyDetail extends StatelessWidget {
                     },)
 
                     ),
-                  ]))
+                    const SizedBox(height: 10,)
+                  ]
+              )
+          )
         ]));
   }
 }

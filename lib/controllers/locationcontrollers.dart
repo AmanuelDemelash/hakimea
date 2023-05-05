@@ -13,7 +13,7 @@ class Locationcontrollers extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    await get_current_location();
+   // await get_current_location();
   }
 
   Future<void> get_current_location() async {

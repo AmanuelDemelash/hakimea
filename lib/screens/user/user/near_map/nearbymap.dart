@@ -71,6 +71,7 @@ class _NearByMapState extends State<NearByMap> {
               builder: (result, {fetchMore, refetch}) {
                 if (result.hasException) {
                   print(result.exception.toString());
+
                 }
                 if (result.isLoading) {
                   return Column(
@@ -135,19 +136,23 @@ class _NearByMapState extends State<NearByMap> {
                               scrollDirection: Axis.horizontal,
                               itemCount: near_pharmacy.length,
                               itemBuilder: (context, index) {
-                                return near_pharmacy_card(
-                                  phlat: near_pharmacy[index]["address"]["latitude"],
-                                  phlong: near_pharmacy[index]["address"]
-                                  ["longitude"],
-                                  id: near_pharmacy[index]["id"],
-                                  image: near_pharmacy[index]["logo_image"]["url"],
-                                  location: near_pharmacy[index]["address"]
-                                  ["location"],
-                                  name: near_pharmacy[index]["name"],
-                                  open_time: near_pharmacy[index]["open_time"],
-                                  close_time: near_pharmacy[index]["open_time"],
-                                  phone: near_pharmacy[index]["phone_number"],
-                                );
+                                return
+                                  GestureDetector(
+                                    onTap: () => Get.toNamed("/pharmdetail",arguments:near_pharmacy[index]),
+                                    child: near_pharmacy_card(
+                                    phlat: near_pharmacy[index]["address"]["latitude"],
+                                    phlong: near_pharmacy[index]["address"]
+                                    ["longitude"],
+                                    id: near_pharmacy[index]["id"],
+                                    image: near_pharmacy[index]["logo_image"]["url"],
+                                    location: near_pharmacy[index]["address"]
+                                    ["location"],
+                                    name: near_pharmacy[index]["name"],
+                                    open_time: near_pharmacy[index]["open_time"],
+                                    close_time: near_pharmacy[index]["open_time"],
+                                    phone: near_pharmacy[index]["phone_number"],
+                                ),
+                                  );
                               },
                             )),
                       ),

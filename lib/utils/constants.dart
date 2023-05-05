@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class Constants {
   static const String app_name = "Hakime ET";
-  static const Color primcolor = Color(0xfff065f46);
+  static const Color primcolor = Color(0xfff0e8388);
   static const Color secondcolor = Color(0xfffff9500);
   static const Color whitesmoke = Color(0xffff4f4f4);
 
+
+  //0xfff065f46
   // map api
   static const String mapapi = "AIzaSyBuJ_8xq4Di2929RJBdk0_yTHLArHycpAU";
 }
