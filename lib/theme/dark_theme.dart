@@ -5,6 +5,7 @@ ThemeData dark = ThemeData(
   fontFamily:"myfont",
   primaryColor: Constants.primcolor,
   brightness: Brightness.dark,
+  useMaterial3: true,
   //highlightColor: Color(0xFF252525),
   hintColor: const Color(0xFF252525),
   textTheme:const TextTheme(),
