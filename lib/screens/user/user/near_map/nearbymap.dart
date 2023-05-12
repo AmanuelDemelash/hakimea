@@ -20,7 +20,7 @@ class NearByMap extends StatefulWidget {
 }
 
 class _NearByMapState extends State<NearByMap> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
   @override
   void initState() {

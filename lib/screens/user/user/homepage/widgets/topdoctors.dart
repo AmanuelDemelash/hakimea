@@ -31,12 +31,12 @@ class top_doctors extends StatelessWidget {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 500),
             width: 150,
-            height: 225,
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
@@ -95,7 +95,7 @@ class top_doctors extends StatelessWidget {
                   onRatingUpdate: (rating) {},
                 ),
                 const SizedBox(
-                  height: 2,
+                  height: 5,
                 )
               ],
             ),

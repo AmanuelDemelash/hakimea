@@ -372,7 +372,7 @@ class Homepage extends StatelessWidget {
                     // top doctors
                     SizedBox(
                         width: Get.width,
-                        height: 210,
+                        height: 230,
                         child: Query(
                             options: QueryOptions(
                               document: gql(Myquery
