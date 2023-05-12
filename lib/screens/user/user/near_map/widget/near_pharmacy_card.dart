@@ -171,7 +171,7 @@ class near_pharmacy_card extends StatelessWidget {
                       "location": location
                     });
                   },
-                  child: const Text("Order Medicin")),
+                  child: const Text("Order Medicine",style: TextStyle(color: Colors.white),)),
             ),
           )
         ],

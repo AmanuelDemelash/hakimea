@@ -384,14 +384,14 @@ class Order_medicin extends StatelessWidget {
                                                         true
                                                     ? const ButtonSpinner()
                                                     : const Icon(Icons
-                                                        .send_time_extension),
+                                                        .send_time_extension,color: Colors.white,),
                                                 label:
                                                     Get.find<OrderMedicinController>()
                                                                 .is_ordering
                                                                 .value ==
                                                             true
-                                                        ? const Text("ordering")
-                                                        : const Text("Order")),
+                                                        ? const Text("ordering",style: TextStyle(color: Colors.white),)
+                                                        : const Text("Order",style: TextStyle(color: Colors.white),)),
                                           ),
                                         ));
                                   },

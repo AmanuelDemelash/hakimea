@@ -180,7 +180,7 @@ class available_doctor extends StatelessWidget {
                   ),
                   label: const Text(
                     "book Appointment",
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: 12,color: Colors.white),
                   ),
                 ),
               ),
