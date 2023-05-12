@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hakimea/apiservice/myquery.dart';
 import 'package:hakimea/controllers/user_controllers/medcincontroller.dart';
+import 'package:hakimea/screens/user/user/medicin/widgets/medicincard.dart';
 import 'package:hakimea/utils/constants.dart';
 import 'package:hakimea/widgets/no_appointment_found.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
@@ -152,75 +153,18 @@ class Medicin extends StatelessWidget {
                                 columnCount: 1,
                                 child: ScaleAnimation(
                                     child: FadeInAnimation(
-                                        child: Container(
-                                  width: Get.width,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(15))),
-                                  child: ListTile(
-                                    leading: ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10)),
-                                      child:
-                                      InstaImageViewer(
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                            medicins[index]["medicine_image"]["url"],
-                                          width: 70,
-                                          height: 70,
-                                          placeholder: (context, url) =>
-                                              const Icon(Icons.image),
-                                          errorWidget: (context, url, error) =>
-                                              const Icon(Icons.error),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    title: Flexible(
-                                        child: Text(medicins[index]["name"])),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(medicins[index]
-                                        ["description"]),
-                                        const SizedBox(height: 10,),
-                                        Row(
-                                          children: [
-                                            const FaIcon(FontAwesomeIcons.locationDot,size: 13,color: Constants.primcolor,),
-                                            const SizedBox(width: 5,),
-                                            Text(medicins[index]
-                                                ["medicine_pharmacy"]["name"]),
-                                          ],
-                                        ),
-                                        Text(medicins[index]
-                                                ["medicine_pharmacy"]["address"]
-                                            ["location"]),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        medicins[index]
-                                        ["must_prescribed"]==true? Container(
-                                          padding:const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: Constants.primcolor.withOpacity(0.4),
-                                            borderRadius:const BorderRadius.all(Radius.circular(50))
-                                          ),
 
-                                          child:const Text("need prescription",style: TextStyle(color: Colors.black,fontSize:11),),
-                                        ):const SizedBox(),
-                                        const SizedBox(height: 15,)
-
-                                      ],
-                                    ),
-                                    trailing: Text(
-                                      "ETB ${medicins[index]["price"]}",
-                                      style: const TextStyle(
-                                          color: Colors.black),
-                                    ),
-                                  ),
-                                ))));
+                                        child: GestureDetector(
+                                          onTap: () => Get.toNamed("/medicindetail",arguments: medicins[index]["id"]),
+                                          child: MedicinCard(
+                                            id:medicins[index]["id"],
+                                            name:medicins[index]["name"] ,
+                                             image:medicins[index]["medicine_image"]["url"],
+                                            ploc:medicins[index]["medicine_pharmacy"]["address"]["location"],
+                                            pname: medicins[index]["medicine_pharmacy"]["name"],
+                                            price:medicins[index]["price"].toString(),),
+                                        )
+                                    )));
                           },
                         ),
                       ),

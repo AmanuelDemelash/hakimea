@@ -33,6 +33,7 @@ import 'package:hakimea/screens/user/user/history/voice_detail_history.dart';
 import 'package:hakimea/screens/user/user/homepage/homepage.dart';
 import 'package:hakimea/screens/user/user/main_home_page.dart';
 import 'package:hakimea/screens/user/user/medicin/medicin.dart';
+import 'package:hakimea/screens/user/user/medicin/medicindetail.dart';
 import 'package:hakimea/screens/user/user/near_map/nearbymap.dart';
 import 'package:hakimea/screens/user/user/notification/notification.dart';
 import 'package:hakimea/screens/user/user/pharmacy/myorders.dart';
@@ -187,6 +188,7 @@ class MyApp extends StatelessWidget {
             name: "/ordermedicin",
             page: () => Order_medicin(),
           ),
+          GetPage(name: "/medicindetail", page:() => MedicinDetail(),),
           // both screen
           GetPage(name: "/setting", page: () => Setting()),
         ],
