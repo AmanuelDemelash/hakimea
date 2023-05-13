@@ -167,7 +167,7 @@ query MyQuery {
 """;
   static String upcomming_appointment = """
   query upcomming_appointment(\$id:Int!){
-  appointments(where: {user_id: {_eq:\$id}, status: {_eq: "confirmed"}}) {
+  appointments(where: {user_id: {_eq:\$id},status: {_eq: confirmed}}) {
     id
     doctor {
       id
@@ -185,7 +185,7 @@ query MyQuery {
   """;
   static String pending_appointment = """
   query pending_appointment(\$id:Int!){
-  appointments(where: {user_id: {_eq:\$id}, status: {_eq: "pending"}}) {
+  appointments(where: {user_id: {_eq:\$id},status: {_eq: pending}}) {
     id
     doctor {
       profile_image {
@@ -202,7 +202,7 @@ query MyQuery {
   """;
   static String complated_appointment = """
   query completed_appointment(\$id:Int!){
-  appointments(where: {user_id: {_eq:\$id}, status: {_eq: "completed"}}) {
+  appointments(where: {user_id: {_eq:\$id},status: {_eq: completed}}) {
     id
     doctor {
       profile_image {
@@ -219,7 +219,7 @@ query MyQuery {
   """;
   static String cancelled_appointment = """
   query cancelled_appointment(\$id:Int!){
-  appointments(where: {user_id: {_eq:\$id}, status: {_eq: "cancelled"}}) {
+  appointments(where: {user_id: {_eq:\$id},status: {_eq: cancelled}}) {
     id
     doctor {
       profile_image {

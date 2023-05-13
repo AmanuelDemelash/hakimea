@@ -429,7 +429,7 @@ class Myappointment extends StatelessWidget {
                                             duration:
                                                 const Duration(seconds: 2),
                                             width: Get.width,
-                                            height: 180,
+
                                             margin: const EdgeInsets.only(
                                               left: 20,
                                               right: 20,
@@ -881,6 +881,7 @@ class Myappointment extends StatelessWidget {
                                                             child: const Text(
                                                                 "Reschedule ",
                                                                 style: TextStyle(
+                                                                  color: Colors.white,
                                                                     fontSize:
                                                                         12))))
                                                   ],
@@ -1230,7 +1231,6 @@ class Myappointment extends StatelessWidget {
                                       child: AnimatedContainer(
                                           duration: const Duration(seconds: 2),
                                           width: Get.width,
-                                          height: 110,
                                           margin: const EdgeInsets.only(
                                             left: 20,
                                             right: 20,

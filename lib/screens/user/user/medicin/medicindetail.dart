@@ -17,7 +17,6 @@ class MedicinDetail extends StatelessWidget {
 
   int id=Get.arguments;
    final Completer<GoogleMapController> _controller = Completer();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

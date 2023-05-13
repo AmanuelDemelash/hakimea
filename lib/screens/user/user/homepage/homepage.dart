@@ -325,7 +325,7 @@ class Homepage extends StatelessWidget {
                               Get.toNamed("/chatbot");
                             },
                             child: homepage_choice(
-                                title: "more",
+                                title: "Prescription",
                                 path: "assets/images/medical-prescription.png"),
                           ),
                         ],
