@@ -599,6 +599,38 @@ query(\$name:String!){
 }
   """;
 
+  static String medicin_detail="""
+  query(\$id:Int!){
+  medicine_by_pk(id:\$id) {
+    id
+    medicine_image {
+      url
+    }
+    medicine_pharmacy {
+      logo_image {
+        url
+      }
+      name
+      open_time
+      close_time
+      rate
+      phone_number
+      address {
+        city
+        location
+        latitude
+        longitude
+      }
+    }
+    name
+    must_prescribed
+    price
+  }
+}
+
+  
+  """;
+
 // orders
 
   static String newOrder = """
