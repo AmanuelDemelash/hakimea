@@ -625,6 +625,7 @@ query(\$name:String!){
     name
     must_prescribed
     price
+    description
   }
 }
 
