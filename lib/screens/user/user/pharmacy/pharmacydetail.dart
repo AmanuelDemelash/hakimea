@@ -21,7 +21,7 @@ class PharmacyDetail extends StatelessWidget {
 
   Completer<GoogleMapController> _controller = Completer();
   MedicinDatatableSource medsource = MedicinDatatableSource();
-  Map<String,dynamic> pharma=Get.arguments;
+  Map<String, dynamic> pharma = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -29,279 +29,279 @@ class PharmacyDetail extends StatelessWidget {
         backgroundColor: Colors.white,
         body: CustomScrollView(slivers: [
           SliverAppBar(
-            backgroundColor: Constants.whitesmoke,
-            iconTheme: const IconThemeData(
-              color: Colors.black,
-            ),
-            automaticallyImplyLeading: false,
-            leading: IconButton(
-                onPressed: () => Get.back(),
-                icon: const FaIcon(
-                  FontAwesomeIcons.angleLeft,
-                  color: Constants.primcolor,
-                )),
-            elevation: 0,
-            pinned: false,
-            expandedHeight: 170,
-            flexibleSpace: FlexibleSpaceBar(
-                background: AnimationConfiguration.staggeredList(
-                  position: 3,
-                  child: ScaleAnimation(
-                    child: FadeInAnimation(
-                      child: Stack(
+              backgroundColor: Constants.whitesmoke,
+              iconTheme: const IconThemeData(
+                color: Colors.black,
+              ),
+              automaticallyImplyLeading: false,
+              leading: IconButton(
+                  onPressed: () => Get.back(),
+                  icon: const FaIcon(
+                    FontAwesomeIcons.angleLeft,
+                    color: Constants.primcolor,
+                  )),
+              elevation: 0,
+              pinned: false,
+              expandedHeight: 170,
+              flexibleSpace: FlexibleSpaceBar(
+                  background: AnimationConfiguration.staggeredList(
+                      position: 3,
+                      child: ScaleAnimation(
+                          child: FadeInAnimation(
+                              child: Stack(
                         children: [
                           GoogleMap(
                             mapType: MapType.terrain,
                             zoomControlsEnabled: false,
                             initialCameraPosition: CameraPosition(
-                                target: LatLng(
-                                    pharma["address"]["latitude"],
-                                    pharma["address"]["longitude"]
-                                ),
+                                target: LatLng(pharma["address"]["latitude"],
+                                    pharma["address"]["longitude"]),
                                 zoom: 17.5),
-
                             onMapCreated: (GoogleMapController controller) {
                               _controller.complete(controller);
                             },
                             markers: {
                               Marker(
-                                  markerId:const MarkerId("pharma"),
-                                  icon: Get.find<OrderController>().pharm_marker,
+                                  markerId: const MarkerId("pharma"),
+                                  icon:
+                                      Get.find<OrderController>().pharm_marker,
                                   position: LatLng(
                                       pharma["address"]["latitude"],
                                       pharma["address"]["longitude"]))
                             },
                           ),
-
                           Positioned(
                             bottom: 0,
                             left: 0,
                             child: Container(
                               width: 100,
                               height: 30,
-                              padding:const EdgeInsets.all(3),
-                              decoration:const BoxDecoration(
-                                color: Constants.primcolor
-                              ),
-                              child: Center(child: Text("${Get.find<PharmacyController>().calculateDistance(pharma["address"]["latitude"], pharma["address"]["longitude"],
-                                  Get.find<Locationcontrollers>().current_lat.value, Get.find<Locationcontrollers>().current_long.value)} Km",
-                                style:const TextStyle(color: Constants.whitesmoke),
-                              )
-                              ),
+                              padding: const EdgeInsets.all(3),
+                              decoration: const BoxDecoration(
+                                  color: Constants.primcolor),
+                              child: Center(
+                                  child: Text(
+                                "${Get.find<PharmacyController>().calculateDistance(pharma["address"]["latitude"], pharma["address"]["longitude"], Get.find<Locationcontrollers>().current_lat.value, Get.find<Locationcontrollers>().current_long.value)} Km",
+                                style: const TextStyle(
+                                    color: Constants.whitesmoke),
+                              )),
                             ),
                           )
                         ],
-                      )
-
-    ) )))),
-
+                      )))))),
           SliverFillRemaining(
               hasScrollBody: true,
               fillOverscroll: true,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     //pharmacy
                     AnimationConfiguration.staggeredList(
                       position: 1,
-                      child:  Container(
-                            width: Get.width,
-                            height: 130,
-                            margin: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Container(
+                        width: Get.width,
+                        height: 130,
+                        margin: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
-                                Row(
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10)),
+                                  child: CachedNetworkImage(
+                                    imageUrl: pharma["logo_image"]["url"],
+                                    width: 100,
+                                    height: 130,
+                                    placeholder: (context, url) =>
+                                        const Icon(Icons.image),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          bottomLeft: Radius.circular(10)),
-                                      child: CachedNetworkImage(
-                                        imageUrl:pharma["logo_image"]["url"]
-                                            ,
-                                        width: 100,
-                                        height: 130,
-                                        placeholder: (context, url) =>
-                                            const Icon(Icons.image),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
-                                        fit: BoxFit.cover,
-                                      ),
+                                    Text(
+                                      pharma["name"],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
                                     ),
                                     const SizedBox(
-                                      width: 20,
+                                      height: 10,
                                     ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    Text(pharma["address"]["location"]),
+                                    RatingBar.builder(
+                                      initialRating: pharma["rate"] == null
+                                          ? 1.0
+                                          : double.parse(
+                                              pharma["rate"].toString()),
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 15,
+                                      itemPadding: const EdgeInsets.symmetric(
+                                          horizontal: 1.0),
+                                      itemBuilder: (context, _) => const Icon(
+                                        Icons.star,
+                                        color: Constants.primcolor,
+                                      ),
+                                      onRatingUpdate: (rating) {},
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
                                       children: [
-                                         Text(
-                                          pharma["name"],
-                                          style:const  TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
+                                        CircleAvatar(
+                                            radius: 16,
+                                            backgroundImage: NetworkImage(
+                                                pharma["owner_information"]
+                                                    ["image"]["url"])),
                                         const SizedBox(
-                                          height: 10,
+                                          width: 10,
                                         ),
-                                         Text(pharma["address"]["location"]),
-
-                                            RatingBar.builder(
-                                              initialRating:pharma["rate"]==null?1.0:double.parse(pharma["rate"].toString()),
-                                              minRating: 1,
-                                              direction: Axis.horizontal,
-                                              allowHalfRating: true,
-                                              itemCount: 5,
-                                              itemSize: 15,
-                                              itemPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 1.0),
-                                              itemBuilder: (context, _) =>
-                                                  const Icon(
-                                                Icons.star,
-                                                color: Constants.primcolor,
-                                              ),
-                                              onRatingUpdate: (rating) {},
-                                            ),
-
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            CircleAvatar(
-                                                radius: 16,
-                                                backgroundImage: NetworkImage(
-                                                    pharma["owner_information"]["image"]["url"])),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children:[
-                                                Text(pharma ["owner_information"]["full_name"]),
-                                                Text(
-                                                  pharma["phone_number"],
-                                                  style:const TextStyle(
-                                                      color: Colors.black54),
-                                                )
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width:50,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () => launch("tel:${pharma["phone_number"]}"),
-                                              child: Container(
-                                                width: 35,
-                                                height: 35,
-                                                decoration: const BoxDecoration(
-                                                    color: Constants.primcolor,
-                                                    shape: BoxShape.circle),
-                                                child: const Center(
-                                                  child: FaIcon(
-                                                    FontAwesomeIcons.phone,
-                                                    color: Constants.whitesmoke,
-                                                    size: 16,
-                                                  ),
-                                                ),
-                                              ),
+                                            Text(pharma["owner_information"]
+                                                ["full_name"]),
+                                            Text(
+                                              pharma["phone_number"],
+                                              style: const TextStyle(
+                                                  color: Colors.black54),
                                             )
                                           ],
+                                        ),
+                                        const SizedBox(
+                                          width: 50,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () => launch(
+                                              "tel:${pharma["phone_number"]}"),
+                                          child: Container(
+                                            width: 35,
+                                            height: 35,
+                                            decoration: const BoxDecoration(
+                                                color: Constants.primcolor,
+                                                shape: BoxShape.circle),
+                                            child: const Center(
+                                              child: FaIcon(
+                                                FontAwesomeIcons.phone,
+                                                color: Constants.whitesmoke,
+                                                size: 16,
+                                              ),
+                                            ),
+                                          ),
                                         )
                                       ],
-                                    ),
+                                    )
                                   ],
                                 ),
                               ],
                             ),
-                          ),
-
+                          ],
+                        ),
+                      ),
                     ),
                     // medicines
                     const SizedBox(
                       height: 10,
                     ),
                     Expanded(
-                      child:
-                    Query(options: QueryOptions(document: gql(Myquery.pharma_medicins),
-                    variables: {
-                      "id":pharma["id"]
-                    }
-                    ),
-                   builder: (result, {fetchMore, refetch}) {
-                     if(result.hasException){
-                       return Column(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children:[
-                           const cool_loding(),
-                           const SizedBox(height: 15,),
-                           Text("medicines found in ${pharma["name"]} ..")
-                         ],
-                       );
-                     }
-
-                      if(result.isLoading){
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children:[
-                           const cool_loding(),
-                            const SizedBox(height: 15,),
-                            Text("medcines found in ${pharma["name"]} ..")
-                          ],
-                        );
-                      }
-
-                    List medicines=result.data!["medicine"];
-                    if(medicines!.isEmpty){
-                    return  Column(children: [
-                        no_appointment_found(title: "no medicine found in ${pharma["name"]} ")
-                      ],);
-                    }else{
-                      Get.find<PharmacyController>().medicin.value=medicines;
-                    }
-                    return Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: PaginatedDataTable(
-                            header: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children:[
-                               const Text(
-                                  "Medicine stock",
-                                  style: TextStyle(),
-                                ),
-                                Text(
-                                  "${medicines.length} medicines",
-                                  style:const TextStyle(color: Colors.black54,fontSize: 15),
-                                ),
-                              ],
-                            ),
-                            rowsPerPage: 4,
-                            headingRowHeight: 30,
-                            columnSpacing:60.0,
-                            columns: const [
-                              DataColumn(label: Text("Image")),
-                              DataColumn(label: Text("name")),
-                              DataColumn(label: Text("price"))
+                        child: Query(
+                      options: QueryOptions(
+                          document: gql(Myquery.pharma_medicins),
+                          variables: {"id": pharma["id"]}),
+                      builder: (result, {fetchMore, refetch}) {
+                        if (result.hasException) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const cool_loding(),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Text("medicines found in ${pharma["name"]} ..")
                             ],
-                            source: medsource),
-                    );
+                          );
+                        }
 
-                    },)
+                        if (result.isLoading) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const cool_loding(),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Text("medcines found in ${pharma["name"]} ..")
+                            ],
+                          );
+                        }
 
-                    ),
-                    const SizedBox(height: 10,)
-                  ]
-              )
-          )
+                        List medicines = result.data!["medicine"];
+                        if (medicines.isEmpty) {
+                          return Column(
+                            children: [
+                              no_appointment_found(
+                                  title:
+                                      "no medicine found in ${pharma["name"]} ")
+                            ],
+                          );
+                        } else {
+                          Get.find<PharmacyController>().medicin.value =
+                              medicines;
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: PaginatedDataTable(
+                              header: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Medicine stock",
+                                    style: TextStyle(),
+                                  ),
+                                  Text(
+                                    "${medicines.length} medicines",
+                                    style: const TextStyle(
+                                        color: Colors.black54, fontSize: 15),
+                                  ),
+                                ],
+                              ),
+                              rowsPerPage: 4,
+                              headingRowHeight: 30,
+                              columnSpacing: 60.0,
+                              columns: const [
+                                DataColumn(label: Text("Image")),
+                                DataColumn(label: Text("name")),
+                                DataColumn(label: Text("price"))
+                              ],
+                              source: medsource),
+                        );
+                      },
+                    )),
+                    const SizedBox(
+                      height: 10,
+                    )
+                  ]))
         ]));
   }
 }
@@ -309,14 +309,14 @@ class PharmacyDetail extends StatelessWidget {
 class MedicinDatatableSource extends DataTableSource {
   @override
   DataRow? getRow(int index) {
-    return DataRow(
-        cells: [
+    return DataRow(cells: [
       DataCell(Padding(
         padding: const EdgeInsets.all(4),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: CachedNetworkImage(
-            imageUrl: Get.find<PharmacyController>().medicin.value[index]["medicine_image"]["url"],
+            imageUrl: Get.find<PharmacyController>().medicin.value[index]
+                ["medicine_image"]["url"],
             width: 50,
             height: 50,
             placeholder: (context, url) => const Icon(Icons.image),
@@ -325,7 +325,8 @@ class MedicinDatatableSource extends DataTableSource {
           ),
         ),
       )),
-      DataCell(Text(Get.find<PharmacyController>().medicin.value[index]["name"])),
+      DataCell(
+          Text(Get.find<PharmacyController>().medicin.value[index]["name"])),
       DataCell(Text(
           "ETB ${Get.find<PharmacyController>().medicin.value[index]["price"].toString()}")),
     ]);

@@ -49,8 +49,7 @@ class Homepage extends StatelessWidget {
                         icon: const FaIcon(
                           FontAwesomeIcons.barsStaggered,
                           color: Colors.black,
-                        )
-                ),
+                        )),
             title: const Text(
               Constants.app_name,
               style: TextStyle(
@@ -133,46 +132,46 @@ class Homepage extends StatelessWidget {
                               Get.toNamed("/myorder");
                             },
                             icon: Query(
-                          options: QueryOptions(
-                              document: gql(Myquery.not_order),
-                              variables: {
-                                "id": Get.find<SplashController>()
-                                    .prefs
-                                    .getInt("id")
-                              }),
-                          builder: (result, {fetchMore, refetch}) {
-                            if (result.hasException) {
-                              return const FaIcon(
-                                FontAwesomeIcons.cartShopping,
-                                color: Colors.black,
-                              );
-                            }
-                            if (result.isLoading) {
-                              return const FaIcon(
-                                FontAwesomeIcons.cartShopping,
-                                color: Colors.black,
-                              );
-                            }
-                            List? notifi = result.data!["orders"];
-                            return Badge(
-                              showBadge: notifi!.isEmpty ? false : true,
-                              badgeColor: Colors.red,
-                              shape: BadgeShape.circle,
-                              padding: const EdgeInsets.all(5),
-                              alignment: Alignment.center,
-                              position:
-                                  BadgePosition.topEnd(top: -13, end:-10),
-                              badgeContent: Text(
-                                notifi.length.toString(),
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              child: const FaIcon(
-                                FontAwesomeIcons.prescription,
-                                color: Colors.black,
-                              ),
-                            );
-                          },
-                        )),
+                              options: QueryOptions(
+                                  document: gql(Myquery.not_order),
+                                  variables: {
+                                    "id": Get.find<SplashController>()
+                                        .prefs
+                                        .getInt("id")
+                                  }),
+                              builder: (result, {fetchMore, refetch}) {
+                                if (result.hasException) {
+                                  return const FaIcon(
+                                    FontAwesomeIcons.cartShopping,
+                                    color: Colors.black,
+                                  );
+                                }
+                                if (result.isLoading) {
+                                  return const FaIcon(
+                                    FontAwesomeIcons.cartShopping,
+                                    color: Colors.black,
+                                  );
+                                }
+                                List? notifi = result.data!["orders"];
+                                return Badge(
+                                  showBadge: notifi!.isEmpty ? false : true,
+                                  badgeColor: Colors.red,
+                                  shape: BadgeShape.circle,
+                                  padding: const EdgeInsets.all(5),
+                                  alignment: Alignment.center,
+                                  position:
+                                      BadgePosition.topEnd(top: -13, end: -10),
+                                  badgeContent: Text(
+                                    notifi.length.toString(),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.prescription,
+                                    color: Colors.black,
+                                  ),
+                                );
+                              },
+                            )),
                       ],
                     )
             ],
@@ -402,31 +401,17 @@ class Homepage extends StatelessWidget {
                                   child: Text("no top doc found"),
                                 );
                               }
-                              return AnimationLimiter(
-                                child: ListView.builder(
-                                  itemCount: doctors.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) =>
-                                      AnimationConfiguration.staggeredList(
-                                          position: index,
-                                          delay:
-                                              const Duration(milliseconds: 200),
-                                          duration:
-                                              const Duration(milliseconds: 500),
-                                          child: ScaleAnimation(
-                                              child: FadeInAnimation(
-                                                  child: top_doctors(
-                                            id: doctors[index]["id"],
-                                            image: doctors[index]
-                                                ["profile_image"]["url"],
-                                            name: doctors[index]["full_name"],
-                                            speciality: doctors[index]
-                                                    ["speciallities"]
-                                                ["speciallity_name"],
-                                            rate: double.parse(doctors[index]
-                                                    ["rate"]
-                                                .toString()),
-                                          )))),
+                              return ListView.builder(
+                                itemCount: doctors.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => top_doctors(
+                                  id: doctors[index]["id"],
+                                  image: doctors[index]["profile_image"]["url"],
+                                  name: doctors[index]["full_name"],
+                                  speciality: doctors[index]["speciallities"]
+                                      ["speciallity_name"],
+                                  rate: double.parse(
+                                      doctors[index]["rate"].toString()),
                                 ),
                               );
                             })),
@@ -635,55 +620,42 @@ class Homepage extends StatelessWidget {
                                 ),
                               );
                             }
-                            return AnimationLimiter(
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: blogs.length,
-                                itemBuilder: (context, index) {
-                                  return AnimationConfiguration.staggeredList(
-                                      position: index,
-                                      delay: const Duration(microseconds: 200),
-                                      duration:
-                                          const Duration(microseconds: 500),
-                                      child: ScaleAnimation(
-                                          child: FadeInAnimation(
-                                              child: GestureDetector(
-                                        onTap: () => Get.toNamed("/blogdetail",
-                                            arguments: {
-                                              "id": blogs[index]["id"],
-                                              "title": blogs[index]["title"],
-                                              "sub_title": blogs[index]
-                                                  ["sub_title"],
-                                              "content": blogs[index]
-                                                  ["content"],
-                                              "image": blogs[index]["theImage"]
-                                                  ["url"],
-                                              "like": blogs[index]["like"],
-                                              "doc_name": blogs[index]["doctor"]
-                                                  ["full_name"],
-                                              "date": blogs[index]["created_at"]
-                                                  .substring(0, 10),
-                                              "doc_image": blogs[index]
-                                                      ["doctor"]
-                                                  ["profile_image"]["url"],
-                                            }),
-                                        child: BlogCard(
-                                          date: blogs[index]["created_at"],
-                                          id: blogs[index]["id"],
-                                          title: blogs[index]["title"],
-                                          sub_title: blogs[index]["sub_title"],
-                                          content: blogs[index]["content"],
-                                          image: blogs[index]["theImage"]
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: blogs.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                    onTap: () =>
+                                        Get.toNamed("/blogdetail", arguments: {
+                                          "id": blogs[index]["id"],
+                                          "title": blogs[index]["title"],
+                                          "sub_title": blogs[index]
+                                              ["sub_title"],
+                                          "content": blogs[index]["content"],
+                                          "image": blogs[index]["theImage"]
                                               ["url"],
-                                          like: blogs[index]["like"],
-                                          doc_name: blogs[index]["doctor"]
+                                          "like": blogs[index]["like"],
+                                          "doc_name": blogs[index]["doctor"]
                                               ["full_name"],
-                                          doc_image: blogs[index]["doctor"]
+                                          "date": blogs[index]["created_at"]
+                                              .substring(0, 10),
+                                          "doc_image": blogs[index]["doctor"]
                                               ["profile_image"]["url"],
-                                        ),
-                                      ))));
-                                },
-                              ),
+                                        }),
+                                    child: BlogCard(
+                                      date: blogs[index]["created_at"],
+                                      id: blogs[index]["id"],
+                                      title: blogs[index]["title"],
+                                      sub_title: blogs[index]["sub_title"],
+                                      content: blogs[index]["content"],
+                                      image: blogs[index]["theImage"]["url"],
+                                      like: blogs[index]["like"],
+                                      doc_name: blogs[index]["doctor"]
+                                          ["full_name"],
+                                      doc_image: blogs[index]["doctor"]
+                                          ["profile_image"]["url"],
+                                    ));
+                              },
                             );
                           },
                         )),
@@ -764,43 +736,29 @@ class Homepage extends StatelessWidget {
                                         Text("No doctor avallble right now!")),
                               );
                             }
-                            return AnimationLimiter(
-                              child: AlignedGridView.count(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                                itemCount: doctors.length,
-                                itemBuilder: (context, index) {
-                                  return AnimationConfiguration.staggeredGrid(
-                                      position: index,
-                                      delay: const Duration(milliseconds: 600),
-                                      duration:
-                                          const Duration(milliseconds: 400),
-                                      columnCount: 2,
-                                      child: ScaleAnimation(
-                                          child: FadeInAnimation(
-                                              child: available_doctor(
-                                        id: doctors[index]["id"],
-                                        name: doctors[index]["full_name"],
-                                        exp_year: doctors[index]
-                                            ["experience_year"],
-                                        image: doctors[index]["profile_image"]
-                                            ["url"],
-                                        speciality: doctors[index]
-                                                ["speciallities"]
-                                            ["speciallity_name"],
-                                        rate: double.parse(
-                                            doctors[index]["rate"].toString()),
-                                        rate_count: doctors[index]["reviews"] ==
-                                                []
-                                            ? 0
-                                            : doctors[index]["reviews"].length,
-                                        is_online: doctors[index]["is_online"],
-                                      ))));
-                                },
-                              ),
+                            return AlignedGridView.count(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              itemCount: doctors.length,
+                              itemBuilder: (context, index) {
+                                return available_doctor(
+                                  id: doctors[index]["id"],
+                                  name: doctors[index]["full_name"],
+                                  exp_year: doctors[index]["experience_year"],
+                                  image: doctors[index]["profile_image"]["url"],
+                                  speciality: doctors[index]["speciallities"]
+                                      ["speciallity_name"],
+                                  rate: double.parse(
+                                      doctors[index]["rate"].toString()),
+                                  rate_count: doctors[index]["reviews"] == []
+                                      ? 0
+                                      : doctors[index]["reviews"].length,
+                                  is_online: doctors[index]["is_online"],
+                                );
+                              },
                             );
                           },
                         ))
