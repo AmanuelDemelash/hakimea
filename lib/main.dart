@@ -42,6 +42,7 @@ import 'package:hakimea/screens/user/user/pharmacy/orderdetail_status.dart';
 import 'package:hakimea/screens/user/user/pharmacy/ordermedicin.dart';
 import 'package:hakimea/screens/user/user/pharmacy/pharmacy.dart';
 import 'package:hakimea/screens/user/user/pharmacy/pharmacydetail.dart';
+import 'package:hakimea/screens/user/user/prescription/prescriptiondetail.dart';
 import 'package:hakimea/screens/user/user/prescription/prescriptions.dart';
 import 'package:hakimea/screens/user/user/profile/editaccount.dart';
 import 'package:hakimea/screens/user/user/profile/myprofile.dart';
@@ -178,6 +179,7 @@ class MyApp extends StatelessWidget {
             page: () => VoiceCall(),
           ),
           GetPage(name: "/presc", page: () =>Prescription()),
+          GetPage(name: "/prescdetail", page: () =>PrescriptionDetail()),
           GetPage(
             name: "/allblog",
             page: () => AllBlog(),
