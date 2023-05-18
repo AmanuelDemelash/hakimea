@@ -70,6 +70,7 @@ class Login extends StatelessWidget {
                   child: Column(
                     children: [
                       TextFormField(
+                        key:const Key("login email"),
                         controller: _emailcontroller,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -116,6 +117,7 @@ class Login extends StatelessWidget {
                         height: 10,
                       ),
                       Obx(() => TextFormField(
+                        key: const Key("login password"),
                             controller: _passwordcontroller,
                             obscureText: Get.find<LoginController>()
                                 .password_visible
@@ -230,6 +232,7 @@ class Login extends StatelessWidget {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(40)),
                                     child: ElevatedButton(
+                                      key: const Key("login button"),
                                         style: ElevatedButton.styleFrom(
                                             elevation: 0,
                                             padding: const EdgeInsets.all(15)),
@@ -255,7 +258,7 @@ class Login extends StatelessWidget {
                                                 .value
                                             ? const ButtonSpinner()
                                             : const Text(
-                                                "Login",
+                                                "Login",style: TextStyle(color: Colors.white),
                                               )),
                                   )));
                         },
