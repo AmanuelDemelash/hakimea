@@ -321,7 +321,7 @@ class Homepage extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed("/chatbot");
+                              Get.toNamed("/presc");
                             },
                             child: homepage_choice(
                                 title: "Prescription",
