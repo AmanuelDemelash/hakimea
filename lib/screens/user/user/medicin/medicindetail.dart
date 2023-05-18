@@ -79,39 +79,31 @@ class MedicinDetail extends StatelessWidget {
                               Container(
                                 width: Get.width,
                                 margin: const EdgeInsets.all(15),
-                                padding:const EdgeInsets.all(15),
+                                padding:const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10)
                                 ),
-                                child: ListTile(
-                                  leading:CircleAvatar(
-                                    radius: 25,
-                                    backgroundImage: NetworkImage(medicine["medicine_image"]["url"]),
-                                  ),
-                                  title:Text(medicine["name"]),
-                                  subtitle:   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children:const[
-                                      Text("exp/date 23/2022",style: TextStyle(color: Colors.black54,fontSize: 13),),
-
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: Get.width,
-                                margin: const EdgeInsets.only(left: 15,right: 15,bottom: 10),
-                                padding:const EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
-                                child:Column(
+                                child:
+                                Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:[
-                                   const Text("unit: ",style: TextStyle(color: Colors.black54,fontSize: 13),),
-                                   const SizedBox(height: 5,),
+                                  children: [
+                                    ListTile(
+                                      leading: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.network(medicine["medicine_image"]["url"],height: 70,width:80,fit: BoxFit.cover,)),
+                                      title:Text(medicine["name"]),
+                                      subtitle:   Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children:const[
+                                          Text("exp/date 23/2022",style: TextStyle(color: Colors.black54,fontSize: 13),),
+
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10,),
+                                    const Text("unit: ",style: TextStyle(color: Colors.black54,fontSize: 13),),
+                                    const SizedBox(height: 5,),
                                     Text("price: ETB ${medicine["price"].toString()}",style:const TextStyle(color: Colors.black),),
                                     const SizedBox(height: 15,),
                                     const Text("Description"),
@@ -120,7 +112,6 @@ class MedicinDetail extends StatelessWidget {
                                   ],
                                 ),
                               ),
-
 
                               // pharmacy
                               Container(

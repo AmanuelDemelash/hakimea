@@ -139,18 +139,13 @@ class Pharmacy extends StatelessWidget {
                 }
 
                 return Expanded(
-                    child: AnimationLimiter(
-                  child: ListView.builder(
+                    child:
+                  ListView.builder(
                     itemCount: pharmacy.length,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        delay: const Duration(milliseconds: 100),
-                        duration: const Duration(milliseconds: 200),
-                        child: ScaleAnimation(
-                          child: FadeInAnimation(
-                            child: GestureDetector(
+                      return
+                            GestureDetector(
                                 onTap: () => Get.toNamed("/pharmdetail",arguments:pharmacy[index]),
                                 child: pharmacy_card(
                                   image: pharmacy[index]["logo_image"]["url"],
@@ -166,13 +161,10 @@ class Pharmacy extends StatelessWidget {
                                   phone_number: pharmacy[index]["phone_number"],
                                   open_time: pharmacy[index]["open_time"],
                                   close_time: pharmacy[index]["close_time"],
-                                )),
-                          ),
-                        ),
-                      );
+                                ));
                     },
                   ),
-                ));
+                );
               },
             ),
           ),

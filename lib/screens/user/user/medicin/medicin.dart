@@ -138,8 +138,8 @@ class Medicin extends StatelessWidget {
                   }
 
                   return Expanded(
-                    child: AnimationLimiter(
-                      child: Padding(
+                    child:
+                      Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: AlignedGridView.count(
                           crossAxisCount: 1,
@@ -148,13 +148,8 @@ class Medicin extends StatelessWidget {
                           itemCount: medicins.length,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
-                            return AnimationConfiguration.staggeredGrid(
-                                position: index,
-                                columnCount: 1,
-                                child: ScaleAnimation(
-                                    child: FadeInAnimation(
-
-                                        child: GestureDetector(
+                            return
+                                        GestureDetector(
                                           onTap: () => Get.toNamed("/medicindetail",arguments: medicins[index]["id"]),
                                           child: MedicinCard(
                                             id:medicins[index]["id"],
@@ -164,11 +159,11 @@ class Medicin extends StatelessWidget {
                                             pname: medicins[index]["medicine_pharmacy"]["name"],
                                             price:medicins[index]["price"].toString(),),
                                         )
-                                    )));
+                                    ;
                           },
                         ),
                       ),
-                    ),
+
                   );
                 },
               )),
