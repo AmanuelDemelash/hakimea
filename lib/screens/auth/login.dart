@@ -223,7 +223,6 @@ class Login extends StatelessWidget {
                           if (result.isLoading) {
                             Get.find<LoginController>().is_loging.value = true;
                           }
-
                           return Container(
                               width: Get.width,
                               margin:
@@ -275,11 +274,9 @@ class Login extends StatelessWidget {
                             "Continue as guest",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
-
                       const SizedBox(
                         height: 30,
                       ),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
