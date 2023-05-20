@@ -9,10 +9,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hakimea/controllers/user_controllers/logincontroller.dart';
-import 'package:hakimea/screens/auth/login.dart';
+import 'package:hakimea/controllers/splashcontroller.dart';
+import 'package:hakimea/screens/user/user/homepage/homepage.dart';
 
 void main(){
+
+  testWidgets("homepage test", (widgetTester)async{
+    Get.put(SplashController());
+
+    await widgetTester.pumpWidget(
+        MaterialApp(
+        home: Homepage()));
+
+
+       var banner=find.byKey(const ValueKey("bantext"));
+       expect(banner, findsNothing);
+
+
+
+  });
 
 }

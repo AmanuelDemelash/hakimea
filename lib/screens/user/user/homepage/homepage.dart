@@ -222,6 +222,7 @@ class Homepage extends StatelessWidget {
                                           fontSize: 15),
                                     ),
                                     Text(
+                                      key:const Key("bantext"),
                                       'ban_title'.tr,
                                       style: const TextStyle(
                                           color: Colors.white,

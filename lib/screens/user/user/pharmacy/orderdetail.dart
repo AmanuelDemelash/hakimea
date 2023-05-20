@@ -45,6 +45,7 @@ class OrderDetail extends StatelessWidget {
               onPressed: () {},
               icon: const FaIcon(
                 FontAwesomeIcons.phone,
+                color: Colors.white,
               ))
         ],
       ),
