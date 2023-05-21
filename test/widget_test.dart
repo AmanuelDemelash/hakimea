@@ -1,32 +1,53 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
-import 'package:hakimea/controllers/splashcontroller.dart';
-import 'package:hakimea/screens/user/user/homepage/homepage.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
-void main(){
+void main() {
+  testWidgets('GraphQL Widget Test', (WidgetTester tester) async {
+    // Set up the GraphQL client
+    // final HttpLink httpLink = HttpLink(
+    //   uri: 'https://api.example.com/graphql',
+    // );
+    // final ValueNotifier<GraphQLClient> client = ValueNotifier(
+    //   GraphQLClient(
+    //     cache: GraphQLCache(),
+    //     link: httpLink,
+    //   ),
+    // );
 
-  testWidgets("homepage test", (widgetTester)async{
-    Get.put(SplashController());
+    // Set up the mock GraphQL response
+    final mockResponse = {
+      'data': {
+        'message': 'Hello, World!',
+      },
+    };
 
-    await widgetTester.pumpWidget(
-        MaterialApp(
-        home: Homepage()));
+    // Define the GraphQL query
+    const String query = r'''
+      query {
+        message
+      }
+    ''';
 
+    // Mock the GraphQL query response
+    // final mockQuery = MockQuery(
+    //   request: QueryRequest(document: gql(query)),
+    //   data: mockResponse,
+    // );
 
-       var banner=find.byKey(const ValueKey("bantext"));
-       expect(banner, findsNothing);
+    // Build the widget and provide the mock GraphQL client
+    // await tester.pumpWidget(GraphQLProvider(
+    //   client: client,
+    //   child: MyWidget(),
+    // ));
 
+    // Use `tester` to interact with the widget and perform assertions
+    expect(find.text('Loading...'), findsOneWidget);
 
+    // Wait for the GraphQL query to complete
+    await tester.pumpAndSettle();
 
+    // Verify that the widget displays the correct data
+    expect(find.text('Hello, World!'), findsOneWidget);
   });
-
 }

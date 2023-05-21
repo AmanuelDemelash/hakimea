@@ -91,7 +91,7 @@ class MedicinDetail extends StatelessWidget {
                                     ListTile(
                                       leading: ClipRRect(
                                           borderRadius: BorderRadius.circular(10),
-                                          child: Image.network(medicine["medicine_image"]["url"],height: 70,width:80,fit: BoxFit.cover,)),
+                                          child: Image.network(medicine["medicine_image"]["url"],height: 70,width:60,fit: BoxFit.cover,)),
                                       title:Text(medicine["name"]),
                                       subtitle:   Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +102,9 @@ class MedicinDetail extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(height: 10,),
-                                    const Text("unit: ",style: TextStyle(color: Colors.black54,fontSize: 13),),
+                                    const Text("unit: 23g",style: TextStyle(color: Colors.black,fontSize: 13),),
+                                    const SizedBox(height: 5,),
+                                    const Text("Brand: ",style: TextStyle(color: Colors.black,fontSize: 13),),
                                     const SizedBox(height: 5,),
                                     Text("price: ETB ${medicine["price"].toString()}",style:const TextStyle(color: Colors.black),),
                                     const SizedBox(height: 15,),
