@@ -97,7 +97,6 @@ class MedicinDetail extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children:const[
                                           Text("exp/date 23/2022",style: TextStyle(color: Colors.black54,fontSize: 13),),
-
                                         ],
                                       ),
                                     ),
