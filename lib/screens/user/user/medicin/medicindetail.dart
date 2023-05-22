@@ -11,10 +11,8 @@ import 'package:hakimea/widgets/cool_loading.dart';
 import '../../../../controllers/locationcontrollers.dart';
 import '../../../../controllers/user_controllers/pharmacycontroller.dart';
 import '../../../../utils/constants.dart';
-
 class MedicinDetail extends StatelessWidget {
    MedicinDetail({Key? key}) : super(key: key);
-
   int id=Get.arguments;
    final Completer<GoogleMapController> _controller = Completer();
   @override
@@ -226,12 +224,8 @@ class MedicinDetail extends StatelessWidget {
 
                     )
                 ),
-
-
         ],
       )
-
-
     );
   }
 }
