@@ -768,4 +768,58 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
 }
  
  """;
+
+ // prescription detail
+ static String prescDetail="""
+ query(\$id:Int!){
+  prescriptions_by_pk(id:\$id) {
+    id
+    doctor {
+      id
+      full_name
+      speciallities {
+        speciallity_name
+      }
+      profile_image {
+        url
+      }
+      sex
+      phone_number
+    }
+    created_at
+    prescribed_medicines {
+      id
+      medicine_name
+      dose
+    }
+    patient {
+      age
+      full_name
+    }
+    user {
+      full_name
+      phone_number
+    }
+  }
+}
+ """;
+
+ // recommendation
+static String recommendation="""
+   query(\$medicine_name: [String!], \$latitude: Float!, \$longitude: Float!){
+  recommendation(medicine_name: \$medicine_name, location: {latitude: \$latitude, longitude: \$longitude}, sort_by: "rate") {
+    id
+    distance
+    name
+    rate
+    medicine_total
+    total_price
+    medicines {
+      id
+      name
+      price
+    }
+  }
+}
+""";
 }

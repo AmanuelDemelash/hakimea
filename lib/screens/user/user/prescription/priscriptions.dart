@@ -46,7 +46,8 @@ class Prescription extends StatelessWidget {
           Query(options: QueryOptions(document: gql(Myquery.prescriptions),
           variables: {
             "id":Get.find<SplashController>().prefs.getInt("id")
-          }
+          },
+            pollInterval: const Duration(seconds: 10)
           ),
             builder:(result, {fetchMore, refetch}) {
             if(result.hasException){
@@ -56,17 +57,31 @@ class Prescription extends StatelessWidget {
               return const cool_loding();
             }
             List? presc=result.data!["prescriptions"];
+            if(presc!.isEmpty){
+              return SizedBox(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:const[
+                      FaIcon(FontAwesomeIcons.prescription,size:40),
+                       SizedBox(height: 10,),
+                      Text("no prescription yet!",style: TextStyle(color: Colors.black54),)
+                    ],
+                  ),
+                ),
+              );
+            }
 
             return
               ListView.builder(
-                itemCount:6,
+                itemCount:presc!.length,
                 itemBuilder: (context, index) {
                   return
                     GestureDetector(
-                      onTap: () => Get.toNamed("/prescdetail"),
+                      onTap: () => Get.toNamed("/prescdetail",arguments:presc[index]["id"]),
                       child: Container(
                         width: Get.width,
-
                         margin:const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -77,8 +92,8 @@ class Prescription extends StatelessWidget {
                             // date
                             Container(
                               width:100,
-                              decoration: BoxDecoration(
-                                  borderRadius:const BorderRadius.only(
+                              decoration:const BoxDecoration(
+                                  borderRadius:BorderRadius.only(
                                       topLeft: Radius.circular(10),
                                       bottomLeft: Radius.circular(10)
                                   )
@@ -99,7 +114,7 @@ class Prescription extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children:[
-                                  const   Text("Prescription",style: TextStyle(fontSize: 16),),
+                                  const   Text("Prescription",style: TextStyle(fontSize: 16,color: Colors.black54),),
                                   const SizedBox(height: 10,),
                                   Row(
                                     children: [
@@ -134,7 +149,6 @@ class Prescription extends StatelessWidget {
                                     ],
                                   ),
 
-
                                   const SizedBox(height: 10,),
                                   Container(
                                     padding:const EdgeInsets.all(3),
@@ -150,7 +164,6 @@ class Prescription extends StatelessWidget {
                             ),
                             const FaIcon(FontAwesomeIcons.angleRight),
                             const SizedBox(width: 20,)
-
                           ],
                         ),
                       ),

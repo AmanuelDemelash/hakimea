@@ -15,6 +15,7 @@ import '../controllers/user_controllers/homepagecontroller.dart';
 import '../controllers/user_controllers/logincontroller.dart';
 import '../controllers/user_controllers/myappointmentcontroller.dart';
 import '../controllers/user_controllers/payment_controllers.dart';
+import '../controllers/user_controllers/prescriptioncontroller.dart';
 import '../controllers/user_controllers/signupcontroller.dart';
 
 class AppBinding implements Bindings {
@@ -37,5 +38,6 @@ class AppBinding implements Bindings {
     Get.put(PharmacyController());
     Get.put(OrderMedicinController());
     Get.put(MedicinController());
+    Get.put(PrescriptionController());
   }
 }
