@@ -508,7 +508,6 @@ query{
 
 }
 """;
-
   static String search_pharmacy = """
  query(\$name:String!){
    pharmacies(where: {name: {_ilike:\$name}},order_by: {name: asc,rate: desc}) {
@@ -537,7 +536,6 @@ query{
   }                       
 }
  """;
-
   static String all_medicins = """
 query{
    medicine(order_by: {name: asc}) {
@@ -562,7 +560,6 @@ query{
   }
 }
 """;
-
   static String search_medicin = """
 query(\$name:String!){
   medicine(order_by: {name: asc}, where: {name: {_ilike:\$name}}) {
@@ -585,7 +582,6 @@ query(\$name:String!){
   }
 }
 """;
-
   static String pharma_medicins = """
   query(\$id:Int!){
   medicine(where: {pharmacy_id: {_eq:\$id}}, order_by: {name: asc}) {
@@ -598,7 +594,6 @@ query(\$name:String!){
   }
 }
   """;
-
   static String medicin_detail="""
   query(\$id:Int!){
   medicine_by_pk(id:\$id) {
@@ -658,7 +653,6 @@ query(\$name:String!){
   }
 }
 """;
-
   static String upcomming_orders = """
   query(\$id:Int!){
   orders(where: {user_id: {_eq:\$id}, status: {_eq: confirmed}}) {
@@ -679,7 +673,6 @@ query(\$name:String!){
   }
 }
 """;
-
   static String completed_order = """
   query(\$user_id:Int!){
      orders(where: {user_id: {_eq:\$user_id}, status: {_eq: delivered}}, order_by: {created_at: asc}) {
@@ -698,7 +691,6 @@ query(\$name:String!){
   }
 
 """;
-
   static String near_pharmacys = """
 query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
   nearByPharmacy(latitude:\$latitude,longitude:\$longitude, radius:\$radius) {
@@ -726,7 +718,6 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
   }
 }
 """;
-
 // order detail medicin list
   static String order_medicins = """
     query(\$id:Int!){
@@ -741,7 +732,6 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
 }
 
 """;
-
   // order_noti
   static String not_order = """
   query(\$id:Int!){
@@ -752,4 +742,27 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
 
   
   """;
+
+  // prescription
+ static String prescriptions="""
+ query(\$id:Int!){
+  prescriptions(where: {user_id: {_eq:\$id}}, order_by: {created_at: desc}) {
+    id
+    doctor {
+      id
+      full_name
+      speciallities {
+        speciallity_name
+      }
+    }
+    created_at
+    prescribed_medicines {
+      id
+      medicine_name
+      dose
+    }
+  }
+}
+ 
+ """;
 }
