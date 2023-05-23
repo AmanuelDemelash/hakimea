@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hakimea/apiservice/myquery.dart';
 import 'package:hakimea/controllers/splashcontroller.dart';
 import 'package:hakimea/utils/constants.dart';
+import 'package:hakimea/widgets/cool_loading.dart';
 
 class Prescription extends StatelessWidget {
   const Prescription({super.key});
@@ -46,7 +47,15 @@ class Prescription extends StatelessWidget {
           variables: {
             "id":Get.find<SplashController>().prefs.getInt("id")
           }
-          ), builder:(result, {fetchMore, refetch}) {
+          ),
+            builder:(result, {fetchMore, refetch}) {
+            if(result.hasException){
+              return const cool_loding();
+            }
+            if(result.isLoading){
+              return const cool_loding();
+            }
+            List? presc=result.data!["prescriptions"];
 
             return
               ListView.builder(
@@ -57,7 +66,7 @@ class Prescription extends StatelessWidget {
                       onTap: () => Get.toNamed("/prescdetail"),
                       child: Container(
                         width: Get.width,
-                        height: 130,
+
                         margin:const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -69,22 +78,19 @@ class Prescription extends StatelessWidget {
                             Container(
                               width:100,
                               decoration: BoxDecoration(
-                                  color: Constants.primcolor.withOpacity(0.1),
                                   borderRadius:const BorderRadius.only(
                                       topLeft: Radius.circular(10),
                                       bottomLeft: Radius.circular(10)
                                   )
                               ),
-                              child:
-                              Center(
-                                child: Column(
+                              child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children:const [
-                                    Text("12",style:TextStyle(fontSize:25),),
-                                    Text("2023")
+                                  children:[
+                                    Text(presc![index]["created_at"].toString().substring(5,7),style:const TextStyle(fontSize:25,color: Constants.primcolor),),
+                                    Text(presc![index]["created_at"].toString().substring(0,4),style: TextStyle(color: Constants.primcolor.withOpacity(0.6)),)
                                   ],
                                 ),
-                              ),
+
                             ),
                             const SizedBox(
                               width: 10,
@@ -95,37 +101,40 @@ class Prescription extends StatelessWidget {
                                 children:[
                                   const   Text("Prescription",style: TextStyle(fontSize: 16),),
                                   const SizedBox(height: 10,),
-                                  // doc
-                                  Row(
-                                    children:const[
-                                      CircleAvatar(
-                                        radius: 13,
-                                      ),
-                                      SizedBox(width: 10,),
-                                      Text("doctor name")
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10,),
                                   Row(
                                     children: [
                                       Row(
-                                        children:const[
-                                          Icon(Icons.medication,size: 14,),
-                                          Text("3",style: TextStyle(fontSize:14),)
+                                        children:[
+                                         const Icon(Icons.medication,size:20,),
+                                          Text(presc[index]["prescribed_medicines"].length.toString(),style:const TextStyle(fontSize:14),)
                                         ],
                                       ),
                                       const SizedBox(width: 15,),
-                                      Row(
-                                        children:const[
-                                          Icon(Icons.local_pharmacy_sharp,size: 14,),
-                                          Text("3",style: TextStyle(fontSize:14),),
-                                          SizedBox(width: 7,),
-                                          Text("pharmacy",style: TextStyle(fontSize:14,color:Colors.black54),)
-                                        ],
-                                      ),
-
+                                      const Text("Medicines")
                                     ],
                                   ),
+                                  const SizedBox(height: 15,),
+                                  // doc
+                                  Row(
+                                    children:[
+                                      CircleAvatar(
+                                        radius: 13,
+                                        backgroundImage: NetworkImage(presc[index]["doctor"]["profile_image"]["url"]),
+                                      ),
+                                      const SizedBox(width: 10,),
+
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(presc[index]["doctor"]["full_name"].toString()),
+                                          Text(presc[index]["doctor"]["speciallities"]["speciallity_name"].toString(),style: TextStyle(color: Colors.black54),),
+
+                                        ],
+                                      )
+                                    ],
+                                  ),
+
+
                                   const SizedBox(height: 10,),
                                   Container(
                                     padding:const EdgeInsets.all(3),

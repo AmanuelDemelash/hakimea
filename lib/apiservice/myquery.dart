@@ -754,6 +754,9 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
       speciallities {
         speciallity_name
       }
+      profile_image {
+        url
+      }
     }
     created_at
     prescribed_medicines {
