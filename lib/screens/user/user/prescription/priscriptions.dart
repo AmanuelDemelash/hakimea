@@ -79,7 +79,10 @@ class Prescription extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return
                     GestureDetector(
-                      onTap: () => Get.toNamed("/prescdetail",arguments:presc[index]["id"]),
+                      onTap: () => Get.toNamed("/prescdetail",arguments:{
+                        "id":presc[index]["id"],
+                        "num":presc[index]["prescribed_medicines"].length
+                      }),
                       child: Container(
                         width: Get.width,
                         margin:const EdgeInsets.all(10),
@@ -148,7 +151,6 @@ class Prescription extends StatelessWidget {
                                       )
                                     ],
                                   ),
-
                                   const SizedBox(height: 10,),
                                   Container(
                                     padding:const EdgeInsets.all(3),

@@ -812,6 +812,7 @@ static String recommendation="""
     distance
     name
     rate
+    logo_url
     medicine_total
     total_price
     medicines {

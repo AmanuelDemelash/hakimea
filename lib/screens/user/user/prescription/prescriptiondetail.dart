@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hakimea/apiservice/myquery.dart';
-import 'package:hakimea/controllers/locationcontrollers.dart';
 import 'package:hakimea/widgets/cool_loading.dart';
 
 import '../../../../controllers/user_controllers/prescriptioncontroller.dart';
@@ -12,7 +11,7 @@ import '../../../../utils/constants.dart';
 
 class PrescriptionDetail extends StatelessWidget {
    PrescriptionDetail({Key? key}) : super(key: key);
-  int id=Get.arguments;
+  Map<String,dynamic>data=Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class PrescriptionDetail extends StatelessWidget {
         ),
         floatingActionButton:FloatingActionButton.extended(onPressed:()async{
           if(Get.find<PrescriptionController>().medicines.value.isNotEmpty){
-            Get.toNamed("/recommend");
+            Get.toNamed("/recommend",arguments:data);
           }
 
         },
@@ -63,7 +62,7 @@ class PrescriptionDetail extends StatelessWidget {
             ),
             Query(options: QueryOptions(document: gql(Myquery.prescDetail),
             variables: {
-              "id":id
+              "id":data["id"]
             }
             ),
               builder:(result, {fetchMore, refetch}){
