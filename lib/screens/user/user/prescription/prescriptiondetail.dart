@@ -73,6 +73,7 @@ class PrescriptionDetail extends StatelessWidget {
                 return const cool_loding();
               }
               Map<String,dynamic> presc=result.data!["prescriptions_by_pk"];
+              Get.find<PrescriptionController>().getmedicines(presc["prescribed_medicines"]);
               return RepaintBoundary(
                 key: Get.find<PrescriptionController>().key,
                 child: SingleChildScrollView(
@@ -150,8 +151,6 @@ class PrescriptionDetail extends StatelessWidget {
                               shrinkWrap: true,
                               itemCount:presc["prescribed_medicines"].length,
                               itemBuilder:(context, index) {
-                                Get.find<PrescriptionController>().medicines.value.clear();
-                                Get.find<PrescriptionController>().medicines.value.add(presc["prescribed_medicines"][index]["medicine_name"]);
                                 return  ListTile(
                                   title: Text(presc["prescribed_medicines"][index]["medicine_name"]),
                                   subtitle: Text(presc["prescribed_medicines"][index]["dose"]),

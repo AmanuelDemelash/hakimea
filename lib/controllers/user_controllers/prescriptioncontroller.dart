@@ -36,6 +36,18 @@ class PrescriptionController extends GetxController{
   }
 
 
+  Future<void> getmedicines(List medcdata)async{
+    medicines.value.clear();
+    for(int i=0;i<medcdata.length;i++){
+      medicines.value.add(medcdata[i]["medicine_name"]);
+    }
+    update();
+
+
+
+}
+
+
 
 
 
