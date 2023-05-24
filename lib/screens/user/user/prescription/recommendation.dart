@@ -53,7 +53,6 @@ class Recommendation extends StatelessWidget {
                 Text("searching your medicine")
               ],
             );
-
           }
 
           List? medcins=result.data!["recommendation"];
@@ -188,11 +187,11 @@ class Recommendation extends StatelessWidget {
                             const SizedBox(height:20,),
                               Container(
                                 width: Get.width,
-                                child: ElevatedButton(
-
+                                child: data[num]==medcins[index]["medicines"].length?
+                                ElevatedButton(
                                     onPressed:() {
 
-                                }, child:const Text("Order",style: TextStyle(color: Colors.white),)),
+                                }, child:const Text("Order",style: TextStyle(color: Colors.white),)):const Text(""),
 
                               )
 
