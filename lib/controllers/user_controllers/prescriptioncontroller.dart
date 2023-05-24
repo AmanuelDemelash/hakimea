@@ -10,6 +10,8 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 class PrescriptionController extends GetxController{
   final GlobalKey key = GlobalKey();
 
+  Rx<List<String>> medicines=Rx<List<String>>([]);
+
   // take screen shot
   void takeScreenshot() async {
     RenderRepaintBoundary boundary =

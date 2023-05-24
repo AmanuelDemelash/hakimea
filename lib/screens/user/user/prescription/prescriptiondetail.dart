@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hakimea/apiservice/myquery.dart';
+import 'package:hakimea/controllers/locationcontrollers.dart';
 import 'package:hakimea/widgets/cool_loading.dart';
 
 import '../../../../controllers/user_controllers/prescriptioncontroller.dart';
@@ -39,7 +40,10 @@ class PrescriptionDetail extends StatelessWidget {
             }, icon:const FaIcon(FontAwesomeIcons.print,color: Colors.white,))
           ],
         ),
-        floatingActionButton:FloatingActionButton.extended(onPressed:() {
+        floatingActionButton:FloatingActionButton.extended(onPressed:()async{
+          if(Get.find<PrescriptionController>().medicines.value.isNotEmpty){
+            Get.toNamed("/recommend");
+          }
 
         },
             icon:const FaIcon(FontAwesomeIcons.locationArrow),
@@ -147,6 +151,8 @@ class PrescriptionDetail extends StatelessWidget {
                               shrinkWrap: true,
                               itemCount:presc["prescribed_medicines"].length,
                               itemBuilder:(context, index) {
+                                Get.find<PrescriptionController>().medicines.value.clear();
+                                Get.find<PrescriptionController>().medicines.value.add(presc["prescribed_medicines"][index]["medicine_name"]);
                                 return  ListTile(
                                   title: Text(presc["prescribed_medicines"][index]["medicine_name"]),
                                   subtitle: Text(presc["prescribed_medicines"][index]["dose"]),

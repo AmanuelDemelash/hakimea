@@ -44,6 +44,7 @@ import 'package:hakimea/screens/user/user/pharmacy/pharmacy.dart';
 import 'package:hakimea/screens/user/user/pharmacy/pharmacydetail.dart';
 import 'package:hakimea/screens/user/user/prescription/prescriptiondetail.dart';
 import 'package:hakimea/screens/user/user/prescription/priscriptions.dart';
+import 'package:hakimea/screens/user/user/prescription/recommendation.dart';
 import 'package:hakimea/screens/user/user/profile/editaccount.dart';
 import 'package:hakimea/screens/user/user/profile/myprofile.dart';
 import 'package:hakimea/screens/user/user/review/submitreview.dart';
@@ -157,8 +158,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: "/videohistory", page: () => VideoHistoryDetail()),
           GetPage(name: "/myprofile", page: () => Myprofile()),
           GetPage(name: "/myappointment", page: () => Myappointment()),
-          GetPage(
-              name: "/myappointmentdetail", page: () => MyappointmentDetail()),
+          GetPage(name: "/myappointmentdetail", page: () => MyappointmentDetail()),
           GetPage(name: "/history", page: () => History()),
           GetPage(name: "/review", page: () => SubmitReview()),
           GetPage(name: "/callended", page: () => CallEnded()),
@@ -187,6 +187,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: "/doctor", page: () => Doctor()),
           GetPage(name: "/orderdetailstatus", page: () => OrderDetailStatus()),
           GetPage(name: "/orderdetail", page: () => OrderDetail()),
+          GetPage(name: "/recommend", page: () =>Recommendation()),
           GetPage(
             name: "/ordermedicin",
             page: () => Order_medicin(),
