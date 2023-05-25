@@ -251,7 +251,7 @@ class Recommendation extends StatelessWidget {
                             width: Get.width,
                             padding:const EdgeInsets.all(10),
                             child:
-                                data[num]== medcins[index]["medicines"].length
+                                data["num"]== medcins[index]["medicines"].length
                                     ?
                                 ElevatedButton(
                                       style:ElevatedButton.styleFrom(

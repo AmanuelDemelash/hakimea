@@ -655,7 +655,7 @@ query(\$name:String!){
 """;
   static String upcomming_orders = """
   query(\$id:Int!){
-  orders(where: {user_id: {_eq:\$id}, status: {_eq: confirmed}}) {
+  orders(where: {_or: [{status: {_eq: confirmed}}, {status: {_eq: on_delivery}}], user_id: {_eq: \$id}}) {
     id
     order_code
     pharmacy {
