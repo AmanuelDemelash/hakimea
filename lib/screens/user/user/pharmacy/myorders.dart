@@ -152,8 +152,8 @@ class Myorder extends StatelessWidget {
                           title: "No upcoming order found!");
                     }
                     return SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: AnimatedContainer(
+                      child:
+                      AnimatedContainer(
                           duration: const Duration(seconds: 1),
                           height: Get.height,
                           width: Get.width,

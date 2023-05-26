@@ -260,7 +260,7 @@ class Recommendation extends StatelessWidget {
                             padding: const EdgeInsets.all(10),
                             child: data["num"] ==
                                     medcins[index]["medicines"].length
-                                ?OrderPrescriptin(
+                                ? OrderPrescriptin(
                               data:{
                                 "defee": medcins[
                                 index][
@@ -277,7 +277,8 @@ class Recommendation extends StatelessWidget {
                                 medcins[index]
                                 ["id"],
                                 "dprecid":
-                                data["id"]
+                                data["id"],
+                                "name":medcins[index]["name"]
                               },
                             )
 
