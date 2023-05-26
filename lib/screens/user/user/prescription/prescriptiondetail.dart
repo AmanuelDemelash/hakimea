@@ -127,9 +127,11 @@ class PrescriptionDetail extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 10,),
-                            const Text("Date"),
-                            Text(presc["created_at"].toString().substring(0,10),style:const TextStyle(color: Colors.black54),)
-
+                            const Text("Date:"),
+                            Text(presc["created_at"].toString().substring(0,10),style:const TextStyle(color: Colors.black54),),
+                            const SizedBox(height: 10,),
+                            const Text("Status:"),
+                            Text(presc["orders"][0]["status"],style:TextStyle(fontWeight: FontWeight.bold,color:presc["orders"][0]["status"]=="pending"?Colors.red:Constants.primcolor,fontSize:18),),
                           ],
                         ),
                       ),

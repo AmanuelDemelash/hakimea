@@ -10,6 +10,8 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 class PrescriptionController extends GetxController{
   final GlobalKey key = GlobalKey();
 
+  var isOrderRecom=false.obs;
+
   Rx<List<String>> medicines=Rx<List<String>>([]);
 
   // take screen shot

@@ -241,4 +241,16 @@ mutation(\$id:Int!){
 }
 
 """;
+
+// order from prescription
+
+  static String orderRecomendation="""
+  mutation(\$city:String!,\$defee:Int!,\$totcost:Int!,\$distance:Float!,\$location:String!,\$lat:Float!,\$lon:Float!,\$uid:Int!,\$pid:Int!,\$dprecid:Int!){
+  order(city:\$city, delivery_fee:\$defee, total_cost:\$totcost, distance:\$distance, location:\$location, latitude:\$lat, longitude:\$lon, user_id:\$uid, pharmacy_id:\$pid, digital_prescription_id:\$dprecid) {
+    id
+  }
+}
+
+  
+  """;
 }

@@ -748,6 +748,9 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
  query(\$id:Int!){
   prescriptions(where: {user_id: {_eq:\$id}}, order_by: {created_at: desc}) {
     id
+    orders {
+      status
+    }
     doctor {
       id
       full_name
@@ -774,6 +777,9 @@ query(\$latitude:Float!,\$longitude:Float!,\$radius:Int!){
  query(\$id:Int!){
   prescriptions_by_pk(id:\$id) {
     id
+    orders {
+      status
+    }
     doctor {
       id
       full_name

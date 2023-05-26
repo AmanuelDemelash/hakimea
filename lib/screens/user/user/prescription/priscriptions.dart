@@ -72,7 +72,6 @@ class Prescription extends StatelessWidget {
                 ),
               );
             }
-
             return
               ListView.builder(
                 itemCount:presc!.length,
@@ -123,20 +122,6 @@ class Prescription extends StatelessWidget {
                                   const   Text("Prescription",style: TextStyle(fontSize: 16,color: Colors.black54),),
                                   const SizedBox(height: 10,),
                                   Row(
-                                    children: [
-                                      Row(
-                                        children:[
-                                         const Icon(Icons.medication,size:20,),
-                                          Text(presc[index]["prescribed_medicines"].length.toString(),style:const TextStyle(fontSize:14),)
-                                        ],
-                                      ),
-                                      const SizedBox(width: 15,),
-                                      const Text("Medicines")
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15,),
-                                  // doc
-                                  Row(
                                     children:[
                                       CircleAvatar(
                                         radius: 13,
@@ -154,13 +139,26 @@ class Prescription extends StatelessWidget {
                                       )
                                     ],
                                   ),
+                                  const SizedBox(height: 15,),
+                                  Row(
+                                    children: [
+                                      Row(
+                                        children:[
+                                          const Icon(Icons.medication,size:20,),
+                                          Text(presc[index]["prescribed_medicines"].length.toString(),style:const TextStyle(fontSize:14),)
+                                        ],
+                                      ),
+                                      const SizedBox(width: 15,),
+                                      const Text("Medicines")
+                                    ],
+                                  ),
                                   const SizedBox(height: 10,),
                                   Container(
                                     padding:const EdgeInsets.all(3),
                                     child:Row(
                                       children: [
-                                        Icon(Icons.check_circle,color: Constants.primcolor.withOpacity(0.4),),
-                                        const Text("pending",style: TextStyle(color: Constants.primcolor,fontSize: 14),),
+                                        Icon(Icons.check_circle,color: presc[index]["orders"][0]["status"]=="pending"?Colors.red:Constants.primcolor.withOpacity(0.5),),
+                                        Text(presc[index]["orders"][0]["status"],style:TextStyle(color:presc[index]["orders"][0]["status"]=="pending"?Colors.red:Constants.primcolor,fontSize: 14),),
                                       ],
                                     ),
                                   )

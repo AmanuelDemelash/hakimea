@@ -4,6 +4,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hakimea/apiservice/mymutation.dart';
+import 'package:hakimea/controllers/splashcontroller.dart';
+import 'package:hakimea/screens/user/user/prescription/widget/orderprescription.dart';
+import 'package:hakimea/widgets/buttonspinner.dart';
 import '../../../../apiservice/myquery.dart';
 import '../../../../controllers/locationcontrollers.dart';
 import '../../../../controllers/user_controllers/prescriptioncontroller.dart';
@@ -50,12 +54,15 @@ class Recommendation extends StatelessWidget {
           }
 
           List medcins = result.data!["recommendation"];
-          if(medcins.isEmpty){
+          if (medcins.isEmpty) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [FaIcon(FontAwesomeIcons.martiniGlassEmpty),
+              children: const [
+                FaIcon(FontAwesomeIcons.martiniGlassEmpty),
                 Text("Sorry there is no any phramcy who has your medicine "),
-                Text("Please Try to contact us we will find and deliver to you ")],
+                Text(
+                    "Please Try to contact us we will find and deliver to you ")
+              ],
             );
           }
           return Column(
@@ -82,7 +89,7 @@ class Recommendation extends StatelessWidget {
               // medicin with pharmacy
               Expanded(
                 child: ListView.builder(
-                  itemCount:medcins.length,
+                  itemCount: medcins.length,
                   itemBuilder: (context, index) {
                     return Container(
                       width: Get.width,
@@ -151,26 +158,26 @@ class Recommendation extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(10),
-                            child:   Expanded(
-                            child: ListView.builder(
-                    physics:const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount:medcins[index]["medicines"].length,
-                    itemBuilder: (context, indexof) => Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(medcins[index]["medicines"][indexof]
-                        ["name"]),
-                        Text(
-                          "ETB ${medcins[index]["medicines"][indexof]["price"]}",
-                          style:const
-                          TextStyle(color: Constants.primcolor),
-                        )
-                      ],
-                    ),),
-                    ),
-
+                            child: Expanded(
+                              child: ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: medcins[index]["medicines"].length,
+                                itemBuilder: (context, indexof) => Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(medcins[index]["medicines"][indexof]
+                                        ["name"]),
+                                    Text(
+                                      "ETB ${medcins[index]["medicines"][indexof]["price"]}",
+                                      style: const TextStyle(
+                                          color: Constants.primcolor),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
 
                           const SizedBox(
@@ -235,7 +242,7 @@ class Recommendation extends StatelessWidget {
                                     Text(
                                       "ETB ${medcins[index]["total_price"]}",
                                       style: const TextStyle(
-                                        fontSize: 20,
+                                          fontSize: 20,
                                           color: Constants.primcolor,
                                           fontWeight: FontWeight.bold),
                                     )
@@ -247,24 +254,34 @@ class Recommendation extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
+
                           Container(
                             width: Get.width,
-                            padding:const EdgeInsets.all(10),
-                            child:
-                                data["num"]== medcins[index]["medicines"].length
-                                    ?
-                                ElevatedButton(
-                                      style:ElevatedButton.styleFrom(
-                                        padding:const EdgeInsets.all(15),
-                                      ),
-                                        onPressed: () {
+                            padding: const EdgeInsets.all(10),
+                            child: data["num"] ==
+                                    medcins[index]["medicines"].length
+                                ?OrderPrescriptin(
+                              data:{
+                                "defee": medcins[
+                                index][
+                                "total_price"] -
+                                    medcins[index][
+                                    "medicine_total"],
+                                "totcost": medcins[
+                                index]
+                                ["total_price"],
+                                "distance": medcins[
+                                index]
+                                ["distance"],
+                                "pid":
+                                medcins[index]
+                                ["id"],
+                                "dprecid":
+                                data["id"]
+                              },
+                            )
 
-                                        },
-                                        child: const Text(
-                                          "Order",
-                                          style: TextStyle(color: Colors.white),
-                                        ))
-                                    : const Text(""),
+                                : const Text(""),
                           )
                         ],
                       ),
@@ -279,3 +296,4 @@ class Recommendation extends StatelessWidget {
     );
   }
 }
+
