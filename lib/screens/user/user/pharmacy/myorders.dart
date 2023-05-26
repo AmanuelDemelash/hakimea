@@ -132,7 +132,6 @@ class Myorder extends StatelessWidget {
                         ));
                   },
                 ),
-
                 // upcomming
                 Query(
                   options: QueryOptions(
@@ -191,7 +190,6 @@ class Myorder extends StatelessWidget {
                     );
                   },
                 ),
-
                 // completed
                 Query(
                   options: QueryOptions(
