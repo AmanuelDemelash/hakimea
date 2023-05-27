@@ -157,8 +157,8 @@ class Prescription extends StatelessWidget {
                                     padding:const EdgeInsets.all(3),
                                     child:Row(
                                       children: [
-                                        Icon(Icons.check_circle,color: presc[index]["orders"][0]["status"]=="pending"?Colors.red:Constants.primcolor.withOpacity(0.5),),
-                                        Text(presc[index]["orders"][0]["status"],style:TextStyle(color:presc[index]["orders"][0]["status"]=="pending"?Colors.red:Constants.primcolor,fontSize: 14),),
+                                        Icon(Icons.check_circle,color:Constants.primcolor.withOpacity(0.5),),
+                                        Text("status",style:TextStyle(color: Constants.primcolor,fontSize: 14),),
                                       ],
                                     ),
                                   )
