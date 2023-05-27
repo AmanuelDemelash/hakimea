@@ -81,7 +81,8 @@ class Prescription extends StatelessWidget {
                       onTap: (){
                         Get.toNamed("/prescdetail",arguments:{
                           "id":presc[index]["id"],
-                          "num":presc[index]["prescribed_medicines"].length
+                          "num":presc[index]["prescribed_medicines"].length,
+                          "status":presc[index]["orders"].length
                         });
                       },
 
@@ -106,7 +107,7 @@ class Prescription extends StatelessWidget {
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children:[
-                                    Text(presc![index]["created_at"].toString().substring(5,7),style:const TextStyle(fontSize:25,color: Constants.primcolor),),
+                                    Text(presc![index]["created_at"].toString().substring(5,7),style:const TextStyle(fontSize:30,color: Constants.primcolor),),
                                     Text(presc![index]["created_at"].toString().substring(0,4),style: TextStyle(color: Constants.primcolor.withOpacity(0.6)),)
                                   ],
                                 ),
@@ -132,9 +133,8 @@ class Prescription extends StatelessWidget {
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(presc[index]["doctor"]["full_name"].toString()),
+                                          Text("Dr ${presc[index]["doctor"]["full_name"].toString()}"),
                                           Text(presc[index]["doctor"]["speciallities"]["speciallity_name"].toString(),style: TextStyle(color: Colors.black54),),
-
                                         ],
                                       )
                                     ],
@@ -155,10 +155,10 @@ class Prescription extends StatelessWidget {
                                   const SizedBox(height: 10,),
                                   Container(
                                     padding:const EdgeInsets.all(3),
-                                    child:Row(
+                                    child:
+                                    Row(
                                       children: [
-                                        Icon(Icons.check_circle,color:Constants.primcolor.withOpacity(0.5),),
-                                        Text("status",style:TextStyle(color: Constants.primcolor,fontSize: 14),),
+                                        Text(presc[index]["orders"].length==0?"pending":presc[index]["orders"][0]["status"],style:TextStyle(fontWeight: FontWeight.bold,color:presc[index]["orders"].length==0?Colors.red:Constants.primcolor,fontSize:12),),
                                       ],
                                     ),
                                   )

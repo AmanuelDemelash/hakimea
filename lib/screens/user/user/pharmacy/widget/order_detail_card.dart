@@ -147,7 +147,7 @@ class order_detail_card extends StatelessWidget {
                         child: Row(
                           children: [
                             FaIcon(FontAwesomeIcons.fileMedical,
-                                color: status == "confirmed"
+                                color: status != "pending"
                                     ? Constants.secondcolor
                                     : Constants.primcolor.withOpacity(0.5)),
                             Expanded(
@@ -191,7 +191,7 @@ class order_detail_card extends StatelessWidget {
                             Text(
                               "Order accepted",
                               style: TextStyle(
-                                color: status == "confirmed"
+                                color: status != "pending"
                                     ? Constants.secondcolor
                                     : Constants.primcolor.withOpacity(0.5),
                               ),

@@ -21,6 +21,7 @@ class OrderPrescriptin extends StatelessWidget {
           document: gql(Mymutation.orderRecomendation),
           onError: (error) {
             Get.find<PrescriptionController>().isOrderRecom.value = false;
+            print(error!.graphqlErrors.first.message.toString());
           },
           onCompleted: (data) {
             if (data!.isNotEmpty) {
@@ -40,7 +41,7 @@ class OrderPrescriptin extends StatelessWidget {
         ),
         builder: (runMutation, result) {
           if (result!.hasException) {
-            print(result.exception);
+            print(result.exception.toString());
           }
           if (result!.isLoading) {
             Get.find<PrescriptionController>().isOrderRecom.value = true;

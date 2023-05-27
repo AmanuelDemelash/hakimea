@@ -40,9 +40,23 @@ class PrescriptionDetail extends StatelessWidget {
           ],
         ),
         floatingActionButton:FloatingActionButton.extended(onPressed:()async{
-          if(Get.find<PrescriptionController>().medicines.value.isNotEmpty){
-            Get.toNamed("/recommend",arguments:data);
+          if(data["status"]==0){
+            if(Get.find<PrescriptionController>().medicines.value.isNotEmpty){
+              Get.toNamed("/recommend",arguments:data);
+            }
+          } else{
+            Get.defaultDialog(
+              title: "Ordered",
+              contentPadding: const EdgeInsets.all(15),
+              content:Column(
+                children:const [
+                  FaIcon(FontAwesomeIcons.check,size: 25,),
+                   Text("Your prescription is ordered please follow up your order..",textAlign: TextAlign.center,),
+                ],
+              )
+            );
           }
+
 
         },
             icon:const FaIcon(FontAwesomeIcons.locationArrow),
@@ -131,7 +145,7 @@ class PrescriptionDetail extends StatelessWidget {
                             Text(presc["created_at"].toString().substring(0,10),style:const TextStyle(color: Colors.black54),),
                             const SizedBox(height: 10,),
                             const Text("Status:"),
-                           // Text(presc["orders"][0]["status"],style:TextStyle(fontWeight: FontWeight.bold,color:presc["orders"][0]["status"]=="pending"?Colors.red:Constants.primcolor,fontSize:18),),
+                           Text(presc["orders"].length==0?"pending":presc["orders"][0]["status"],style:TextStyle(fontWeight: FontWeight.bold,color:presc["orders"].length==0?Colors.red:Constants.primcolor,fontSize:18),),
                           ],
                         ),
                       ),
