@@ -134,6 +134,7 @@ class _MainHomePageState extends State<MainHomePage> {
                         ),
                       ),
                     ),
+
                     Container(
                       margin: const EdgeInsets.only(
                           left: 15, right: 15, bottom: 10),
@@ -195,6 +196,32 @@ class _MainHomePageState extends State<MainHomePage> {
                             value: false,
                             onChanged: (value) {},
                           )),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 10),
+                      decoration: const BoxDecoration(
+                          color: Colors.white12,
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                      child: ListTile(
+                        onTap: () {
+                          //Get.toNamed("/history");
+                        },
+                        leading: const FaIcon(
+                          FontAwesomeIcons.check,
+                          color: Colors.white,
+                        ),
+                        title: const Text(
+                          "Terms & conditions",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        trailing: const FaIcon(
+                          FontAwesomeIcons.angleRight,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ],
                 ),

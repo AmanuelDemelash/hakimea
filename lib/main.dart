@@ -89,7 +89,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   MyApp({super.key});
 
   Future<String> getTokenFromSharedPreferences() async {
@@ -99,11 +98,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    HttpLink httpLink = HttpLink("https://hakime-2.hasura.app/v1/graphql",
+    HttpLink httpLink = HttpLink("https://gedi.hasura.app/v1/graphql",
         defaultHeaders: {"x-hasura-admin-secret": "hakime"}
     );
     final WebSocketLink websocketLink = WebSocketLink(
-      "wss://hakime-2.hasura.app/v1/graphql",
+      "wss://gedi.hasura.app/v1/graphql",
       config: const SocketClientConfig(
           autoReconnect: true,
           inactivityTimeout: Duration(seconds: 30),

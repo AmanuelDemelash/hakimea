@@ -57,7 +57,6 @@ class OrderDetailStatus extends StatelessWidget {
             }
             Map<String, dynamic> order = result.data!["orders_by_pk"];
 
-
             return Stack(
               children: [
                 SizedBox(
