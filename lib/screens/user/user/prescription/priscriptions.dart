@@ -21,14 +21,15 @@ class Prescription extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         elevation: 0,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const FaIcon(
-              FontAwesomeIcons.angleLeft,
-              color: Colors.white,
-            )),
+        automaticallyImplyLeading: false,
+        // leading: IconButton(
+        //     onPressed: () {
+        //       Get.back();
+        //     },
+        //     icon: const FaIcon(
+        //       FontAwesomeIcons.angleLeft,
+        //       color: Colors.white,
+        //     )),
       ),
       body:Stack(
         children: [

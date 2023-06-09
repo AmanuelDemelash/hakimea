@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:hakimea/controllers/locationcontrollers.dart';
 import 'package:hakimea/screens/user/user/appointment/myappointment.dart';
 import 'package:hakimea/screens/user/user/doctor_detail/doctorsearch.dart';
+import 'package:hakimea/screens/user/user/prescription/priscriptions.dart';
 import 'package:hakimea/screens/user/user/profile/myprofile.dart';
 import 'package:hakimea/utils/constants.dart';
 import '../../../controllers/user_controllers/homepagecontroller.dart';
@@ -134,7 +135,6 @@ class _MainHomePageState extends State<MainHomePage> {
                         ),
                       ),
                     ),
-
                     Container(
                       margin: const EdgeInsets.only(
                           left: 15, right: 15, bottom: 10),
@@ -238,7 +238,7 @@ class _MainHomePageState extends State<MainHomePage> {
                 controller: _pagecontroller,
                 children: [
                   Homepage(),
-                  DoctorSearch(),
+                  Prescription(),
                   Myappointment(),
                   Myprofile()
                 ],
@@ -257,7 +257,7 @@ class _MainHomePageState extends State<MainHomePage> {
             bottomNavigationBar: Obx(() => AnimatedBottomNavigationBar(
                     icons: const [
                       Icons.home,
-                      Icons.search,
+                      Icons.medication,
                       Icons.calendar_month,
                       Icons.person,
                     ],

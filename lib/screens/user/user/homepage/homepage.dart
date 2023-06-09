@@ -166,7 +166,7 @@ class Homepage extends StatelessWidget {
                                     style: const TextStyle(color: Colors.white),
                                   ),
                                   child: const FaIcon(
-                                    FontAwesomeIcons.prescription,
+                                    FontAwesomeIcons.cartShopping,
                                     color: Colors.black,
                                   ),
                                 );
