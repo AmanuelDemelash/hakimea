@@ -38,6 +38,9 @@ class Recommendation extends StatelessWidget {
               color: Colors.black,
             )),
       ),
+      floatingActionButton: FloatingActionButton.extended(onPressed: () {
+        
+      }, label:const Text("Send order to hakime")),
       body: Query(
         options:
             QueryOptions(document: gql(Myquery.recommendation), variables: {
