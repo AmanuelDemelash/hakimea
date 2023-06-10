@@ -308,29 +308,30 @@ class Homepage extends StatelessWidget {
                           ]),
                     ),
 
-                    Container(
-                      padding: const EdgeInsets.only(left: 10),
-                      width: Get.width,
-                      height: 100,
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: homepage_choice(
-                                title: "Ambulance",
-                                path: "assets/images/ambu.png"),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed("/presc");
-                            },
-                            child: homepage_choice(
-                                title: "Prescription",
-                                path: "assets/images/medical-prescription.png"),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Container(
+                    //   padding: const EdgeInsets.only(left: 10),
+                    //   width: Get.width,
+                    //   height: 100,
+                    //   child: Row(
+                    //     children: [
+                    //       // GestureDetector(
+                    //       //   onTap: () {},
+                    //       //   child: homepage_choice(
+                    //       //       title: "Ambulance",
+                    //       //       path: "assets/images/ambu.png"),
+                    //       // ),
+                    //
+                    //       // GestureDetector(
+                    //       //   onTap: () {
+                    //       //     Get.toNamed("/presc");
+                    //       //   },
+                    //       //   child: homepage_choice(
+                    //       //       title: "Prescription",
+                    //       //       path: "assets/images/medical-prescription.png"),
+                    //       // ),
+                    //     ],
+                    //   ),
+                    // ),
 
                     Padding(
                       padding: const EdgeInsets.all(10),
@@ -420,7 +421,7 @@ class Homepage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                        "your adds hear".tr,
+                        "".tr,
                         style: const TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
