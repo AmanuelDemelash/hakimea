@@ -37,10 +37,35 @@ class Recommendation extends StatelessWidget {
               FontAwesomeIcons.angleLeft,
               color: Colors.black,
             )),
+        actions: [
+          IconButton(onPressed:() {
+           Get.defaultDialog(
+             title:"Contact us ",
+             titleStyle: const TextStyle(
+               color: Constants.primcolor,
+               fontSize: 15
+             ),
+
+             content: Container(
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                  const Text("we will manage your order if there is no any pharmacy who has your medicine",textAlign: TextAlign.center,style: TextStyle(color: Colors.black54),),
+                  const SizedBox(height: 20,),
+                   ElevatedButton(onPressed:() {
+                     Get.back();
+                   }, child:const Text("Ok",style: TextStyle(color: Colors.white),))
+
+                 ],
+               ),
+             ),
+             actions: [
+             ]
+           );
+            
+          }, icon:const Icon(Icons.support_agent,size:35,color: Constants.primcolor,))
+        ],
       ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: () {
-        
-      }, label:const Text("Send order to hakime")),
       body: Query(
         options:
             QueryOptions(document: gql(Myquery.recommendation), variables: {
@@ -60,13 +85,24 @@ class Recommendation extends StatelessWidget {
           if (medcins.isEmpty) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                FaIcon(FontAwesomeIcons.martiniGlassEmpty),
-                Text("Sorry there is no any phramcy who has your medicine "),
-                Text(
-                    "Please Try to contact us we will find and deliver to you ")
+              children:[
+                const FaIcon(FontAwesomeIcons.martiniGlassEmpty),
+               const Text("Sorry there is no any pharmacy who has your medicine "),
+               const Text(
+                    "Please Try to contact us we will find and deliver to you "),
+                ElevatedButton(onPressed:() {
+                  
+                }, child:const Text("contact us"))
               ],
             );
+          }else{
+            medcins.forEach((element) {
+              if(element["medicines"].length==data["num"]){
+                Get.find<PrescriptionController>().isAllMedicinFound.value=true;
+              }
+
+            });
+
           }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -11,6 +11,7 @@ class PrescriptionController extends GetxController{
   final GlobalKey key = GlobalKey();
 
   var isOrderRecom=false.obs;
+  var isAllMedicinFound=false.obs;
 
   Rx<List<String>> medicines=Rx<List<String>>([]);
 
@@ -50,7 +51,15 @@ class PrescriptionController extends GetxController{
 }
 
 
+  Future<void> cheekMedicineAvallble( List medcins,int leng)async{
+    medcins.forEach((element) {
+      if(element["medicines"].length==leng){
+        isAllMedicinFound.value=true;
+        update();
+      }
+    });
 
+  }
 
 
 }
