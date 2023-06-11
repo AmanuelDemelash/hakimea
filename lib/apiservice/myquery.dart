@@ -819,6 +819,12 @@ static String recommendation="""
     logo_url
     medicine_total
     total_price
+    location {
+     city
+     latitude
+     longitude
+     location
+    }
     medicines {
       id
       name

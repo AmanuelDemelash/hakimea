@@ -46,21 +46,21 @@ class Recommendation extends StatelessWidget {
                fontSize: 15
              ),
 
-             content: Container(
-               child: Column(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                  const Text("we will manage your order if there is no any pharmacy who has your medicine",textAlign: TextAlign.center,style: TextStyle(color: Colors.black54),),
-                  const SizedBox(height: 20,),
-                   Container(
-                     width: Get.width,
-                     child: ElevatedButton(onPressed:() {
-                       Get.back();
-                     }, child:const Text("Ok",style: TextStyle(color: Colors.white),)),
-                   )
+             content: Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 const Icon(Icons.support_agent,size:35,color: Constants.primcolor,),
+                const Text("we will manage your order if there is no any pharmacy who has your medicine",textAlign: TextAlign.center,style: TextStyle(color: Colors.black54),),
+                const SizedBox(height: 20,),
+                 Container(
+                   width: Get.width,
+                   margin:const EdgeInsets.only(left: 20,right: 20),
+                   child: ElevatedButton(onPressed:() {
+                     Get.back();
+                   }, child:const Text("Ok",style: TextStyle(color: Colors.white),)),
+                 )
 
-                 ],
-               ),
+               ],
              ),
              actions: [
              ]
@@ -77,6 +77,9 @@ class Recommendation extends StatelessWidget {
           "longitude": Get.find<Locationcontrollers>().current_long.value,
         }),
         builder: (result, {fetchMore, refetch}) {
+          if(result.hasException){
+            print(result.exception.toString());
+          }
           if (result.isLoading) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -103,9 +106,7 @@ class Recommendation extends StatelessWidget {
               if(element["medicines"].length==data["num"]){
                 Get.find<PrescriptionController>().isAllMedicinFound.value=true;
               }
-
             });
-
           }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +154,7 @@ class Recommendation extends StatelessWidget {
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text("location of the pharaamcy"),
+                                Text(medcins[index]["location"]["location"]),
                                 RatingBar.builder(
                                   initialRating: double.parse(
                                       medcins[index]["rate"].toString()),
@@ -241,7 +242,7 @@ class Recommendation extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text("Total medicin"),
+                                    const Text("Total medicine",style: TextStyle(color: Colors.black54),),
                                     Text(
                                       "ETB ${medcins[index]["medicine_total"]}",
                                       style: const TextStyle(
@@ -253,7 +254,7 @@ class Recommendation extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text("Delivery fee"),
+                                    const Text("Delivery fee",style: TextStyle(color: Colors.black54),),
                                     Text(
                                       "ETB ${medcins[index]["total_price"] - medcins[index]["medicine_total"]}",
                                       style: const TextStyle(
@@ -284,7 +285,7 @@ class Recommendation extends StatelessWidget {
                                     Text(
                                       "ETB ${medcins[index]["total_price"]}",
                                       style: const TextStyle(
-                                          fontSize: 20,
+                                          fontSize:18,
                                           color: Constants.primcolor,
                                           fontWeight: FontWeight.bold),
                                     )
