@@ -623,8 +623,6 @@ query(\$name:String!){
     description
   }
 }
-
-  
   """;
 
 // orders

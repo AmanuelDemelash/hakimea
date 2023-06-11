@@ -52,9 +52,12 @@ class Recommendation extends StatelessWidget {
                  children: [
                   const Text("we will manage your order if there is no any pharmacy who has your medicine",textAlign: TextAlign.center,style: TextStyle(color: Colors.black54),),
                   const SizedBox(height: 20,),
-                   ElevatedButton(onPressed:() {
-                     Get.back();
-                   }, child:const Text("Ok",style: TextStyle(color: Colors.white),))
+                   Container(
+                     width: Get.width,
+                     child: ElevatedButton(onPressed:() {
+                       Get.back();
+                     }, child:const Text("Ok",style: TextStyle(color: Colors.white),)),
+                   )
 
                  ],
                ),

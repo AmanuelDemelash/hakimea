@@ -31,8 +31,7 @@ class MedicinCard extends StatelessWidget {
           child:
           InstaImageViewer(
             child: CachedNetworkImage(
-              imageUrl:
-              image.toString(),
+              imageUrl:image.toString(),
               width: 70,
               height: 70,
               placeholder: (context, url) =>
