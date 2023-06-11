@@ -136,7 +136,6 @@ class Medicin extends StatelessWidget {
                   if (medicins!.isEmpty) {
                     return no_appointment_found(title: "No medicine found!");
                   }
-
                   return Expanded(
                     child:
                       Padding(
