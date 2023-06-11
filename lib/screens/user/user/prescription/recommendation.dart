@@ -151,6 +151,11 @@ class Recommendation extends StatelessWidget {
                                   NetworkImage(medcins[index]["logo_url"]),
                             ),
                             title: Text(medcins[index]["name"]),
+                            trailing: GestureDetector(
+                              onTap: () {
+                                //
+                              },
+                                child: const FaIcon(FontAwesomeIcons.map)),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
